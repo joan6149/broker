@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: "timeClock";
+    src: url("assets/ELEPHNT.TTF");
+}
+body {
+    background-color: white;
+    padding: 0;
+    margin: 0;
+}

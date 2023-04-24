@@ -1,0 +1,45 @@
+.main__announcement_ {
+    display: flex;
+    justify-content: right;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+
+    &_house {
+        width: 100%;
+        margin: 0;
+    }
+
+    &_box-1 {
+        position: absolute;
+        background-color: transparent;
+        top: 60px;
+        left: 100px;
+        height: 160px;
+        width: 280px;
+        border: 2px solid black;
+    }
+
+    &_box-2 {
+        position: absolute;
+        background-color: transparent;
+        top: 226px;
+        left: 415px;
+        height: 160px;
+        width: 280px;
+        border: 2px solid black;
+    }
+}
+
+@media(max-width: 768px) {
+
+}
+
+
+@media(max-width: 576px) {
+    .main__announcement_ {
+        &_house {
+
+        }
+    }
+}
