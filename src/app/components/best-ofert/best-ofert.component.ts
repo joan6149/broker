@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-best-ofert',
@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BestOfertComponent implements OnInit {
 
+  @Input() title: string ="";
+  @Input() price: string ="";
+  @Input() description: string ="";
+  
   constructor() { }
 
   ngOnInit(): void {

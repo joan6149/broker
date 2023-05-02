@@ -29,7 +29,9 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.scss"
+              "node_modules/animate.css/animate.min.css",
+              "src/styles.scss",
+              "src/assets/styles/_variables.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -102,7 +104,9 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.scss"
+              "node_modules/animate.css/animate.min.css",
+              "src/styles.scss",
+              "src/assets/styles/_variables.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",

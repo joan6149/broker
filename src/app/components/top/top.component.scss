@@ -1,3 +1,4 @@
+@import '../../../assets/styles/variables';
 .main {
     &_top {
         display: flex;
@@ -12,30 +13,53 @@
             flex-direction: row;
             align-items: center;
             column-gap: 20px;
-            color: #656565;
+            color: $color-secundario;
             h1 {
                 margin: 0;
                 font-size: 40px;
                 font-family: timeClock;
-                color: #004aad
+                color: $color-principal;
             }
             h5 {
                 margin: 0;
             }
         }
 
-        &_title-right {
-            display: flex;
-            justify-content: center;
-            flex-direction: row;
-            align-items: center;
-            column-gap: 15px;
-            color: #656565;
-            img {
-                width: 30px;
-                height: 30px;
-                cursor: pointer;
+        &_title {
+
+            &-right {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                column-gap: 15px;
+                color: $color-secundario;
+
+                img {
+                    width: 30px;
+                    height: 30px;
+                    cursor: pointer;
+                }
+
+                p {
+                    font-weight: bold;
+                    text-align: left;
+                    margin: 0;
+                }
+
+                h2 {
+                    margin: 0;
+                }
             }
+
+            &_Phone {
+                display: flex;
+                justify-content: center;
+                column-gap: 10px;
+                align-items: center;
+                color: $color-principal;
+            }
+
         }
     }
 }

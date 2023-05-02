@@ -1,0 +1,15 @@
+.form {
+    display: flex;
+    justify-content: space-around;
+    padding: 2em;
+    form {
+        width: 100%;
+    }
+    &__btn {
+        display: flex;
+        justify-content: space-around;
+        button {
+            width: 40%;
+        }
+    }
+}

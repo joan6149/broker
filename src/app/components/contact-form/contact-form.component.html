@@ -1,1 +1,40 @@
-<p>contact-form works!</p>
+<div class="form animate__animated animate__bounceIn">
+    <form>
+        <fieldset>
+            <legend>Formulario de contacto</legend>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" id="nombre" class="form-control" placeholder="Nombre">
+            </div>
+            <div class="mb-3">
+                <label for="apellidos" class="form-label">Apellidos</label>
+                <input type="text" id="apellidos" class="form-control" placeholder="Apellidos">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" id="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Telefono</label>
+                <input type="text" id="telefono" class="form-control" placeholder="Telefono">
+            </div>
+            <div class="mb-3">
+                <label for="disabledSelect" class="form-label">Tipo de hipoteca a consultar</label>
+                <select id="disabledSelect" class="form-select">
+                    <option>Nueva hipoteca</option>
+                    <option>Subrogación</option>
+                </select>
+            </div>
+            <div class="mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="accepto">
+                <label class="form-check-label" for="accepto">Permiso para recibir llamada de un agente</label>
+            </div>
+            </div>
+            <div class="form__btn">
+                <button type="submit" class="btn btn-success">Enviar</button>
+                <button type="button" class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

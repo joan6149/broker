@@ -9,6 +9,9 @@ import { MainAnnouncementComponent } from './components/main-announcement/main-a
 import { ContactFormComponent } from './components/contact-form/contact-form.component';
 import { FrecuentAsksComponent } from './components/frecuent-asks/frecuent-asks.component';
 import { BestOfertComponent } from './components/best-ofert/best-ofert.component';
+import { PhoneComponent } from './components/phone/phone.component';
+import { TextBoxComponent } from './components/text-box/text-box.component';
+import { TimeclockService } from './services/timeclock.service';
 
 @NgModule({
   declarations: [
@@ -18,13 +21,17 @@ import { BestOfertComponent } from './components/best-ofert/best-ofert.component
     MainAnnouncementComponent,
     ContactFormComponent,
     FrecuentAsksComponent,
-    BestOfertComponent
+    BestOfertComponent,
+    PhoneComponent,
+    TextBoxComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    TimeclockService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,45 +1,135 @@
-.main__announcement_ {
+@import '../../../assets/styles/variables';
+.main__announcement {
     display: flex;
-    justify-content: right;
-    position: relative;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 15px 15px;
     width: 100%;
-    overflow: hidden;
+    //background-image: url("../../../assets/casa.png");
+    //background-size: cover;
+    background-color: $color-principal;
+    box-shadow: 0 0px 7px $color-secundario;
+    flex-wrap: wrap;
 
-    &_house {
+    &__row1 {
+        display: flex;
+        justify-content: center;
         width: 100%;
-        margin: 0;
+        padding: 20px;
+        flex-grow: 1;
     }
 
-    &_box-1 {
-        position: absolute;
-        background-color: transparent;
-        top: 60px;
-        left: 100px;
-        height: 160px;
-        width: 280px;
-        border: 2px solid black;
+    &__container {
+        &__form {
+            display: flex;
+            align-items: center;
+            flex-grow: 2;
+            &__small {
+                display: none;
+            }
+        }
     }
 
-    &_box-2 {
-        position: absolute;
-        background-color: transparent;
-        top: 226px;
-        left: 415px;
-        height: 160px;
-        width: 280px;
-        border: 2px solid black;
+    &__title {
+        width: 40%;
+        color: white;
+        align-self: center;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        flex-grow: .5;
+
+        h5 {
+            color: lightgreen;
+        }
+
+        &__phone {
+            width: 30%;
+        }
+
+    }
+
+    &__box {
+        width: 440px;
+        height: 200px;
+        background-color: white;
+        box-shadow: 0 0px 7px $color-secundario;
+        border-radius: 10px;
+
+        &__h3 {
+            color: $color-principal;
+            padding: .5em .5em;
+            text-align: center;
+        }
+        &__p {
+            text-align: center;
+            padding: 1em .5em;
+            color: $color-secundario;
+        }
+        
+    }
+
+}
+
+@media(max-width: 1152px) {
+    .main__announcement__container__form {
+        display: none;
+    }
+
+    .main__announcement__container__form__small {
+        display: flex;
+        justify-content: left;
+    }
+}
+
+@media(max-width: 1082px) {
+    .main__announcement {
+        &__box {
+            display: none;
+        }
+        &__title {
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+
+            &__phone {
+                display: flex;
+                justify-content: center;
+                margin-top: 25px;
+                width: 100%;
+            }
+        }
     }
 }
 
 @media(max-width: 768px) {
-
+    
 }
 
 
 @media(max-width: 576px) {
-    .main__announcement_ {
-        &_house {
+    .main__announcement {
+        flex-direction: column;
+        align-items: center;
 
+        &__row1__title {
+            display: none;
+        }
+        &__box-2 {
+            align-self: center;
+            margin-left: unset;
+        }
+
+        &__title {
+    
+            &__phone {
+                display: flex;
+                justify-content: center;
+                margin-top: 25px;
+                width: 100%;
+            }
         }
     }
+
 }

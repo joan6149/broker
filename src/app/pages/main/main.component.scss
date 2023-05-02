@@ -1,8 +1,199 @@
+@import "../../../assets/styles/variables";
 .main {
     margin:0;
-    padding: 0;
+    padding: 15px 50px;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: 2fr;
     width: 100%;
+    align-items: center;
+    row-gap: 10px;
+    overflow: hidden;
+
+    &__background {
+        position: fixed;
+        background-color: rgba($color: gray, $alpha: .5);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__form {
+        position: fixed;
+        background-color: white;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 5;
+        width: 80%;
+        padding: 2em;
+        border-radius: 15px;
+        box-shadow: 0 0px 7px $color-secundario;
+    }
+
+    &__description {
+        width: 100%;
+        margin-top: 4px;
+        text-align: center;
+        padding: 25px;
+
+        &__boxes {
+            display: flex;
+            justify-content: space-around;
+            &__box {
+                width: 30%;
+            }
+        }
+    }
+
+    &__frase {
+        text-align: center;
+        width: 100%;
+        padding: 1em 6em;
+        &__h1 {
+            color: $color-principal;
+            text-align: center;
+        }
+    }
+
+    &__bancos {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 60%;
+        justify-self: center;
+        margin-top: 2em;
+        &__banco {
+            img {
+                width: 15em;
+            }
+        }
+    }
+
+    &__expertos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        padding: 2em 0;
+
+        background-color: $color-principal;
+        box-shadow: 0 0px 7px $color-secundario;
+
+        button {
+           
+        }
+    }
+}
+
+@media(max-width: 1232px) {
+
+    .main {
+        padding: 0;
+
+        &__description {
+          
+            &__boxes {
+                flex-wrap: wrap;
+                row-gap: 15px;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                &__box {
+                    width: 80%;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width: 1152px) {
+
+    .main {
+        padding: 0;
+
+        &__description {
+          
+            &__boxes {
+                flex-wrap: wrap;
+                row-gap: 15px;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                &__box {
+                    width: 80%;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width: 768px) {
+
+    .main {
+        padding: 0;
+
+        &__description {
+          
+            &__boxes {
+                flex-wrap: wrap;
+                row-gap: 15px;
+                flex-direction: column;
+                width: 100%;
+                &__box {
+                    width: 100%;
+                }
+            }
+        }
+
+        &__bancos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            justify-self: center;
+            margin-top: 2em;
+            &__banco {
+                img {
+                    width: 10em;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width: 576px) {
+
+    .main {
+    
+        &__description {
+          
+            &__boxes {
+                flex-wrap: nowrap;
+                row-gap: 15px;
+                flex-direction: column;
+                &__box {
+                    width: 100%;
+                }
+            }
+        }
+
+        &__bancos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            justify-self: center;
+            margin-top: 2em;
+            &__banco {
+                img {
+                    width: 10em;
+                }
+            }
+        }
+    }
+    
 }

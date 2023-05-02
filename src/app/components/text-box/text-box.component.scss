@@ -1,0 +1,60 @@
+@import '../../../assets/styles/variables';
+.section {
+    display: flex;
+    font-size: 18px;
+    justify-content: center;
+    margin: 2em 2em;
+    &__box {
+        box-shadow: 0 0px 7px $color-secundario;
+        border-radius: 10px;
+        width: 70%;
+        padding: 1em 1em;
+        &__h4 {
+
+        }   
+        &__p {
+
+        }
+    }
+}
+
+@media(max-width: 1152px) {
+    .main__announcement__container__form {
+        display: none;
+    }
+
+    .main__announcement__container__form__small {
+        display: flex;
+        justify-content: left;
+    }
+}
+
+@media(max-width: 768px) {
+    .section {
+        margin: 1em 1em;
+        &__box {
+            width: 100%;
+            &__h4 {
+    
+            }   
+            &__p {
+    
+            }
+        }
+    }
+}
+
+@media(max-width: 576px) {
+    .section {
+        margin: 1em 1em;
+        &__box {
+            
+            &__h4 {
+    
+            }   
+            &__p {
+    
+            }
+        }
+    }
+}

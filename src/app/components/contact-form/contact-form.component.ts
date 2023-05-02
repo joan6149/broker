@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TimeclockService } from 'src/app/services/timeclock.service';
 
 @Component({
   selector: 'app-contact-form',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(private timeclockService:TimeclockService) { }
 
   ngOnInit(): void {
+  }
+
+  cancelar() {
+    this.timeclockService.setShowForm(false);
   }
 
 }

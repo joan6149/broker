@@ -1,0 +1,23 @@
+.contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+
+    &__phone {
+        display: flex;
+        align-items: center;
+        column-gap: 15px;
+
+        img {
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    p {
+        text-align: center;
+        margin-bottom: 0;
+    }
+}
