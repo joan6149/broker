@@ -1,0 +1,7 @@
+<ng-container *ngIf="hasError !== undefined && hasError === true">
+    <div class="form__error">
+        <span *ngFor="let msg of msgErrors" class="form-text text-danger">
+            {{msg}}
+        </span>
+    </div>
+</ng-container>

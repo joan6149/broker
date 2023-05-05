@@ -6,12 +6,12 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './pages/main/main.component';
 import { TopComponent } from './components/top/top.component';
 import { MainAnnouncementComponent } from './components/main-announcement/main-announcement.component';
-import { ContactFormComponent } from './components/contact-form/contact-form.component';
 import { FrecuentAsksComponent } from './components/frecuent-asks/frecuent-asks.component';
 import { BestOfertComponent } from './components/best-ofert/best-ofert.component';
 import { PhoneComponent } from './components/phone/phone.component';
 import { TextBoxComponent } from './components/text-box/text-box.component';
 import { TimeclockService } from './services/timeclock.service';
+import { ContactFormModule } from './components/contact-form/contact-form.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,6 @@ import { TimeclockService } from './services/timeclock.service';
     MainComponent,
     TopComponent,
     MainAnnouncementComponent,
-    ContactFormComponent,
     FrecuentAsksComponent,
     BestOfertComponent,
     PhoneComponent,
@@ -27,7 +26,8 @@ import { TimeclockService } from './services/timeclock.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ContactFormModule
   ],
   providers: [
     TimeclockService

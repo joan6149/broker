@@ -26,8 +26,8 @@
         left: 50%;
         transform: translate(-50%, -50%);
         z-index: 5;
-        width: 80%;
-        padding: 2em;
+        width: 45%;
+        padding: 3em;
         border-radius: 15px;
         box-shadow: 0 0px 7px $color-secundario;
     }
@@ -193,6 +193,11 @@
                     width: 10em;
                 }
             }
+        }
+
+        &__form {
+            width: 90%;
+            padding: 1em;
         }
     }
     

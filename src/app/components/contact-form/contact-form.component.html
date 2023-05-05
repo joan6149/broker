@@ -1,40 +1,85 @@
 <div class="form animate__animated animate__bounceIn">
-    <form>
+    <form [formGroup]="contactForm" (ngSubmit)="submit()" autocomplete="off">
         <fieldset>
             <legend>Formulario de contacto</legend>
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" id="nombre" class="form-control" placeholder="Nombre">
+                <input type="text" 
+                       id="nombre" 
+                       class="form-control" 
+                       formControlName="nombre" 
+                       placeholder="Nombre">
+                <app-validate-error [control]="getControl('nombre')" [field]="'nombre'"></app-validate-error>
             </div>
             <div class="mb-3">
                 <label for="apellidos" class="form-label">Apellidos</label>
-                <input type="text" id="apellidos" class="form-control" placeholder="Apellidos">
+                <input type="text" 
+                       id="apellidos" 
+                       class="form-control"  
+                       formControlName="apellidos" 
+                       placeholder="Apellidos">
+                <app-validate-error [control]="getControl('apellidos')" [field]="'apellidos'"></app-validate-error>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="text" id="email" class="form-control" placeholder="Email">
+                <input type="text" 
+                       id="email" 
+                       class="form-control"  
+                       formControlName="email" 
+                       placeholder="Email">
+                <app-validate-error [control]="getControl('email')" [field]="'email'"></app-validate-error>
             </div>
             <div class="mb-3">
                 <label for="telefono" class="form-label">Telefono</label>
-                <input type="text" id="telefono" class="form-control" placeholder="Telefono">
+                <input type="text" 
+                       id="telefono" 
+                       class="form-control"  
+                       formControlName="telefono" 
+                       placeholder="Telefono">
+                <app-validate-error [control]="getControl('telefono')" [field]="'telefono'"></app-validate-error>
             </div>
             <div class="mb-3">
-                <label for="disabledSelect" class="form-label">Tipo de hipoteca a consultar</label>
-                <select id="disabledSelect" class="form-select">
-                    <option>Nueva hipoteca</option>
-                    <option>Subrogación</option>
+                <label for="tipo" class="form-label">Tipo de hipoteca a consultar</label>
+                <select id="tipo" 
+                        class="form-select" 
+                        formControlName="tipo" >
+                    <option style="max-width: 100%;">Nueva hipoteca</option>
+                    <option style="max-width: 100%;">Subrogación</option>
                 </select>
+                <app-validate-error [control]="getControl('tipo')" [field]="'tipo'"></app-validate-error>
+            </div>
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripcion</label>
+                <textarea class="form-control" 
+                          id="descripcion" 
+                          rows="3" 
+                          placeholder="Descripcion" 
+                          formControlName="descripcion" ></textarea>
+                <app-validate-error [control]="getControl('descripcion')" [field]="'descripción'"></app-validate-error>
             </div>
             <div class="mb-3">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="accepto">
-                <label class="form-check-label" for="accepto">Permiso para recibir llamada de un agente</label>
+                <input class="form-check-input" 
+                       type="checkbox" 
+                       id="accepto" 
+                       formControlName="acepto" >
+                <label class="form-check-label" for="accepto">Acepto recibir llamada de un agente</label>
+                <app-validate-error [control]="getControl('acepto')" [field]="'aceptar'"></app-validate-error>
             </div>
             </div>
             <div class="form__btn">
-                <button type="submit" class="btn btn-success">Enviar</button>
                 <button type="button" class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+                <button type="submit" class="btn btn-success">Enviar</button>
             </div>
         </fieldset>
+
+
     </form>
-</div>
+
+    <span>Valid</span>
+<pre>{{ contactForm.valid| json }}</pre>
+<br>
+
+<span>Value</span>
+<pre>{{ contactForm.value | json }}</pre>
+<br>
