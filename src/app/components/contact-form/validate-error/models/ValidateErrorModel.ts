@@ -9,5 +9,5 @@ export interface ValidateErrorModel {
 export interface FormControlValidateModel {
         valueChange$: Observable<any>,
         control: AbstractControl
-        errors?: string[],
+        errors?: any,
 }
