@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { TimeclockService } from 'src/app/services/timeclock.service';
 import { FormControlValidateModel } from './validate-error/models/ValidateErrorModel';
 import { ValidatorService } from './validator.service';
@@ -22,23 +22,18 @@ export class ContactFormComponent implements OnInit {
     'acepto': ['']
   })
 
+  msgErrors: string [] = [];
+  formValues: Subscription = new Subscription();
+
   constructor(private timeclockService:TimeclockService, 
               private fb:FormBuilder,
-              private validatorService:ValidatorService) { }
+              protected validatorService:ValidatorService) { }
 
   ngOnInit(): void {
-    
-  }
-
-  isValidField(field: string) {
-    return this.validatorService.isValidField(this.contactForm, field);
-  }
-
-  getControl(field: string):FormControlValidateModel {
-    return {
-      valueChange$: this.contactForm.controls[field].valueChanges,
-      control: this.contactForm.controls[field]
-    } as FormControlValidateModel 
+    this.contactForm.valueChanges.subscribe((val: any) => {
+      console.log(val);
+      console.log(this.contactForm.invalid);
+    })
   }
 
   cancelar() {
@@ -46,7 +41,12 @@ export class ContactFormComponent implements OnInit {
   }
 
   submit() {
-
+    if(this.contactForm.invalid) {
+      this.contactForm.markAllAsTouched();
+      console.log("Formulario invalido")
+      return
+    }
+    console.log("Llamo al servicio para enviar un email")
   }
 
 }

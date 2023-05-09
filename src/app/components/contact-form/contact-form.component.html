@@ -9,7 +9,7 @@
                        class="form-control" 
                        formControlName="nombre" 
                        placeholder="Nombre">
-                <app-validate-error [control]="getControl('nombre')" [field]="'nombre'"></app-validate-error>
+                <app-validate-error [msgErrors]="validatorService.getErrorMsg(contactForm, 'nombre')"></app-validate-error>
             </div>
             <div class="mb-3">
                 <label for="apellidos" class="form-label">Apellidos</label>
@@ -18,7 +18,7 @@
                        class="form-control"  
                        formControlName="apellidos" 
                        placeholder="Apellidos">
-                <app-validate-error [control]="getControl('apellidos')" [field]="'apellidos'"></app-validate-error>
+                <app-validate-error [msgErrors]="validatorService.getErrorMsg(contactForm, 'apellidos')"></app-validate-error>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
@@ -27,7 +27,7 @@
                        class="form-control"  
                        formControlName="email" 
                        placeholder="Email">
-                <app-validate-error [control]="getControl('email')" [field]="'email'"></app-validate-error>
+                <app-validate-error [msgErrors]="validatorService.getErrorMsg(contactForm, 'email')"></app-validate-error>
             </div>
             <div class="mb-3">
                 <label for="telefono" class="form-label">Telefono</label>
@@ -36,7 +36,7 @@
                        class="form-control"  
                        formControlName="telefono" 
                        placeholder="Telefono">
-                <app-validate-error [control]="getControl('telefono')" [field]="'telefono'"></app-validate-error>
+                <app-validate-error [msgErrors]="validatorService.getErrorMsg(contactForm, 'telefono')"></app-validate-error>
             </div>
             <div class="mb-3">
                 <label for="tipo" class="form-label">Tipo de hipoteca a consultar</label>
@@ -46,7 +46,7 @@
                     <option style="max-width: 100%;">Nueva hipoteca</option>
                     <option style="max-width: 100%;">Subrogación</option>
                 </select>
-                <app-validate-error [control]="getControl('tipo')" [field]="'tipo'"></app-validate-error>
+                <app-validate-error [msgErrors]="validatorService.getErrorMsg(contactForm, 'tipo')"></app-validate-error>
             </div>
             <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripcion</label>
@@ -55,7 +55,7 @@
                           rows="3" 
                           placeholder="Descripcion" 
                           formControlName="descripcion" ></textarea>
-                <app-validate-error [control]="getControl('descripcion')" [field]="'descripción'"></app-validate-error>
+                <app-validate-error [msgErrors]="validatorService.getErrorMsg(contactForm, 'descripcion')"></app-validate-error>
             </div>
             <div class="mb-3">
             <div class="form-check">
@@ -64,12 +64,12 @@
                        id="accepto" 
                        formControlName="acepto" >
                 <label class="form-check-label" for="accepto">Acepto recibir llamada de un agente</label>
-                <app-validate-error [control]="getControl('acepto')" [field]="'aceptar'"></app-validate-error>
+                <app-validate-error [msgErrors]="validatorService.getErrorMsg(contactForm, 'acepto')"></app-validate-error>
             </div>
             </div>
             <div class="form__btn">
                 <button type="button" class="btn btn-danger" (click)="cancelar()">Cancelar</button>
-                <button type="submit" class="btn btn-success">Enviar</button>
+                <button type="submit" class="btn btn-success" [disabled]="contactForm.pristine">Enviar</button>
             </div>
         </fieldset>
 
