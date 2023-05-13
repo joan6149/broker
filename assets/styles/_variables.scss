@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+@font-face {
+    font-family: "timeClock";
+    src: url("../ELEPHNT.TTF");
+}
+
+@font-face {
+    font-family: "timeClockSubtitle";
+    src: url("../subtitulos.woff2");
+}
+
+@font-face {
+    font-family: 'normal';
+    src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v23/mem8YaGs126MiZpBA-UFVZ0b.woff2) format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+
+// Variables
+$color-principal:#173259;
+$color-secundario: #656565;
+$color-terciario: lightgreen;
+$fuente-titulo:'timeClock';
+$fuente-subtitulos: 'timeClockSubtitle';
+$fuente-parrafos: 'normal';
