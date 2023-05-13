@@ -12,6 +12,7 @@ import { PhoneComponent } from './components/phone/phone.component';
 import { TextBoxComponent } from './components/text-box/text-box.component';
 import { TimeclockService } from './services/timeclock.service';
 import { ContactFormModule } from './components/contact-form/contact-form.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ContactFormModule } from './components/contact-form/contact-form.module
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ContactFormModule
+    ContactFormModule,
+    HttpClientModule
   ],
   providers: [
     TimeclockService

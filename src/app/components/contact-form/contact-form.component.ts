@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of, Subscription } from 'rxjs';
 import { TimeclockService } from 'src/app/services/timeclock.service';
+import { Contact } from './models/contact.interface';
 import { FormControlValidateModel } from './validate-error/models/ValidateErrorModel';
 import { ValidatorService } from './validator.service';
 
@@ -46,7 +47,9 @@ export class ContactFormComponent implements OnInit {
       console.log("Formulario invalido")
       return
     }
-    console.log("Llamo al servicio para enviar un email")
+    this.timeclockService.sendMail(this.contactForm.value as Contact).subscribe((val) => {
+      console.log("MAil enviado -> ", val);
+    })
   }
 
 }
