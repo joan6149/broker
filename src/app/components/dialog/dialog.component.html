@@ -1,0 +1,14 @@
+<div class="dialog">
+    <div class="dialog__card animate__animated animate__bounceIn">
+        <div class="dialog__card__header">
+            <img *ngIf="correct === true" src="../../../assets/checkIcon.png" alt="check">
+            <img *ngIf="correct === false" src="../../../assets/errorIcon.png" alt="errorº">
+        </div>
+        <div class="dialog__card__body">
+            <p *ngIf="correct === true"><strong>La peticion se ha enviado correctamente un agente se pondra en contacto contigo lo antes posible.</strong></p>
+            <button *ngIf="correct === true" type="submit" class="btn btn-success" (click)="okey()">OK</button>
+            <p *ngIf="correct === false"><strong>Ha habido un error al mandar la petición.</strong></p>
+            <button *ngIf="correct === false" type="submit" class="btn btn-danger" (click)="okey()">OK</button>
+        </div>
+    </div>
+</div>

@@ -5,6 +5,7 @@
                 <app-contact-form></app-contact-form>
             </div>
         </ng-container>
+        <app-dialog [correct]="(showDialog$ | async)!.state" [id]="'operationConfirmed'" *ngIf="(showDialog$ | async)!.id === 'OperationConfirm' && (showDialog$ | async)!.show === true"></app-dialog>
         <app-main-announcement></app-main-announcement>
         <div class="main__description">
             <h4>TimeClock te consigue las mejores condiciones para la compra de tu vivienda</h4>

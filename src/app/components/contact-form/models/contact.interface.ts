@@ -9,3 +9,13 @@ export interface Contact {
     telefono: string,
     tipo: string
 }
+
+export interface DialogAction {
+    id: string,
+    show: boolean,
+    state: boolean // indica si es un dialogo de erroro de check
+}
+
+export enum DialogID {
+    operationConfirm = 'OperationConfirm'
+}
