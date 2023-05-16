@@ -17,7 +17,7 @@ export class PhoneComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.srcColor = `../../../assets/${this.srcColor}`;
+    this.srcColor = `assets/${this.srcColor}`;
   }
 
   openCall() {
