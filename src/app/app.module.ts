@@ -13,6 +13,7 @@ import { TextBoxComponent } from './components/text-box/text-box.component';
 import { TimeclockService } from './services/timeclock.service';
 import { ContactFormModule } from './components/contact-form/contact-form.module';
 import { HttpClientModule } from '@angular/common/http';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     FrecuentAsksComponent,
     BestOfertComponent,
     PhoneComponent,
-    TextBoxComponent
+    TextBoxComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,

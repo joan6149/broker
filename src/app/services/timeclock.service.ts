@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Contact } from '../components/contact-form/models/contact.interface';
+import { Contact, DialogAction } from '../components/contact-form/models/contact.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,7 @@ import { Contact } from '../components/contact-form/models/contact.interface';
 export class TimeclockService {
 
   showForm$: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(false);
+  showDialog$: BehaviorSubject<DialogAction> = new BehaviorSubject<DialogAction>({id: '', show: false} as DialogAction);
   
   constructor(private httpClient: HttpClient) { }
 
@@ -19,6 +20,14 @@ export class TimeclockService {
 
   getShowForm(): Observable<Boolean> {
     return this.showForm$.asObservable();
+  }
+
+  setShowDialog(dialogAction: DialogAction) {
+    this.showDialog$.next(dialogAction);
+  }
+
+  getShowDialog(): Observable<DialogAction> {
+    return this.showDialog$.asObservable();
   }
 
   sendMail(contact: Contact): Observable<any> {

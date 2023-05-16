@@ -17,8 +17,9 @@
             h1 {
                 margin: 0;
                 font-size: 40px;
-                font-family: timeClock;
-                color: $color-principal;
+                font-family: avanteHipoteca;
+                font-weight: bold;
+                color: black;
             }
             h5 {
                 margin: 0;
@@ -99,7 +100,12 @@
     .main_top_title-left {
         justify-content:center;
         .title {
-            display: none;
+            h5 {
+                display: none;
+            }
+            h1 {
+                font-size: 100%;
+            }
             text-align: center;   
         }
     }

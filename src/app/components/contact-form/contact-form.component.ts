@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of, Subscription } from 'rxjs';
 import { TimeclockService } from 'src/app/services/timeclock.service';
-import { Contact } from './models/contact.interface';
+import { Contact, DialogAction, DialogID } from './models/contact.interface';
 import { FormControlValidateModel } from './validate-error/models/ValidateErrorModel';
 import { ValidatorService } from './validator.service';
 
@@ -12,6 +12,8 @@ import { ValidatorService } from './validator.service';
   styleUrls: ['./contact-form.component.scss']
 })
 export class ContactFormComponent implements OnInit {
+
+  @Output() onClose: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   contactForm: FormGroup = this.fb.group({
     'nombre': ['', [Validators.required , Validators.minLength(3)]],
@@ -49,6 +51,13 @@ export class ContactFormComponent implements OnInit {
     }
     this.timeclockService.sendMail(this.contactForm.value as Contact).subscribe((val) => {
       console.log("MAil enviado -> ", val);
+      this.timeclockService.setShowForm(false);
+      this.timeclockService.setShowDialog({
+        id: DialogID.operationConfirm,
+        show: true,
+        state: val.success
+      } as DialogAction)
+      this.onClose.emit(true);
     })
   }
 
