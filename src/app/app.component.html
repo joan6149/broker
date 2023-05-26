@@ -1,1 +1,7 @@
+<!-- MENSAJES DE LA APP -->
+<ngx-domo-dialog *ngIf="(showDialog$ | async)!.show" 
+                [correct]="(showDialog$ | async)!.correct || false"
+                [message]="(showDialog$ | async)!.msg || ''"
+                (onOkey)="closeDialog()"></ngx-domo-dialog>
+<!-- MENSAJES DE CONFIRMACIÓN DE LA APP -->
 <router-outlet></router-outlet>

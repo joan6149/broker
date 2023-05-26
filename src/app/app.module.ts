@@ -11,9 +11,8 @@ import { BestOfertComponent } from './components/best-ofert/best-ofert.component
 import { PhoneComponent } from './components/phone/phone.component';
 import { TextBoxComponent } from './components/text-box/text-box.component';
 import { TimeclockService } from './services/timeclock.service';
-import { ContactFormModule } from './components/contact-form/contact-form.module';
-import { HttpClientModule } from '@angular/common/http';
-import { DialogComponent } from './components/dialog/dialog.component';
+import { ComponentsModule } from '@domo/domo-commons-lib';
+
 
 @NgModule({
   declarations: [
@@ -24,14 +23,13 @@ import { DialogComponent } from './components/dialog/dialog.component';
     FrecuentAsksComponent,
     BestOfertComponent,
     PhoneComponent,
-    TextBoxComponent,
-    DialogComponent
+    TextBoxComponent
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ContactFormModule,
-    HttpClientModule
+    ComponentsModule
   ],
   providers: [
     TimeclockService

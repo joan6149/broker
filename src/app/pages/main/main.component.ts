@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription, tap } from 'rxjs';
-import { DialogAction } from 'src/app/components/contact-form/models/contact.interface';
+import { Observable, Subscription, map, tap } from 'rxjs';
+import { MailService } from '@domo/domo-commons-lib';
 import { TimeclockService } from 'src/app/services/timeclock.service';
+import { DialogData } from '@domo/domo-commons-lib';
 
 @Component({
   selector: 'app-main',
@@ -11,20 +12,15 @@ import { TimeclockService } from 'src/app/services/timeclock.service';
 export class MainComponent implements OnInit, OnDestroy {
 
   showForm$: Observable<Boolean> = new Observable<Boolean>();
-  showDialog$: Observable<DialogAction> = new Observable<DialogAction>();
   subscriptions: Subscription[] = [];
-  isVisible: Boolean = false;
 
 
-  constructor(private timeClockService: TimeclockService) { }
+  constructor(private mailService: MailService,
+              private timeclockService: TimeclockService) { }
 
 
   ngOnInit(): void {
-    this.showForm$ = this.timeClockService.getShowForm();
-    this.showDialog$ = this.timeClockService.getShowDialog();
-    this.subscriptions.push(this.showForm$.subscribe((res: Boolean) => {
-      this.isVisible = res;
-    }));
+    this.showForm$ = this.timeclockService.getShowForm();
   }
 
   ngOnDestroy(): void {
@@ -32,9 +28,18 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
 
-  showForm() {
-    this.isVisible = !this.isVisible;
-    this.timeClockService.setShowForm(this.isVisible);
+  showForm(isShow: boolean) {
+    this.timeclockService.setShowForm(isShow);
+  }
+
+  submit(event: any) {
+    if(event instanceof Error) {
+      this.timeclockService.setShowDialog({
+        msg: event.message,
+        correct: false,
+        show: true
+      } as DialogData)
+    }
   }
 
 }

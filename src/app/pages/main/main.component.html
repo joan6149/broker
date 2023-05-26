@@ -1,11 +1,11 @@
 <div class="main">
         <app-top></app-top>
         <ng-container *ngIf="(showForm$ | async) === true">
-            <div class="main__form">
-                <app-contact-form></app-contact-form>
-            </div>
+            <ngx-domo-basic-dialog>
+                <ngx-contact-form (onClose)="showForm(false)"
+                              (onSubmit)="submit($event)"></ngx-contact-form>
+            </ngx-domo-basic-dialog>
         </ng-container>
-        <app-dialog [correct]="(showDialog$ | async)!.state" [id]="'operationConfirmed'" *ngIf="(showDialog$ | async)!.id === 'OperationConfirm' && (showDialog$ | async)!.show === true"></app-dialog>
         <app-main-announcement></app-main-announcement>
         <div class="main__description">
             <h4>Avante hipoteca te consigue las mejores condiciones para la compra de tu vivienda</h4>
@@ -40,7 +40,7 @@
             <div class="main__bancos__banco"><img src="assets/bancos/13.png" alt=""></div>
         </div>
         <div class="main__expertos">
-            <button type="button" class="btn btn-outline-info btn-lg" (click)="showForm()">Obtener ayudamos</button>
+            <button type="button" class="btn btn-outline-info btn-lg" (click)="showForm(true)">Obtener ayudamos</button>
         </div>
 </div>
 
