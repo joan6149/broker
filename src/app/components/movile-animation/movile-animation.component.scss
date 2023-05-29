@@ -1,0 +1,83 @@
+#moviledraw {
+    width: 300px;
+}
+#movil {
+    #santander {
+        animation: santander 2s 2s infinite;
+    }
+    #brokerRubio {
+        animation: brokerRubio 2s 2s infinite;
+    }
+    #brokerMoreno {
+        animation: brokerMoreno 2s 2s infinite;
+    }
+    #bbva {
+        animation: bbva 2s 2s infinite;
+    }
+}
+
+@keyframes santander {
+    0% {
+        transform: translate(0,0);
+    }
+    50% {
+        transform: translate(0,55px);
+    }
+    75% {
+        transform: translate(0,114px);
+    }
+    90% {
+        transform: translate(0,169px);
+    }
+    100% {
+        transform: translate(0,0);
+    }
+}
+
+@keyframes brokerRubio {
+    0% {
+        transform: translate(0,0);
+    }
+    50% {
+        transform: translate(0,-55px);
+    }
+    75% {
+        transform: translate(0,-55px);
+    }
+    100% {
+        transform: translate(0,0px);
+    }
+}
+
+@keyframes brokerMoreno {
+    0% {
+        transform: translate(0,0);
+    }
+    50% {
+        transform: translate(0,0);
+    }
+    75% {
+        transform: translate(0,-55px);
+    }
+    100% {
+        transform: translate(0,14px);
+    }
+}
+
+@keyframes bbva {
+    0% {
+        transform: translate(0,0);
+    }
+    50% {
+        transform: translate(0,0);
+    }
+    75% {
+        transform: translate(0,0);
+    }
+    90% {
+        transform: translate(0,-169px);
+    }
+    100% {
+        transform: translate(0,0);
+    }
+}

@@ -1,5 +1,6 @@
 <div class="main">
         <app-top></app-top>
+        <ngx-domo-navbar></ngx-domo-navbar>
         <ng-container *ngIf="(showForm$ | async) === true">
             <ngx-domo-basic-dialog>
                 <ngx-contact-form (onClose)="showForm(false)"
