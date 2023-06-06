@@ -1,6 +1,6 @@
 <div class="main">
         <app-top></app-top>
-        <ngx-domo-navbar></ngx-domo-navbar>
+        <ngx-domo-navbar [itemList]="menuItems"></ngx-domo-navbar>
         <ng-container *ngIf="(showForm$ | async) === true">
             <ngx-domo-basic-dialog>
                 <ngx-contact-form (onClose)="showForm(false)"
@@ -9,7 +9,9 @@
         </ng-container>
         <app-main-announcement></app-main-announcement>
         <div class="main__description">
-            <h4>Avante hipoteca te consigue las mejores condiciones para la compra de tu vivienda</h4>
+            <div class="main__description__title">
+                <h3>Avante hipoteca te consigue las mejores condiciones para la compra de tu vivienda</h3>
+            </div>
             <div class="main__description__boxes">
                <div class="main__description__boxes__box">
                     <app-text-box [title]="'Ahorra tiempo'" [text]="'Evita idas y venidas a oficinas bancarias. En pocos minutos te decimos si tu operación es viable.'"></app-text-box>
@@ -23,22 +25,10 @@
             </div>
         </div>
         <div class="main__frase">
-            <h1 class="main__frase__h1">Consigue ofertas personalizadas de hasta 20 bancos, sin tener que pisar una oficina.</h1>
+            <h3 class="main__frase__h3">Consigue ofertas personalizadas de hasta 20 bancos, sin tener que pisar una oficina.</h3>
         </div>
         <div class="main__bancos">
-            <div class="main__bancos__banco"><img src="assets/bancos/1.png" alt=""></div>
-            <div class="main__bancos__banco"><img src="assets/bancos/2.png" alt=""></div>
-            <div class="main__bancos__banco"><img src="assets/bancos/3.png" alt=""></div>
-            <div class="main__bancos__banco"><img src="assets/bancos/4.png" alt=""></div>
-            <div class="main__bancos__banco"><img src="assets/bancos/5.png" alt=""></div>
-            <div class="main__bancos__banco"><img src="assets/bancos/6.png" alt=""></div>
-            <div class="main__bancos__banco"><img src="assets/bancos/7.png" alt=""></div>
-            <div class="main__bancos__banco"><img src="assets/bancos/8.png" alt=""></div>
-            <div class="main__bancos__banco"><img src="assets/bancos/9.png" alt=""></div>
-            <div class="main__bancos__banco"><img src="assets/bancos/10.png" alt=""></div>
-            <div class="main__bancos__banco"><img src="assets/bancos/11.png" alt=""></div>
-            <div class="main__bancos__banco"><img src="assets/bancos/12.png" alt=""></div>
-            <div class="main__bancos__banco"><img src="assets/bancos/13.png" alt=""></div>
+            <img src="assets/bancos.svg" alt="bancos">
         </div>
         <div class="main__expertos">
             <button type="button" class="btn btn-outline-info btn-lg" (click)="showForm(true)">Obtener ayudamos</button>

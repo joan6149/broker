@@ -5,15 +5,16 @@
     justify-content: center;
     margin: 2em 2em;
     &__box {
+        background-image: linear-gradient(to bottom, #0099cc, #006699);
         box-shadow: 0 0px 7px $color-secundario;
         border-radius: 10px;
         width: 70%;
         padding: 1em 1em;
         &__h4 {
-
+            color: lightgreen;
         }   
         &__p {
-
+            color: white;
         }
     }
 }

@@ -1,19 +1,32 @@
 <div class="main__announcement animate__animated animate__backInLeft">
     <div class="main__announcement__row1">
+        <div class="main__announcement__title__leftButtons">
+            <ngx-domo-image-button [large]="'xl'" [text]="'Ampliar hipoteca'" [image]="'assets/onlyHouse.svg'" [buttonStyle]="{'backgroundColor':'lightgreen'}"></ngx-domo-image-button>
+            <ngx-domo-image-button [large]="'xl'" [text]="'Nueva hipoteca'" [image]="'assets/keys.svg'" [buttonStyle]="{'backgroundColor':'lightgreen'}"></ngx-domo-image-button>
+        </div>
         <div class="main__announcement__title">
-            <app-movile-animation></app-movile-animation>
-            <div class="main__announcement__title__phone">
-                <!-- weco pa poner algo-->
+            <app-movile-animation class="main__announcement__title__animation"></app-movile-animation>
+        </div>
+        <div class="main__announcement__title__rightButtons">
+            <ngx-domo-image-button [large]="'xl'" [text]="'Mejorar condiciones'" [image]="'assets/documents.svg'" [buttonStyle]="{'backgroundColor':'lightgreen'}"></ngx-domo-image-button>
+            <ngx-domo-image-button [large]="'xl'" [text]="'Autopromotor'" [image]="'assets/autopromotor.svg'" [buttonStyle]="{'backgroundColor':'lightgreen', 'padding':'10px'}"></ngx-domo-image-button>
+        </div>
+        <div class="main__announcement__container__form">
+            <div class="main__announcement__container__form__container">
+                <ngx-domo-console-writer [phrase]="'Hemos creado un sistema donde los bancos rivalizan por ti, garantizándote las mejores condiciones hipotecarias.'" [textStyle]="{'color':'lightgreen'}" [msToWrite]="90"></ngx-domo-console-writer>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
 
-        <div class="main__announcement__container__form">
-            <button type="button" class="btn btn-outline-info btn-lg" (click)="showForm()">Pedir Informacion</button>
-        </div>
-
-        <div class="main__announcement__box">
-            <h3 class="main__announcement__box__h3">La manera mas rápida de conseguir la mejor hipoteca</h3>
-            <p class="main__announcement__box__p">Nuestros expertos encontrarán la mejor hipoteca para ti, gratis y sin compromiso</p>
+        <div class="main__announcement__boxes">
+            <div class="main__announcement__box">
+                <h3 class="main__announcement__box__h3">La manera mas rápida de conseguir la mejor hipoteca</h3>
+                <p class="main__announcement__box__p">Los mejores expertos pujarán por darte las mejores condiciones al mejor precio.</p>
+            </div>
+            <div class="main__announcement__box">
+                <h3 class="main__announcement__box__h3">Pon tus condiciones en lugar que los bancos pongan las suyas</h3>
+                <p class="main__announcement__box__p">Tu perfil fiscal etará disponible 3 dias a subasta y serán ellos quien te ofreceran las mejores ofertas.</p>
+            </div>
         </div>
     </div>
     <div class="main__announcement__container__form__small">

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription, map, tap } from 'rxjs';
-import { MailService } from '@domo/domo-commons-lib';
+import { MailService, MenuItem } from '@domo/domo-commons-lib';
 import { TimeclockService } from 'src/app/services/timeclock.service';
 import { DialogData } from '@domo/domo-commons-lib';
 
@@ -11,6 +11,16 @@ import { DialogData } from '@domo/domo-commons-lib';
 })
 export class MainComponent implements OnInit, OnDestroy {
 
+  menuItems: MenuItem[] = [
+    {
+      name: 'Register',
+      isActive: false
+    },
+    {
+      name: 'Login',
+      isActive: false
+    }
+  ];
   showForm$: Observable<Boolean> = new Observable<Boolean>();
   subscriptions: Subscription[] = [];
 

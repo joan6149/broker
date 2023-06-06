@@ -9,8 +9,10 @@ import { FrecuentAsksComponent } from './components/frecuent-asks/frecuent-asks.
 import { BestOfertComponent } from './components/best-ofert/best-ofert.component';
 import { TextBoxComponent } from './components/text-box/text-box.component';
 import { TimeclockService } from './services/timeclock.service';
-import { ComponentsModule } from '@domo/domo-commons-lib';
 import { MovileAnimationComponent } from './components/movile-animation/movile-animation.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ComponentsModule } from '@domo/domo-commons-lib';
+
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { MovileAnimationComponent } from './components/movile-animation/movile-a
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     TimeclockService
