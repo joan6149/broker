@@ -12,6 +12,10 @@ import { TimeclockService } from './services/timeclock.service';
 import { MovileAnimationComponent } from './components/movile-animation/movile-animation.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentsModule } from '@domo/domo-commons-lib';
+import { UsermainComponent } from './pages/user/usermain/usermain.component';
+import { BrokermainComponent } from './pages/broker/brokermain/brokermain.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 
 
@@ -24,7 +28,11 @@ import { ComponentsModule } from '@domo/domo-commons-lib';
     FrecuentAsksComponent,
     BestOfertComponent,
     TextBoxComponent,
-    MovileAnimationComponent
+    MovileAnimationComponent,
+    UsermainComponent,
+    BrokermainComponent,
+    LoginComponent,
+    RegisterComponent
     
   ],
   imports: [

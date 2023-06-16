@@ -3,6 +3,7 @@ import { Observable, Subscription, map, tap } from 'rxjs';
 import { MailService, MenuItem } from '@domo/domo-commons-lib';
 import { TimeclockService } from 'src/app/services/timeclock.service';
 import { DialogData } from '@domo/domo-commons-lib';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -14,11 +15,13 @@ export class MainComponent implements OnInit, OnDestroy {
   menuItems: MenuItem[] = [
     {
       name: 'Register',
-      isActive: false
+      isActive: false,
+      routerLink: 'register'
     },
     {
       name: 'Login',
-      isActive: false
+      isActive: false,
+      routerLink: 'login'
     }
   ];
   showForm$: Observable<Boolean> = new Observable<Boolean>();
@@ -26,7 +29,8 @@ export class MainComponent implements OnInit, OnDestroy {
 
 
   constructor(private mailService: MailService,
-              private timeclockService: TimeclockService) { }
+              private timeclockService: TimeclockService,
+              private router: Router) { }
 
 
   ngOnInit(): void {
@@ -50,6 +54,10 @@ export class MainComponent implements OnInit, OnDestroy {
         show: true
       } as DialogData)
     }
+  }
+
+  goToRoute(item: MenuItem) {
+    this.router.navigate([item.routerLink]);
   }
 
 }
