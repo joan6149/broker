@@ -1,6 +1,8 @@
 <div class="register">
     <app-top></app-top>
     <div class="register__formContainer">
-        <ngx-register-form [image]="'assets/loginMujer.svg'" [title]="'¡REGISTRATE Y ENCUENTRA TU HIPOTECA IDEAL!'"></ngx-register-form>
+        <ngx-register-form [image]="'assets/loginMujer.svg'" 
+                           [title]="'¡REGISTRATE Y ENCUENTRA TU HIPOTECA IDEAL!'"
+                           (onSubmit)="sumbit($event)"></ngx-register-form>
     </div>
 </div>

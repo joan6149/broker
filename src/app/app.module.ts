@@ -16,7 +16,7 @@ import { UsermainComponent } from './pages/user/usermain/usermain.component';
 import { BrokermainComponent } from './pages/broker/brokermain/brokermain.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -39,6 +39,7 @@ import { RegisterComponent } from './pages/register/register.component';
     BrowserModule,
     AppRoutingModule,
     ComponentsModule,
+    HttpClientModule,
     BrowserAnimationsModule
   ],
   providers: [

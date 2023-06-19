@@ -11,7 +11,13 @@ export const environment = {
     apikey: "D6A0C89692641FD7ED7FD4D693F1C5EFF30309064C7C6D2578FC04237026F60567855643D7FA130992BD3D54DD71D4B6",
     from: 'info@timeclockbkr.com',
     to: 'joan6149@gmail.com'
-  }
+  },
+
+  // UrlBack
+  backend: 'http://localhost:3000/broker'
+
+  // Configuracion de url del back PODRIAMOS HACERLO CON EL PROXY DE ANGULAR
+
 };
 
 /*
