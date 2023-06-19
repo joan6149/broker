@@ -6,3 +6,6 @@
                            (onSubmit)="sumbit($event)"></ngx-register-form>
     </div>
 </div>
+
+<!-- Dialogo de notificaciones -->
+<ngx-domo-dialog *ngIf="msg.check === true" [correct]="msg.isCorrect" [message]="msg.message" (onOkey)="msg.check = false"></ngx-domo-dialog>
