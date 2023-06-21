@@ -1,6 +1,9 @@
 <div class="login">
     <app-top></app-top>
     <div class="login__formContainer">
-        <ngx-login-form [image]="'assets/loginOkey.svg'" [title]="'INICIAR SESION'"></ngx-login-form>
+        <ngx-login-form [image]="'assets/loginOkey.svg'" [title]="'INICIAR SESION'" (onSubmit)="submit($event)"></ngx-login-form>
     </div>
 </div>
+
+<!-- Dialogo de notificaciones -->
+<ngx-domo-dialog *ngIf="msg.show === true" [correct]="msg.correct!" [message]="msg.msg!" (onOkey)="okey()"></ngx-domo-dialog>

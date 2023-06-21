@@ -1,1 +1,5 @@
-<p>usermain works!</p>
+<div class="main">
+    <app-top></app-top>
+    <ngx-domo-navbar [itemList]="menuItems" (onClickItemEmitter)="goToRoute($event)"></ngx-domo-navbar>
+    <router-outlet></router-outlet>
+</div>

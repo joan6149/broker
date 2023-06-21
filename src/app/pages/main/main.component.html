@@ -1,6 +1,6 @@
 <div class="main">
         <app-top class="animate__animated animate__backInRight"></app-top>
-        <ngx-domo-navbar [itemList]="menuItems" (onClickItemEmitter)="goToRoute($event)"></ngx-domo-navbar>
+        <ngx-domo-navbar [itemList]="menuItems" (onClickItemEmitter)="goToRoute($event)" [itemsPosition]="'right'"></ngx-domo-navbar>
         <ng-container *ngIf="(showForm$ | async) === true">
             <ngx-domo-basic-dialog>
                 <ngx-contact-form (onClose)="showForm(false)"

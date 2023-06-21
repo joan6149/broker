@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { catchError, of } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription, catchError, of } from 'rxjs';
 import { Message } from 'src/app/models/message.model';
 import { UserDto } from 'src/app/models/user.dto';
 import { UserService } from 'src/app/services/user.service';
@@ -10,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   msg: Message = {
     check: false,
@@ -18,15 +19,21 @@ export class RegisterComponent implements OnInit {
     message: ''
   };
 
-  constructor(private userService: UserService) { }
+  subscriptions:Subscription[] = [];
+
+  constructor(private userService: UserService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe);
+  }
+
   sumbit(user: any) {
-    this.userService.registerUser(user).pipe(
+    this.subscriptions.push(this.userService.registerUser(user).pipe(
       catchError((err: HttpErrorResponse) => {
-        console.log(err.error.message);
         this.msg.isCorrect = false;
         this.msg.message = err.error.message;
         this.msg.check = true;
@@ -36,11 +43,18 @@ export class RegisterComponent implements OnInit {
       if(registeredUser != null) {
         this.msg = {
           isCorrect: true,
-          message: `Usuario ${registeredUser?.email} creado!`,
+          message: `Usuario ${registeredUser?.email} creado!\nSe enviará un mail de confirmación al correo electronico proporcionado.`,
           check: true
         }
       }
-    })
+    }));
+  }
+
+  okey() {
+    this.msg.check = false;
+    if(this.msg.isCorrect === true) {
+      this.router.navigate(['/']);
+    }
   }
 
 }

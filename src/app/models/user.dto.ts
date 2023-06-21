@@ -5,19 +5,22 @@ export interface UserToken {
     role: string
 }
 
-export interface UserDto {
+export interface LoginDto {
+    email: string,
+    password?: string
+}
+
+export interface UserDto extends LoginDto {
     
     userId?: string,
-    email: string,
     name: string,
     surnames: string,
     phone: string,
-    password: string,
     role?: Role;
 }
 
 export enum Role {
-    USER =  'user',
-    BROKER= 'broker',
-    ADMIN = 'admin',
+    USER =  'User',
+    BROKER= 'Broker',
+    ADMIN = 'Admin',
 }
