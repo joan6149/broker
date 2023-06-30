@@ -1,1 +1,67 @@
-<p>main-panel works!</p>
+<div class="main">
+    <ngx-domo-card [headerTemplate]="headerTemplateNew"
+                   [bodyTemplate]="bodyTemplateNew"
+                   [goto]="'newMortage'"
+                   (onClickItemEmitter)="gotoRoute($event)"
+                   [footerTemplate]="footerTemplateNew"></ngx-domo-card>
+    <ngx-domo-card [headerTemplate]="headerTemplateImprove"
+                   [goto]="'two'"
+                   (onClickItemEmitter)="gotoRoute($event)"
+                   [bodyTemplate]="bodyTemplateImprove"
+                   [footerTemplate]="footerTemplateImprove"></ngx-domo-card>
+    <ngx-domo-card [headerTemplate]="headerTemplateAmp"
+                   [goto]="'three'"
+                   (onClickItemEmitter)="gotoRoute($event)"
+                   [bodyTemplate]="bodyTemplateAmp"
+                   [footerTemplate]="footerTemplateAmp"></ngx-domo-card>
+    <ngx-domo-card [headerTemplate]="headerTemplateAuto"
+                   [goto]="'four'"
+                   (onClickItemEmitter)="gotoRoute($event)"
+                   [bodyTemplate]="bodyTemplateAuto"
+                   [footerTemplate]="footerTemplateAuto"
+                   [goto]="'five'"
+                   (onClickItemEmitter)="gotoRoute($event)"></ngx-domo-card>
+</div>
+
+<!-- Templates -->
+
+<ng-template #headerTemplateNew>
+    <h3>NUEVA HIPOTECA</h3>
+</ng-template>
+<ng-template #headerTemplateImprove>
+    <h3>MEJORAR MI HIPOTECA</h3>
+</ng-template>
+<ng-template #headerTemplateAmp>
+    <h3>AMPLIAR MI HIPOTECA</h3>
+</ng-template>
+<ng-template #headerTemplateAuto>
+    <h3>AUTOPROMOCIÓN</h3>
+</ng-template>
+
+<ng-template #bodyTemplateNew>
+    <p>Solicita una nueva hipoteca</p>
+</ng-template>
+<ng-template #bodyTemplateImprove>
+    <p>Mejora tu hipoteca actual</p>
+</ng-template>
+<ng-template #bodyTemplateAmp>
+    <p>Amplia tu hipoteca</p>
+</ng-template>
+<ng-template #bodyTemplateAuto>
+    <p>¡Construye tu casoplón!</p>
+</ng-template>
+
+<ng-template #footerTemplateNew>
+    <img style="width: 80%;" src="assets/searchHipotek.png" alt="buscar hipoteca">
+</ng-template>
+<ng-template #footerTemplateImprove>
+    <img style="width: 80%;" src="assets/improveHipotek.png" alt="buscar hipoteca">
+</ng-template>
+<ng-template #footerTemplateAmp>
+    <img style="width: 70%;" src="assets/ampliHipotek.png" alt="buscar hipoteca">
+</ng-template>
+<ng-template #footerTemplateAuto>
+    <img style="width: 80%;" src="assets/buildHipotek.png" alt="buscar hipoteca">
+</ng-template>
+
+

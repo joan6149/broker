@@ -1,0 +1,30 @@
+<div class="new_mortage">
+    <h2>{{titles.get(currentStep)}}</h2>
+    <div class="new_mortage__forms">
+        <ng-container #container></ng-container>
+        <ng-container #container_1></ng-container>
+    </div>
+    <div class="buttons">
+        <button class="btn btn-warning" (click)="nextForm(-1)">Previous</button>
+        <button class="btn btn-dark" 
+                *ngIf="+currentStep < numberOfSteps"
+                (click)="nextForm(+1)">Next</button>
+        <button class="btn btn-dark" 
+                *ngIf="+currentStep === numberOfSteps" 
+                (click)="submit()">Finalize</button>
+    </div>
+</div>
+
+<!-- step 1 -->
+<ng-template #typeOfPetition>
+    <div class="new_mortage__forms__solicitante">
+        <app-ind-or-colective [selectedPetition]="mortageData.petitionType" (OnSelectPetitionType)="setPetitionType($event)"></app-ind-or-colective>
+    </div>
+</ng-template>
+
+<!-- Step2 -->
+<ng-template #initDataForm>
+    <div class="new_mortage__forms__solicitante">
+        <app-data-form></app-data-form>
+    </div>
+</ng-template>

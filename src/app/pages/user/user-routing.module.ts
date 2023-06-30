@@ -35,6 +35,11 @@ const routes: Routes = [
         component: MainPanelComponent,
       },
       {
+        path: 'newMortage',
+        canLoad: [UserGuard],
+        loadChildren: () => import('./pages/new-mortgage/new-mortgage.module').then(m => m.NewMortgageModule)
+      },
+      {
         path: '',
         redirectTo: 'mainPanel',
         pathMatch: 'full'

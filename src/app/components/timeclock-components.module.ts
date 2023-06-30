@@ -8,6 +8,8 @@ import { MovileAnimationComponent } from './movile-animation/movile-animation.co
 import { TextBoxComponent } from './text-box/text-box.component';
 import { TopComponent } from './top/top.component';
 import { ComponentsModule } from '@domo/domo-commons-lib';
+import { IndOrColectiveComponent } from './step-components/ind-or-colective/ind-or-colective.component';
+import { DataFormComponent } from './step-components/data-form/data-form.component';
 
 
 
@@ -19,7 +21,9 @@ import { ComponentsModule } from '@domo/domo-commons-lib';
     MainAnnouncementComponent,
     MovileAnimationComponent,
     TextBoxComponent,
-    TopComponent
+    TopComponent,
+    IndOrColectiveComponent,
+    DataFormComponent
   ],
   exports: [
     BestOfertComponent,
@@ -28,7 +32,9 @@ import { ComponentsModule } from '@domo/domo-commons-lib';
     MainAnnouncementComponent,
     MovileAnimationComponent,
     TextBoxComponent,
-    TopComponent
+    TopComponent,
+    IndOrColectiveComponent,
+    DataFormComponent
   ],
   imports: [
     CommonModule,

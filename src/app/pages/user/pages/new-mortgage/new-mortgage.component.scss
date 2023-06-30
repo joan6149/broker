@@ -1,0 +1,29 @@
+.new_mortage {
+    margin-top: 40px;
+    padding: 2em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100vh;
+    margin: auto;
+    .buttons {
+        display: flex;
+        justify-content: center;
+        column-gap: 6em;
+        margin-top: 30px;
+        button {
+            width: 140px;
+        }
+    }
+    &__forms {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 30px;
+        &__solicitante {
+            background-color: lightgreen;
+            width: 100%;
+            margin: 2px;
+        }
+    }
+}
