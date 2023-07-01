@@ -1,5 +1,9 @@
 <div class="new_mortage">
-    <h2>{{titles.get(currentStep)}}</h2>
+    <h1>{{titles.get(currentStep)}}</h1>
+    <div class="new_mortage__subtitle">
+        <h2>Solicitante</h2>
+        <h2 *ngIf="this.mortageData.petitionType === 'CONJUNTA' && this.currentStep !== '1'">Acompañante</h2>
+    </div>
     <div class="new_mortage__forms">
         <ng-container #container></ng-container>
         <ng-container #container_1></ng-container>
@@ -22,9 +26,83 @@
     </div>
 </ng-template>
 
-<!-- Step2 -->
-<ng-template #initDataForm>
+<!-- Step2 Solicitante -->
+<ng-template #initDataFormS>
     <div class="new_mortage__forms__solicitante">
         <app-data-form></app-data-form>
     </div>
 </ng-template>
+
+<!-- Step2 Acompanante -->
+<ng-template #initDataFormA>
+    <div class="new_mortage__forms__solicitante">
+        <app-data-form></app-data-form>
+    </div>
+</ng-template>
+
+<!-- Step3 Estado civil solicitante-->
+<ng-template #civilStateS>
+    <div class="new_mortage__forms__solicitante">
+        <ngx-select-list [listItems]="EstadosCivilesSolicitante"></ngx-select-list>
+    </div>
+</ng-template>
+
+<!-- Step3 Estado civil acompanante -->
+<ng-template #civilStateA>
+    <div class="new_mortage__forms__solicitante">
+        <ngx-select-list [listItems]="EstadosCivilesAcompanante"></ngx-select-list>
+    </div>
+</ng-template>
+
+<!-- Step4 Pais de residencia -->
+<ng-template #paisRes>
+    <div class="new_mortage__forms__solicitante">
+        
+    </div>
+</ng-template>
+
+<!-- Step4 Tipo de permiso residencia-->
+<ng-template #permisoRes>
+    <div class="new_mortage__forms__solicitante">
+        
+    </div>
+</ng-template>
+
+<!-- Step5 Situación Hijos y personas a cargo -->
+<ng-template #hijos>
+    <div class="new_mortage__forms__solicitante">
+        
+    </div>
+</ng-template>
+
+<!-- Step6 Situación vivienda actual (PROPIEDAD, ALQUILER, FAMILIAR, SIN VIVIENDA)-->
+<ng-template #viviendaActual>
+    <div class="new_mortage__forms__solicitante">
+        
+    </div>
+</ng-template>
+
+<!-- Step7 Situación Laboral-->
+<ng-template #situacionLaboral>
+    <div class="new_mortage__forms__solicitante">
+        
+    </div>
+</ng-template>
+
+<!-- Step8 Sera su vivienda habitual?-->
+
+<!-- Step9 Años de pagamiento -->
+
+<!-- Step10 donde esta la vivienda -->
+
+<!-- Step11 Metros cuadrados-->
+
+<!-- Step12 Tipo construccion-->
+
+<!-- Step13 Solicitada en otras entiaddes-->
+
+<!-- Step14 Cual es su profesion?-->
+
+<!-- Step15 Fecha de inicio de trabajo-->
+
+<!-- Step16 Ingresos y gastos-->
