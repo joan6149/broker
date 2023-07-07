@@ -7,6 +7,7 @@ import { ComponentsModule } from '@domo/domo-commons-lib';
 
 
 
+
 @NgModule({
   declarations: [
     NewMortgageComponent
@@ -15,7 +16,8 @@ import { ComponentsModule } from '@domo/domo-commons-lib';
     CommonModule,
     TimeclockComponentsModule,
     NewMortgageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+
   ]
 })
 export class NewMortgageModule { }

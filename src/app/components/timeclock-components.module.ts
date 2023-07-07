@@ -12,7 +12,6 @@ import { IndOrColectiveComponent } from './step-components/ind-or-colective/ind-
 import { DataFormComponent } from './step-components/data-form/data-form.component';
 
 
-
 @NgModule({
   declarations: [
     BestOfertComponent,

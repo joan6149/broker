@@ -3,6 +3,7 @@ import { SelectListItem } from "@domo/domo-commons-lib/lib/models/SelectList.mod
 export class NewMortage {
     petitionType: PetitionType;
     solicitante: Solicitante;
+    acompaniante: Solicitante | null;
     viviendaHabitual: boolean;
     hipotecaActual: Hipoteca;
     periodoNuevaPeticion: number; //Años a los que quieres poner la hipoteca
@@ -13,6 +14,7 @@ export class NewMortage {
     constructor() {
         this.petitionType = PetitionType.INDIVIDUAL;
         this.solicitante = {} as Solicitante;
+        this.acompaniante = {} as Solicitante;
         this.viviendaHabitual = true;
         this.hipotecaActual = {} as Hipoteca;
         this.periodoNuevaPeticion = 0;
@@ -28,8 +30,14 @@ export enum PetitionType {
 }
 
 export interface Solicitante {
+    email: string,
+    nombre: string,
+    apellidos: string,
+    movil: string,
+    dni: string,
+    direccion: Direccion,
+    fechaNacimiento: string,
     estadoCivil: EstadoCivil,
-    paisResidente: string,
     hijosAcargo: number,
     situacionLaboral: SituacionLaboral,
     ingresos: Ingreso[],
@@ -39,7 +47,7 @@ export interface Solicitante {
 export interface SituacionLaboral {
     tipoSituacion: TipoSituacionLaboral,
     profesion: string,
-    fechaInicio: Date 
+    fechaInicio: Date
 }
 
 export interface Ingreso {
@@ -65,9 +73,13 @@ export interface Hipoteca {
 }
 
 export interface Direccion {
-    comunidad: string,
+    pais: string,
+    ciudad: string,
     provincia: string,
-    direccion: string
+    calle: string,
+    piso: string,
+    puerta: string,
+    codPostal: string
 }
 
 export enum TipoInteres {
@@ -85,8 +97,7 @@ export enum TipoConstruccion {
 
 export enum EstadoCivil {
     CASADO = 'CASADO',
-    SOLTERO = 'SOLTERO',
-    INDEFINNIDO = 'INDEFINNIDO'
+    SOLTERO = 'SOLTERO'
 }
 
 export enum TipoSituacionLaboral {

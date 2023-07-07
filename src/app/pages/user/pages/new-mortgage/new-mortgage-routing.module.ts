@@ -8,14 +8,6 @@ const routes: Routes = [
     path: '',
     component: NewMortgageComponent,
     pathMatch: 'full'
-  },
-  {
-    path: ':step',
-    component: NewMortgageComponent
-  },
-  {
-    path: '**',
-    redirectTo: ''
   }
 ]
 

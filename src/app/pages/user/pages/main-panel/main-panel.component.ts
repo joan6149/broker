@@ -15,7 +15,7 @@ export class MainPanelComponent implements OnInit {
 
   gotoRoute(url: any) {
     console.log(url);
-    this.router.navigate([`user/${url}`, 1])
+    this.router.navigate([`user/${url}`])
   }
 
 }

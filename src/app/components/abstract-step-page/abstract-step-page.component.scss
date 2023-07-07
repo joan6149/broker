@@ -1,4 +1,4 @@
-.new_mortage {
+.abstract-step {
     margin-top: 40px;
     padding: 2em;
     text-align: center;
@@ -18,7 +18,7 @@
     }
     &__forms {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         &__solicitante {
             width: 100%;
             margin: 2px;

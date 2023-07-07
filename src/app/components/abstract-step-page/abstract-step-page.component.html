@@ -1,0 +1,26 @@
+<ng-template #steps>
+    <div class="new_mortage">
+        <h1>{{titles.get(currentStep)}}</h1>
+        <div class="new_mortage__subtitle">
+            <h2>Solicitante</h2>
+            <h2 *ngIf="hasTemplateByCurrentStep(1) && mortageData.petitionType === 'CONJUNTA'">Acompañante</h2>
+        </div>
+        <div class="new_mortage__forms">
+            <ng-container #container></ng-container>
+            <ng-container #container_1></ng-container>
+        </div>
+        <div class="buttons">
+            <button class="btn btn-warning" (click)="nextForm(-1)">Previous</button>
+            <button class="btn btn-dark" 
+                    *ngIf="+currentStep < numberOfSteps"
+                    (click)="nextForm(+1)">Next</button>
+            <button class="btn btn-dark" 
+                    *ngIf="+currentStep === numberOfSteps" 
+                    (click)="submit()">Finalize</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #EmptyTemplate></ng-template>
+
+
