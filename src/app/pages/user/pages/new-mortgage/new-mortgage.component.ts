@@ -24,6 +24,8 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
   @ViewChild('civilStateA') civilStateA!: TemplateRef<any>;
   @ViewChild('paisResS') paisResS!: TemplateRef<any>;
   @ViewChild('paisResA') paisResA!: TemplateRef<any>;
+  @ViewChild('hijosS') hijosS!: TemplateRef<any>;
+  @ViewChild('hijosA') hijosA!: TemplateRef<any>;
 
 
   /** Send values betwen solicitants */
@@ -33,12 +35,16 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
   EstadosCivilesSolicitante!: SelectListItem[];
   EstadosCivilesAcompanante!: SelectListItem[];
 
+  numDeHijosSolicitante: string = '0';
+  numDeHijosAcompaniante: string = '0';
+
   allowNextStepBySolicitant: boolean = false;
   allowNextStepByAcompaniant: boolean = false;
 
 
   constructor() {
     super();
+    this.numberOfSteps = 5;
     this.setearEstadosCiviles();
     this.setTitles();
     this.mortageData = new NewMortage();
@@ -60,17 +66,20 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     this.titles.set('2', 'Datos');
     this.titles.set('3', 'Estado civil');
     this.titles.set('4', 'Direccion');
+    this.titles.set('5', 'Hijos a Cargo');
   }
 
   setTemplates() {
     this.templates.set('1', {template:this.typeOfPetition } as MortageTemplate);
-    this.templates.set('2', {template:this.initDataFormS, optons: {mandatory: true } } as MortageTemplate);
+    this.templates.set('5', {template:this.initDataFormS, optons: {mandatory: true } } as MortageTemplate);
     this.templates.set('3', {template:this.civilStateS } as MortageTemplate);
     this.templates.set('4', {template:this.paisResS, optons: {mandatory: true } } as MortageTemplate);
+    this.templates.set('2', {template:this.hijosS } as MortageTemplate);
 
-    this.templatesA.set('2', {template: this.initDataFormA, optons: {mandatory: true }} as MortageTemplate);
+    this.templatesA.set('5', {template: this.initDataFormA, optons: {mandatory: true }} as MortageTemplate);
     this.templatesA.set('3', {template: this.civilStateA} as MortageTemplate);
     this.templatesA.set('4', {template: this.paisResA, optons: {mandatory: true }} as MortageTemplate);
+    this.templatesA.set('2', {template: this.hijosA} as MortageTemplate);
   }
 
   submit() {
@@ -83,6 +92,7 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
   }
 
   private setearEstadosCiviles(): void {
+
     this.EstadosCivilesSolicitante = Object.values(EstadoCivil).map((val: string) => {
       return {
         name: val,
@@ -244,6 +254,17 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
         name: this.mortageData.acompaniante !== null ? this.mortageData.acompaniante.estadoCivil : 'CASADO',
         isSelected: true
       } as SelectListItem, false)
+    }
+  }
+
+  sameOtherHijos(source: string) {
+    
+    if(source === 'SOLICITANTE') {
+      this.mortageData.acompaniante.hijosAcargo = this.mortageData.solicitante.hijosAcargo;
+    }
+
+    if(source === 'ACOMPANIANTE') {
+      this.mortageData.solicitante.hijosAcargo = this.mortageData.acompaniante.hijosAcargo;
     }
   }
 

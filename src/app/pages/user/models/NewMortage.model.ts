@@ -3,7 +3,7 @@ import { SelectListItem } from "@domo/domo-commons-lib/lib/models/SelectList.mod
 export class NewMortage {
     petitionType: PetitionType;
     solicitante: Solicitante;
-    acompaniante: Solicitante | null;
+    acompaniante: Solicitante;
     viviendaHabitual: boolean;
     hipotecaActual: Hipoteca;
     periodoNuevaPeticion: number; //Años a los que quieres poner la hipoteca
@@ -38,7 +38,7 @@ export interface Solicitante {
     direccion: Direccion,
     fechaNacimiento: string,
     estadoCivil: EstadoCivil,
-    hijosAcargo: number,
+    hijosAcargo: string,
     situacionLaboral: SituacionLaboral,
     ingresos: Ingreso[],
     gastos: Gasto[]
