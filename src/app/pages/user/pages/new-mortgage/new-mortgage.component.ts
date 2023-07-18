@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild, Inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild, Inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EstadoCivil, NewMortage, PetitionType } from '../../models/NewMortage.model';
 import { SelectListItem } from '@domo/domo-commons-lib/lib/models/SelectList.model';
@@ -6,30 +6,36 @@ import { AbstractStepPageComponent, MortageTemplate } from 'src/app/components/a
 import { InitFormState } from '@domo/domo-commons-lib/lib/components/forms/models/InitForm.interface';
 import { InitDataFormComponent, SelectListComponent } from '@domo/domo-commons-lib';
 import { AbstractDataFormComponent } from '@domo/domo-commons-lib/lib/components/forms/abstract-data-form/abstract-data-form.component';
+import { TemplateCollectionService } from 'src/app/components/template-collection/template-collection.service';
+import { Subscription, last } from 'rxjs';
 
 @Component({
   selector: 'app-new-mortgage',
   templateUrl: './new-mortgage.component.html',
   styleUrls: ['./new-mortgage.component.scss']
 })
-export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> implements OnInit, AfterViewInit {
+export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> implements OnInit, AfterViewInit, OnDestroy {
 
   
 
   /** Plantillas */
-  @ViewChild('typeOfPetition') typeOfPetition!: TemplateRef<any>;
-  @ViewChild('initDataFormS') initDataFormS!: TemplateRef<any>;
-  @ViewChild('initDataFormA') initDataFormA!: TemplateRef<any>;
   @ViewChild('civilStateS') civilStateS!: TemplateRef<any>;
   @ViewChild('civilStateA') civilStateA!: TemplateRef<any>;
   @ViewChild('paisResS') paisResS!: TemplateRef<any>;
   @ViewChild('paisResA') paisResA!: TemplateRef<any>;
   @ViewChild('hijosS') hijosS!: TemplateRef<any>;
   @ViewChild('hijosA') hijosA!: TemplateRef<any>;
+  @ViewChild('EmptyTemplate') EmptyTemplate!: TemplateRef<any>;
+
+  /** Template collection */
+  templateCollection: Map<String, MortageTemplate> = new Map<String, MortageTemplate>();
 
 
   /** Send values betwen solicitants */
   values: any;
+
+  /** Subscriptnions */
+  subscriptions: Subscription[] = [];
   
 
   EstadosCivilesSolicitante!: SelectListItem[];
@@ -48,17 +54,42 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     this.setearEstadosCiviles();
     this.setTitles();
     this.mortageData = new NewMortage();
+
   }
 
   @Inject(ActivatedRoute) private route!: ActivatedRoute;
 
   ngOnInit(): void {
-    
+    this.mortageData = this.templateCollectionService.mortageData;
+    this.templateCollectionService.templateList.forEach((mortageTemplate: MortageTemplate) => {
+      this.templateCollection.set(mortageTemplate.name || '9999', mortageTemplate)
+    })
+
+    // Me suscribo a cambios en el Mortagedata
+    this.subscriptions.push(this.templateCollectionService.getMortageData().subscribe((mortageData: NewMortage) => {
+      this.mortageData = mortageData;
+      console.log("RECIBO MORTAGE DESDE NEW_MORTAGE ==> ", mortageData);
+    }));
+
+    // Me suscribo a cambios en el Template
+    this.subscriptions.push(this.templateCollectionService.getTemplates().subscribe((mortageTemplate: MortageTemplate) => {
+      this.templateCollection.set(mortageTemplate.name || '9999', mortageTemplate);
+      console.log("VEAMOS LA TENPLATE ==> ", mortageTemplate);
+    }))
+  }
+
+  nextStep(nextStep: number) {
+    this.templateCollectionService.setMortageData(this.mortageData);
+    this.nextForm(nextStep);
   }
 
   override ngAfterViewInit() {
     this.setTemplates();
     this.getTemplate();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   setTitles() {
@@ -70,16 +101,11 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
   }
 
   setTemplates() {
-    this.templates.set('1', {template:this.typeOfPetition } as MortageTemplate);
-    this.templates.set('5', {template:this.initDataFormS, optons: {mandatory: true } } as MortageTemplate);
-    this.templates.set('3', {template:this.civilStateS } as MortageTemplate);
-    this.templates.set('4', {template:this.paisResS, optons: {mandatory: true } } as MortageTemplate);
-    this.templates.set('2', {template:this.hijosS } as MortageTemplate);
-
-    this.templatesA.set('5', {template: this.initDataFormA, optons: {mandatory: true }} as MortageTemplate);
-    this.templatesA.set('3', {template: this.civilStateA} as MortageTemplate);
-    this.templatesA.set('4', {template: this.paisResA, optons: {mandatory: true }} as MortageTemplate);
-    this.templatesA.set('2', {template: this.hijosA} as MortageTemplate);
+    this.templates.set('1', this.templateCollection.get('typeOfPetition') ?? {solicitanTemplate: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('2', this.templateCollection.get('basicInformation') ?? {solicitanTemplate: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('3', {solicitanTemplate:this.civilStateS } as MortageTemplate);
+    this.templates.set('4', {solicitanTemplate:this.paisResS, solicitantOptions: {mandatory: true } } as MortageTemplate);
+    this.templates.set('5', {solicitanTemplate:this.hijosS } as MortageTemplate);
   }
 
   submit() {
@@ -87,7 +113,6 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
   }
 
   setPetitionType(petitionType: PetitionType) {
-    console.log('PETITIONNN', petitionType);
     this.mortageData.petitionType = petitionType;
   }
 
@@ -110,44 +135,10 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
 
   override getTemplate(): void {
     this.container.clear();
-    this.container_1.clear();
     const template: MortageTemplate | undefined = this.templates.get(this.currentStep);
-    const templateA: MortageTemplate | undefined = this.templatesA.get(this.currentStep);
     if(template) {
-      this.container.createEmbeddedView(template.template);
+      this.container.createEmbeddedView(template.solicitanTemplate);
     }
-
-    if(templateA && this.mortageData.petitionType === PetitionType.CONJUNTA) {
-      this.container_1.createEmbeddedView(templateA.template);
-    }
-
-    console.log("MORTAGE ==> ", this.mortageData);
-  }
-
-  public checkForm(formState: InitFormState) {
-
-    if(formState.status === 'INVALID') {
-      this.allowNextStep = false;
-    }
-
-
-    if(formState.formName === 'SOLICITANTE') {
-      this.mortageData.solicitante = {...this.mortageData.solicitante ,...formState.value};
-      this.setAllowByProfiles(formState.status, formState.formName);
-    }
-
-    
-    if(formState.formName === 'ACOMPANIANTE') {
-      this.mortageData.acompaniante = {...this.mortageData.acompaniante, ...formState.value};
-      this.setAllowByProfiles(formState.status, formState.formName);
-    }
-
-    this.setAllowbyPetitionType();
-
-    //this.allowNextStep = this.mortageData.petitionType === PetitionType.CONJUNTA ? this.correctSolicitanteData && this.correctAcompanianteData : this.correctSolicitanteData;
-    console.log("FORMSTATE ==> ", formState);
-    console.log("MORTAGEE ==> ", this.mortageData);
-    //console.log("PASOOOO ==> ", this.allowNextStep);
   }
 
   private setAllowByProfiles(status: string, profile: string) {
@@ -203,22 +194,6 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     console.log("FORMSTATE ==> ", formState);
     console.log("MORTAGEE ==> ", this.mortageData);
     //console.log("PASOOOO ==> ", this.allowNextStep);
-  }
-
-  isMandatory(): boolean {
-    let isMandatoryForm: boolean = false;
-    let templateMandatory: boolean | undefined = this.templates.get(this.currentStep)?.optons?.mandatory;
-    let templateAMandatory: boolean | undefined = this.templatesA.get(this.currentStep)?.optons?.mandatory
-
-    if(templateMandatory) {
-      isMandatoryForm = isMandatoryForm || templateMandatory;
-    }
-
-    if(templateAMandatory) {
-      isMandatoryForm = isMandatoryForm || templateAMandatory;
-    }
-
-    return isMandatoryForm;
   }
 
   sameOtherFormInit(source: string, dataForm: AbstractDataFormComponent) {

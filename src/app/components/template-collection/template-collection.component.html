@@ -1,0 +1,10 @@
+<!-- Set Petition type -->
+<ng-template #typeOfPetition>
+    <app-type-of-petition class="row d-flex flex-md-row justify-content-center align-items-center" [data]="mortageDataManagement.petitionType" (OnSelectPetitionType)="setPetitionType($event)"></app-type-of-petition>
+</ng-template>
+
+<!-- Set basic information-->
+<ng-template #basicInformation>
+    <app-init-data-form class="row d-flex flex-md-row justify-content-center align-items-center" [petitionType]="this.mortageDataManagement.petitionType" 
+                                                                                                 (onSubmitData)="getInitData($event)"></app-init-data-form>
+</ng-template>

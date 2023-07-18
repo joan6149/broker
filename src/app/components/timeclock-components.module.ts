@@ -10,6 +10,9 @@ import { TopComponent } from './top/top.component';
 import { ComponentsModule } from '@domo/domo-commons-lib';
 import { IndOrColectiveComponent } from './step-components/ind-or-colective/ind-or-colective.component';
 import { DataFormComponent } from './step-components/data-form/data-form.component';
+import { TemplateCollectionComponent } from './template-collection/template-collection.component';
+import { TypeOfPetitionComponent } from './template-collection/type-of-petition/type-of-petition.component';
+import { InitDataFormAppComponent } from './template-collection/init-data-form/init-data-form.component';
 
 
 @NgModule({
@@ -22,7 +25,10 @@ import { DataFormComponent } from './step-components/data-form/data-form.compone
     TextBoxComponent,
     TopComponent,
     IndOrColectiveComponent,
-    DataFormComponent
+    DataFormComponent,
+    TypeOfPetitionComponent,
+    TemplateCollectionComponent,
+    InitDataFormAppComponent
   ],
   exports: [
     BestOfertComponent,
@@ -33,7 +39,8 @@ import { DataFormComponent } from './step-components/data-form/data-form.compone
     TextBoxComponent,
     TopComponent,
     IndOrColectiveComponent,
-    DataFormComponent
+    DataFormComponent,
+    TemplateCollectionComponent
   ],
   imports: [
     CommonModule,

@@ -6,48 +6,20 @@
     </div>
     <div class="row d-flex flex-md-row justify-content-center align-items-center">
         <ng-container #container></ng-container>
-        <ng-container #container_1></ng-container>
+        <!-- <ng-container #container_1></ng-container> -->
     </div>
     <div class="buttons">
-        <button class="btn btn-warning" (click)="nextForm(-1)">Previous</button>
+        <button class="btn btn-warning" (click)="nextStep(-1)">Previous</button>
         <button class="btn btn-success" 
-                [disabled]="isMandatory() && !allowNextStep"
                 *ngIf="+currentStep < numberOfSteps"
-                (click)="nextForm(+1)">Next</button>
+                (click)="nextStep(+1)">Next</button>
         <button class="btn btn-success" 
                 *ngIf="+currentStep === numberOfSteps" 
                 (click)="submit()">Finalize</button>
     </div>
 </div>
 
-<!-- step 1 -->
-<ng-template #typeOfPetition>
-    <div class="col-sm-8 col-md-12 col-4">
-        <app-ind-or-colective [selectedPetition]="mortageData.petitionType" (OnSelectPetitionType)="setPetitionType($event)"></app-ind-or-colective>
-    </div>
-</ng-template>
-
-<!-- Step2 Solicitante -->
-<ng-template #initDataFormS>
-    <div class="col-7" [ngClass]="mortageData.petitionType === 'INDIVIDUAL' ? 'col-md-12': 'col-md-6'">
-        <h2>Solicitante</h2>
-        <div>
-            <ngx-init-data-form #solicitanteDataForm [title]="'SOLICITANTE'" (OnformStateChange)="checkForm($event)"></ngx-init-data-form>
-        </div>
-        <button *ngIf="mortageData.petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherFormInit('ACOMPANIANTE', solicitanteDataForm)">Igual que Acompañante</button>
-    </div>
-</ng-template>
-
-<!-- Step2 Acompanante -->
-<ng-template #initDataFormA>
-    <div class="col-7 mt-5 mt-md-0 col-md-6">
-        <h2>Acompañante</h2>
-        <div>
-            <ngx-init-data-form #acompanianteDataForm [title]="'ACOMPANIANTE'" (OnformStateChange)="checkForm($event)"></ngx-init-data-form>
-        </div>
-        <button class="btn btn-success" (click)="sameOtherFormInit('SOLICITANTE', acompanianteDataForm)">Igual que Solicitante</button>
-    </div>
-</ng-template>
+<ng-template #EmptyTemplate></ng-template>
 
 <!-- Step3 Estado civil solicitante-->
 <ng-template #civilStateS>

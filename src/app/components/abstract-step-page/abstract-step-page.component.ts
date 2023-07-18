@@ -1,4 +1,6 @@
-import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef, AfterViewInit, inject } from '@angular/core';
+import { TemplateCollectionService } from '../template-collection/template-collection.service';
+import { NewMortage } from 'src/app/pages/user/models/NewMortage.model';
 
 
 
@@ -8,8 +10,11 @@ enum Perfil {
 }
 
 export interface MortageTemplate {
-  template: TemplateRef<any>,
-  optons?: MortageTemplateOptions
+  name?: string,
+  solicitanTemplate: TemplateRef<any>,
+  acompaniantTemplate?: TemplateRef<any>,
+  solicitantOptions?: MortageTemplateOptions,
+  acompaniantOptions?: MortageTemplateOptions
 }
 
 export interface MortageTemplateOptions {
@@ -28,18 +33,14 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit {
 
   /** Contenedores */
   @ViewChild('container', {read: ViewContainerRef}) container!: ViewContainerRef;
-  @ViewChild('container_1', {read: ViewContainerRef}) container_1!: ViewContainerRef;
 
   /** Parent template */
   @ViewChild(AbstractStepPageComponent) parentComponent!: AbstractStepPageComponent<any>;
   @ViewChild('steps') steps!: TemplateRef<any>;
 
-  /** Templates comunes */
-  @ViewChild('EmptyTemplate') EmptyTemplate!: TemplateRef<any>;
-
   /** Mapa de Templates */
   templates: Map<string, MortageTemplate> = new Map<string, MortageTemplate>();
-  templatesA: Map<string, MortageTemplate> = new Map<string, MortageTemplate>();
+  //templatesA: Map<string, MortageTemplate> = new Map<string, MortageTemplate>();
 
   currentStep: string = '1';
   numberOfSteps: number = 4;
@@ -47,6 +48,7 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit {
   allowNextStep: boolean = false;
   titles: Map<string, string> = new Map<string, string>();
   
+  templateCollectionService: TemplateCollectionService = inject(TemplateCollectionService);
 
   constructor() { }
 
@@ -59,13 +61,11 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit {
       if(nextStep < 0) {
         if(+this.currentStep > 1) {
           this.currentStep = String(+this.currentStep + nextStep);
-          this.allowNextStep = false;
           this.getTemplate();
         }
       } else {
         if(+this.currentStep < this.numberOfSteps) {
           this.currentStep = String(+this.currentStep + nextStep);
-          this.allowNextStep = false;
           this.getTemplate();
         }
       }
@@ -76,17 +76,12 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit {
     console.log(this.currentStep);
     console.log(this.templates);
     this.container.clear();
-    this.container_1.clear();
-    console.log("EMPTY TENPLATE ==> ", this.EmptyTemplate);
     const template = this.templates.get(this.currentStep);
-    const templateA = this.templatesA.get(this.currentStep);
+    //const templateA = this.templatesA.get(this.currentStep);
     if(template) {
-      this.container.createEmbeddedView(template.template);
+      this.container.createEmbeddedView(template.solicitanTemplate);
     }
 
-    if(templateA) {
-      this.container_1.createEmbeddedView(templateA.template);
-    }
   }
 
   hasTemplateByCurrentStep(perfil: Perfil): boolean {
@@ -94,12 +89,21 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit {
       return this.templates.get(this.currentStep) === undefined ? false : true;
     }
 
-    if(perfil === Perfil.ACOMPANIANTE) {
-      return this.templatesA.get(this.currentStep) === undefined ? false : true;
-    }
-
     return false;
   }
+
+  isMandatory(): boolean {
+    let isMandatoryForm: boolean = false;
+    let templateMandatory: boolean | undefined = this.templates.get(this.currentStep)?.solicitantOptions?.mandatory;
+
+    if(templateMandatory) {
+      isMandatoryForm = isMandatoryForm || templateMandatory;
+    }
+
+
+    return isMandatoryForm;
+  }
+
 
   abstract submit(): void;
 
