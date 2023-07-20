@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { TimeclockService } from './services/timeclock.service';
 import { Observable } from 'rxjs';
 import { DialogData } from '@domo/domo-commons-lib';
+import { environment } from 'src/environments/environment';
+import { Store } from '@ngrx/store';
+import { AppState } from './app.reducer';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +12,9 @@ import { DialogData } from '@domo/domo-commons-lib';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'AvanteHipoteca';
+  title = environment.appName;
   showDialog$: Observable<DialogData> = new Observable<DialogData>();
+
   constructor(private timeClockService: TimeclockService) {
     this.showDialog$ = this.timeClockService.getShowDialog();
   }

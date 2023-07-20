@@ -1,10 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Subscription, catchError, of } from 'rxjs';
+import { AppState } from 'src/app/app.reducer';
 import { Message } from 'src/app/models/message.model';
 import { UserDto } from 'src/app/models/user.dto';
 import { UserService } from 'src/app/services/user.service';
+import * as UserActions from '../../appStore/Actions/Auth.actions';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +24,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   subscriptions:Subscription[] = [];
 
-  constructor(private userService: UserService,
+  constructor(private store: Store<AppState>,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -32,7 +35,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   sumbit(user: any) {
-    this.subscriptions.push(this.userService.registerUser(user).pipe(
+    this.store.dispatch(UserActions.REGISTER({user}));
+    /*this.subscriptions.push(this.userService.registerUser(user).pipe(
       catchError((err: HttpErrorResponse) => {
         this.msg.isCorrect = false;
         this.msg.message = err.error.message;
@@ -47,7 +51,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
           check: true
         }
       }
-    }));
+    })); */
   }
 
   okey() {

@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
 
+  appName: 'TimeClock',
+
   // Configuracion del servivor smtp a usar (esto aaqui weeno en fin ...)
   mailerSendOptions: {
     baseUrl: "https://api.elasticemail.com",
