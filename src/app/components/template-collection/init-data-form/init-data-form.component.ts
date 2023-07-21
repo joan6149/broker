@@ -29,12 +29,10 @@ export class InitDataFormAppComponent implements OnInit, OnDestroy {
   constructor(private templateCollectionService: TemplateCollectionService) { }
 
   ngOnInit(): void {
-    this.templateCollectionService.getMortageData().subscribe((mort: NewMortage) => {
-      this.setFormValues({
-        solicitantData: mort.solicitante,
-        acompaniantdata: mort.acompaniante
-      } as InitDataInterface)
-    })
+    /*this.setFormValues({
+      solicitantData: this.templateCollectionService.mortageData.solicitante,
+      acompaniantdata: this.templateCollectionService.mortageData.acompaniante
+    } as InitDataInterface) */
   }
 
   ngOnDestroy(): void {
@@ -44,6 +42,7 @@ export class InitDataFormAppComponent implements OnInit, OnDestroy {
 
 
   setFormValues(initData: InitDataInterface): void {
+
     this.solicitanteDataForm.setFormValues(initData.solicitantData);
     if(initData.acompaniantdata && this.acompanianteDataForm) {
       this.acompanianteDataForm.setFormValues(initData.acompaniantdata);

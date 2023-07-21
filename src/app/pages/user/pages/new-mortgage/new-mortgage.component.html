@@ -2,11 +2,9 @@
     <h1>{{titles.get(currentStep)}}</h1>
     <div class="new_mortage__subtitle">
         
-        <!-- <h2 *ngIf="hasTemplateByCurrentStep(1) && mortageData.petitionType === 'CONJUNTA'">Acompañante</h2> -->
     </div>
     <div class="row d-flex flex-md-row justify-content-center align-items-center">
         <ng-container #container></ng-container>
-        <!-- <ng-container #container_1></ng-container> -->
     </div>
     <div class="buttons">
         <button class="btn btn-warning" (click)="nextStep(-1)">Previous</button>
@@ -21,87 +19,6 @@
 
 <ng-template #EmptyTemplate></ng-template>
 
-<!-- Step3 Estado civil solicitante-->
-<ng-template #civilStateS>
-    <div class="col-12 col-md-6">
-        <div class="mb-3">
-            <ngx-select-list #estadoCivilSolicitante [listItems]="EstadosCivilesSolicitante" (OnSelectItem)="setEstadoCivil($event)"></ngx-select-list>
-        </div>
-        <button *ngIf="mortageData.petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherCivilState('ACOMPANIANTE', estadoCivilSolicitante)">Igual que Acompañante</button>
-    </div>
-</ng-template>
-
-<!-- Step3 Estado civil acompanante -->
-<ng-template #civilStateA>
-    <div class="col-12 mt-5 mt-md-0 col-md-6">
-        <div class="mb-3">
-            <ngx-select-list #estadoCivilAcompaniante [listItems]="EstadosCivilesAcompanante"></ngx-select-list>
-        </div>
-        <button class="btn btn-success" (click)="sameOtherCivilState('SOLICITANTE', estadoCivilAcompaniante)">Igual que Solicitante</button>
-    </div>
-</ng-template>
-
-<!-- Step4 Pais de residencia -->
-<ng-template #paisResS>
-    <div class="col-7" [ngClass]="mortageData.petitionType === 'INDIVIDUAL' ? 'col-md-12': 'col-md-6'">
-        <div >
-            <ngx-direction-data-form #solicitanteDataDirectionForm [title]="'SOLICITANTE'" (OnformStateChange)="checkFormDirection($event)"></ngx-direction-data-form>
-        </div>
-        <button *ngIf="mortageData.petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherFormDirection('ACOMPANIANTE', solicitanteDataDirectionForm)">Igual que Acompañante</button>
-    </div>
-</ng-template>
-
-<!-- Step4 Pais de residencia -->
-<ng-template #paisResA>
-    <div class="col-7 mt-5 mt-md-0 col-md-6">
-        <div>
-            <ngx-direction-data-form #acompanianteDataDirectionForm [title]="'ACOMPANIANTE'" (OnformStateChange)="checkFormDirection($event)"></ngx-direction-data-form>
-        </div>
-        <button class="btn btn-success" (click)="sameOtherFormDirection('SOLICITANTE', acompanianteDataDirectionForm)">Igual que Solicitante</button>
-    </div>
-</ng-template>
-
-<!-- Step4 Situación Hijos y personas a cargo Solicitante -->
-<ng-template #hijosS>
-    <div class="col-12 col-md-6">
-        <div class="mb-3">
-            <mat-form-field appearance="fill">
-                <mat-label>Numero de hijos</mat-label>
-                <mat-select [(value)]="mortageData.solicitante.hijosAcargo" #hijosSolicitante>
-                    <mat-option value="0">ninguno</mat-option>
-                    <mat-option value="1">1</mat-option>
-                    <mat-option value="2">2</mat-option>
-                    <mat-option value="3">3</mat-option>
-                    <mat-option value="4">4</mat-option>
-                    <mat-option value="5">5</mat-option>
-                    <mat-option value="mas">mas de 5</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <button *ngIf="mortageData.petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherHijos('ACOMPANIANTE')">Igual que Acompañante</button>
-    </div>
-</ng-template>
-
-<!-- Step4 Situación Hijos y personas a cargo Acompañante -->
-<ng-template #hijosA>
-    <div class="col-12 mt-5 mt-md-0 col-md-6">
-        <div class="mb-3">
-            <mat-form-field appearance="fill">
-                <mat-label>Numero de hijos</mat-label>
-                <mat-select [(value)]="mortageData.acompaniante.hijosAcargo" #hijosAcompaniante>
-                    <mat-option value="0">ninguno</mat-option>
-                    <mat-option value="1">1</mat-option>
-                    <mat-option value="2">2</mat-option>
-                    <mat-option value="3">3</mat-option>
-                    <mat-option value="4">4</mat-option>
-                    <mat-option value="5">5</mat-option>
-                    <mat-option value="mas">mas de 5</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <button class="btn btn-success" (click)="sameOtherHijos('SOLICITANTE')">Igual que Solicitante</button>
-    </div>
-</ng-template>
 
 
 

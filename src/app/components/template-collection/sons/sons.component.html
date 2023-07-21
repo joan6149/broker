@@ -1,0 +1,39 @@
+<!-- Step4 Situación Hijos y personas a cargo Solicitante -->
+<div class="col-12 col-md-6">
+    <div class="mb-3">
+        <mat-form-field appearance="fill">
+            <mat-label>Numero de hijos</mat-label>
+            <mat-select [(value)]="mortageData.solicitante.hijosAcargo" #hijosSolicitante>
+                <mat-option value="0">ninguno</mat-option>
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="5">5</mat-option>
+                <mat-option value="mas">mas de 5</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <button *ngIf="mortageData.petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherHijos('ACOMPANIANTE')">Igual que Acompañante</button>
+</div>
+
+<!-- Step4 Situación Hijos y personas a cargo Acompañante -->
+
+<div class="col-12 mt-5 mt-md-0 col-md-6" *ngIf="petitionType === 'CONJUNTA'">
+    <div class="mb-3">
+        <mat-form-field appearance="fill">
+            <mat-label>Numero de hijos</mat-label>
+            <mat-select [(value)]="mortageData.acompaniante.hijosAcargo" #hijosAcompaniante>
+                <mat-option value="0">ninguno</mat-option>
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="5">5</mat-option>
+                <mat-option value="mas">mas de 5</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <button class="btn btn-success" (click)="sameOtherHijos('SOLICITANTE')">Igual que Solicitante</button>
+</div>
+

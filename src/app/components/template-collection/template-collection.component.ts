@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angul
 import { TemplateCollectionService } from './template-collection.service';
 import { Observable } from 'rxjs';
 import { NewMortage, PetitionType } from 'src/app/pages/user/models/NewMortage.model';
-import { MortageTemplate } from '../abstract-step-page/abstract-step-page.component';
+import { MortageTemplate, MortageTemplateOptions } from '../abstract-step-page/abstract-step-page.component';
 import { InitFormState } from '@domo/domo-commons-lib/lib/components/forms/models/InitForm.interface';
 import { AbstractDataFormComponent } from '@domo/domo-commons-lib/lib/components/forms/abstract-data-form/abstract-data-form.component';
 import { InitDataFormComponent } from '@domo/domo-commons-lib';
@@ -19,6 +19,10 @@ export class TemplateCollectionComponent implements OnInit, AfterViewInit {
   /** Templates */
   @ViewChild('typeOfPetition') typeOfPetition!: TemplateRef<any>;
   @ViewChild('basicInformation') basicInformation!: TemplateRef<any>;
+  @ViewChild('civilState') civilState!:TemplateRef<any>;
+  @ViewChild('directionForm') directionForm!:TemplateRef<any>;
+  @ViewChild('sons') sons!:TemplateRef<any>;
+  @ViewChild('residencePermit') residencePermit!: TemplateRef<any>;
   
   /*@ViewChild('initDataFormS') initDataFormS!: TemplateRef<any>;
   @ViewChild('initDataFormA') initDataFormA!: TemplateRef<any>; */
@@ -26,6 +30,7 @@ export class TemplateCollectionComponent implements OnInit, AfterViewInit {
   /** Formularios */
   @ViewChild('solicitanteDataForm') solicitanteDataForm!: InitDataFormComponent;
   @ViewChild('acompanianteDataForm') acompanianteDataForm!: InitDataFormComponent;
+  
 
   /** Data Observables*/
   mortageData: Observable<NewMortage> = new Observable<NewMortage>();
@@ -72,13 +77,47 @@ export class TemplateCollectionComponent implements OnInit, AfterViewInit {
 
     this.templateCollectionService.setTemplate({
       name: 'typeOfPetition',
-      solicitanTemplate: this.typeOfPetition
+      template: this.typeOfPetition
     } as MortageTemplate)
 
     this.templateCollectionService.setTemplate({
       name: 'basicInformation',
-      solicitanTemplate: this.basicInformation,
+      template: this.basicInformation,
+      templateOptions: {
+        mandatory: true,
+        isCorrect: false
+      } as MortageTemplateOptions
     } as MortageTemplate);
+
+    this.templateCollectionService.setTemplate({
+      name: 'civilState',
+      template: this.civilState,
+    } as MortageTemplate);
+
+    this.templateCollectionService.setTemplate({
+      name: 'directionForm',
+      template: this.directionForm,
+      templateOptions: {
+        mandatory: true,
+        isCorrect: false
+      } as MortageTemplateOptions
+    } as MortageTemplate);
+
+    this.templateCollectionService.setTemplate({
+      name: 'sons',
+      template: this.sons,
+      templateOptions: {
+        mandatory: true,
+        isCorrect: false
+      } as MortageTemplateOptions
+    } as MortageTemplate);
+
+    this.templateCollectionService.setTemplate({
+      name: 'residencePermit',
+      template: this.residencePermit
+    } as MortageTemplate);
+
+    
 
   }
 

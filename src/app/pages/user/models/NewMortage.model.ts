@@ -37,7 +37,8 @@ export interface Solicitante {
     dni: string,
     direccion: Direccion,
     fechaNacimiento: string,
-    estadoCivil: EstadoCivil,
+    estadoCivil: string,
+    permisoResidencia: string,
     hijosAcargo: string,
     situacionLaboral: SituacionLaboral,
     ingresos: Ingreso[],
@@ -97,7 +98,8 @@ export enum TipoConstruccion {
 
 export enum EstadoCivil {
     CASADO = 'CASADO',
-    SOLTERO = 'SOLTERO'
+    SOLTERO = 'SOLTERO',
+    DIVORCIADO = 'DIVORCIADO'
 }
 
 export enum TipoSituacionLaboral {
@@ -105,4 +107,9 @@ export enum TipoSituacionLaboral {
     INDEFINNIDO,
     AUTONOMO,
     PENSIONISTA
+}
+
+export enum PermisoResidencia {
+    PERMANENTE = 'PERMANENTE',
+    TEMPORAL = 'TEMPORAL'
 }

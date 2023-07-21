@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subscription, catchError, of } from 'rxjs';
+import { Subscription, catchError, map, of } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
 import { Message } from 'src/app/models/message.model';
 import { UserDto } from 'src/app/models/user.dto';
@@ -28,6 +28,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
               private router: Router) { }
 
   ngOnInit(): void {
+    
   }
 
   ngOnDestroy(): void {

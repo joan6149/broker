@@ -23,7 +23,6 @@ import { MatSelectModule } from '@angular/material/select';
     // Imports de angular material
     MatFormFieldModule,
     MatSelectModule
-
   ]
 })
 export class NewMortgageModule { }

@@ -28,12 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState> , private router: Router) { }
 
   ngOnInit(): void {
-    this.store.select('auth').subscribe( (auth) => {
-      if(auth.token !== null) {
-        localStorage.setItem('token', JSON.stringify(auth.token));
-        auth.token?.role === 'User' ? this.router.navigate(['/user']) : this.router.navigate(['/user-broker'])
-      }
-    });
+    
   }
 
   ngOnDestroy(): void {

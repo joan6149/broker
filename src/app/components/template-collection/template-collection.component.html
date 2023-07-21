@@ -5,6 +5,25 @@
 
 <!-- Set basic information-->
 <ng-template #basicInformation>
-    <app-init-data-form class="row d-flex flex-md-row justify-content-center align-items-center" [petitionType]="this.mortageDataManagement.petitionType" 
-                                                                                                 (onSubmitData)="getInitData($event)"></app-init-data-form>
+    <app-init-data-form class="row d-flex flex-md-row justify-content-center align-items-center" [petitionType]="this.mortageDataManagement.petitionType" (onSubmitData)="getInitData($event)"></app-init-data-form>
+</ng-template>
+
+<!-- Set civil state-->
+<ng-template #civilState>
+    <app-civil-state class="row d-flex flex-md-row justify-content-center align-items-center" [petitionType]="this.mortageDataManagement.petitionType"></app-civil-state>
+</ng-template>
+
+<!-- Set direction -->
+<ng-template #directionForm>
+    <app-country-of-residence class="row d-flex flex-md-row justify-content-center align-items-center" [petitionType]="this.mortageDataManagement.petitionType"></app-country-of-residence>
+</ng-template>
+
+<!-- Set sons -->
+<ng-template #sons>
+    <app-sons class="row d-flex flex-md-row justify-content-center align-items-center" [petitionType]="this.mortageDataManagement.petitionType"></app-sons>
+</ng-template>
+
+<!-- Set resident permit -->
+<ng-template #residencePermit>
+    <app-residence-permit class="row d-flex flex-md-row justify-content-center align-items-center" [petitionType]="this.mortageDataManagement.petitionType"></app-residence-permit>
 </ng-template>

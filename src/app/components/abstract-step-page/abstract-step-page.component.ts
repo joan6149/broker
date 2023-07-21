@@ -11,10 +11,8 @@ enum Perfil {
 
 export interface MortageTemplate {
   name?: string,
-  solicitanTemplate: TemplateRef<any>,
-  acompaniantTemplate?: TemplateRef<any>,
-  solicitantOptions?: MortageTemplateOptions,
-  acompaniantOptions?: MortageTemplateOptions
+  template: TemplateRef<any>,
+  templateOptions?: MortageTemplateOptions,
 }
 
 export interface MortageTemplateOptions {
@@ -72,16 +70,12 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit {
     }
   }
 
-  getTemplate() {
-    console.log(this.currentStep);
-    console.log(this.templates);
+  getTemplate(): void {
     this.container.clear();
-    const template = this.templates.get(this.currentStep);
-    //const templateA = this.templatesA.get(this.currentStep);
+    const template: MortageTemplate | undefined = this.templates.get(this.currentStep);
     if(template) {
-      this.container.createEmbeddedView(template.solicitanTemplate);
+      this.container.createEmbeddedView(template.template);
     }
-
   }
 
   hasTemplateByCurrentStep(perfil: Perfil): boolean {
@@ -94,7 +88,7 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit {
 
   isMandatory(): boolean {
     let isMandatoryForm: boolean = false;
-    let templateMandatory: boolean | undefined = this.templates.get(this.currentStep)?.solicitantOptions?.mandatory;
+    let templateMandatory: boolean | undefined = this.templates.get(this.currentStep)?.templateOptions?.mandatory;
 
     if(templateMandatory) {
       isMandatoryForm = isMandatoryForm || templateMandatory;
@@ -102,6 +96,11 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit {
 
 
     return isMandatoryForm;
+  }
+
+  nextStep(nextStep: number) {
+    //this.templateCollectionService.setMortageData(this.mortageData);
+    this.nextForm(nextStep);
   }
 
 
