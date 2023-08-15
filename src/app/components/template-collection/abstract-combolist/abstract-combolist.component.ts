@@ -22,6 +22,19 @@ export abstract class AbstractCombolistComponent implements OnInit {
 
   lastSelected?: SelectListItem;
 
+  sinoCombobox = [
+    {
+      name: 'SI',
+      isSelected: true,
+      item: true
+    } as SelectListItem, 
+    {
+      name: 'NO',
+      isSelected: false,
+      item: false
+    } as SelectListItem
+  ]
+
   templateCollectionService: TemplateCollectionService = inject(TemplateCollectionService);
 
   constructor() { }

@@ -4,3 +4,8 @@ export interface InitDataInterface {
     solicitantData: Solicitante,
     acompaniantdata?: Solicitante
 }
+
+export interface DataFormData {
+    solicitantData: any,
+    acompaniantData?: any
+}

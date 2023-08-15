@@ -16,9 +16,26 @@ export const environment = {
   },
 
   // UrlBack
-  backend: 'http://localhost:3000/broker'
+  backend: 'http://localhost:3000/broker',
 
   // Configuracion de url del back PODRIAMOS HACERLO CON EL PROXY DE ANGULAR
+
+  // Configuracion de hipoteca
+
+  MortageValues: {
+    maxMortage: 500000,
+    minMortage: 40000,
+    maxYears: 30,
+    minYears: 1,
+    maxPercentage: 1 // quiere decir que lo maximo a hipotecar es el 80% del valor del piso
+  },
+
+  // Configuracion de compañia y logo
+
+  CompanyLogo: {
+    logo: 'ruta del logo',
+    name: 'Avante hipoteca'
+  }
 
 };
 

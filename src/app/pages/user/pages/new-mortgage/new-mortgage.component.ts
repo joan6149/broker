@@ -1,12 +1,7 @@
 import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild, Inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EstadoCivil, NewMortage, PetitionType } from '../../models/NewMortage.model';
-import { SelectListItem } from '@domo/domo-commons-lib/lib/models/SelectList.model';
+import { NewMortage } from '../../models/NewMortage.model';
 import { AbstractStepPageComponent, MortageTemplate } from 'src/app/components/abstract-step-page/abstract-step-page.component';
-import { InitFormState } from '@domo/domo-commons-lib/lib/components/forms/models/InitForm.interface';
-import { InitDataFormComponent, SelectListComponent } from '@domo/domo-commons-lib';
-import { AbstractDataFormComponent } from '@domo/domo-commons-lib/lib/components/forms/abstract-data-form/abstract-data-form.component';
-import { TemplateCollectionService } from 'src/app/components/template-collection/template-collection.service';
 import { Subscription, last } from 'rxjs';
 
 @Component({
@@ -87,17 +82,26 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     this.titles.set('4', 'Direccion');
     this.titles.set('5', 'Hijos a Cargo');
     this.titles.set('6', 'Permiso de residencia');
+    this.titles.set('7', 'Situacion residencia actual');
+    this.titles.set('8', 'Situacion laboral');
+    this.titles.set('9', '¿Sera vivienda habitual?');
+    this.titles.set('10', '¿Cuál es el valor de la propiedad?');
   }
 
   setTemplates() {
     this.templates.set('1', this.templateCollection.get('typeOfPetition') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('2', this.templateCollection.get('basicInformation') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('10', this.templateCollection.get('basicInformation') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('3', this.templateCollection.get('civilState') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('4', this.templateCollection.get('directionForm') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('5', this.templateCollection.get('sons') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('6', this.templateCollection.get('residencePermit') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('7', this.templateCollection.get('currentSituationHouse') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('8', this.templateCollection.get('labSituation') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('9', this.templateCollection.get('isUsuallyHouse') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('2', this.templateCollection.get('propertyValue') ?? {template: this.EmptyTemplate} as MortageTemplate);
 
     this.numberOfSteps = this.templates.size;
+    console.log("Templates => ", this.templates);
   }
 
   submit() {

@@ -7,7 +7,6 @@ import { MainAnnouncementComponent } from './main-announcement/main-announcement
 import { MovileAnimationComponent } from './movile-animation/movile-animation.component';
 import { TextBoxComponent } from './text-box/text-box.component';
 import { TopComponent } from './top/top.component';
-import { ComponentsModule } from '@domo/domo-commons-lib';
 import { IndOrColectiveComponent } from './step-components/ind-or-colective/ind-or-colective.component';
 import { DataFormComponent } from './step-components/data-form/data-form.component';
 import { TemplateCollectionComponent } from './template-collection/template-collection.component';
@@ -22,6 +21,15 @@ import { ResidencePermitComponent } from './template-collection/residence-permit
 import { CurrentHousingSituationComponent } from './template-collection/current-housing-situation/current-housing-situation.component';
 import { CurrentLaboralSituationComponent } from './template-collection/current-laboral-situation/current-laboral-situation.component';
 import { PropertyHouseValueComponent } from './template-collection/property-house-value/property-house-value.component';
+import { AbstractMortageFormComponent } from './template-collection/abstract-mortage-form/abstract-mortage-form.component';
+import { IsUsuallyHouseComponent } from './template-collection/is-usually-house/is-usually-house.component';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatInputModule} from '@angular/material/input';
+import {FormsModule} from '@angular/forms';
+
+import { ComponentsModule } from '@domo/domo-commons-lib';
+import { DomoCommonPipesModule } from '@domo/domo-commons-lib';
+import { DomoCommonDirectiveModule } from '@domo/domo-commons-lib';
 
 
 @NgModule({
@@ -44,7 +52,9 @@ import { PropertyHouseValueComponent } from './template-collection/property-hous
     ResidencePermitComponent,
     CurrentHousingSituationComponent,
     CurrentLaboralSituationComponent,
-    PropertyHouseValueComponent
+    PropertyHouseValueComponent,
+    AbstractMortageFormComponent,
+    IsUsuallyHouseComponent
   ],
   exports: [
     BestOfertComponent,
@@ -61,9 +71,14 @@ import { PropertyHouseValueComponent } from './template-collection/property-hous
   imports: [
     CommonModule,
     ComponentsModule,
+    DomoCommonPipesModule,
+    DomoCommonDirectiveModule,
     // Angular material imports
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSliderModule,
+    MatInputModule,
+    FormsModule
   ]
 })
 export class TimeclockComponentsModule { }

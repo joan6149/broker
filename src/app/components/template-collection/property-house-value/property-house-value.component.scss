@@ -1,0 +1,51 @@
+.text-edit {
+    margin: 0;
+    height: 2em;
+    line-height: 2em;
+}
+
+.text-edit-title {
+    margin: 0;
+    height: 2em;
+    line-height: 2em;
+    text-align: left;
+}
+
+.propertyValue {
+    font-weight: bold;
+    font-size: 2em;
+
+    &:focus-visible {
+        color: green;
+        outline-color: green !important;
+        background-color: transparent;
+    }
+}
+
+.subPropertyValue {
+    font-size: 1.5em;
+    font-weight: bold;
+
+    &:focus-visible {
+        color: green;
+        outline-color: green !important;
+        background-color: transparent;
+    }
+}
+
+.propertyValue-slider {
+    width: 100%;
+}
+
+.inputStyle {
+    border-color: transparent !important;
+    text-align: center;
+}
+
+.incorrectInputValue {
+    color: white;
+    border-color: red !important;
+    border-radius: 6px;
+    outline-color: red;
+    background-color: red;
+}

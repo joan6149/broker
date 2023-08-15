@@ -39,6 +39,7 @@ export interface Solicitante {
     fechaNacimiento: string,
     estadoCivil: string,
     permisoResidencia: string,
+    situacionViviendaActual: string,
     hijosAcargo: string,
     situacionLaboral: SituacionLaboral,
     ingresos: Ingreso[],
@@ -48,6 +49,8 @@ export interface Solicitante {
 export interface SituacionLaboral {
     tipoSituacion: TipoSituacionLaboral,
     profesion: string,
+    tipoFuncionario?: TipoFuncionario,
+    tipoAutonomo?: TipoAutonomo,
     fechaInicio: Date
 }
 
@@ -103,10 +106,26 @@ export enum EstadoCivil {
 }
 
 export enum TipoSituacionLaboral {
-    FUNCIONARIO,
-    INDEFINNIDO,
-    AUTONOMO,
-    PENSIONISTA
+    FUNCIONARIO = 'FUNCIONARIO',
+    INDEFINIDO = 'INDEFINIDO',
+    AUTONOMO = 'AUTONOMO',
+    PENSIONISTA = 'PENSIONISTA'
+}
+
+export enum TipoFuncionario {
+    INTERINO = 'INTERINO',
+    LABORAL = 'LABORAL'
+}
+
+export enum TipoAutonomo {
+    EMPRESARIO = 'EMPRESARIO',
+    AUTONOMO = 'AUTONOMO'
+}
+
+export enum TipoSituacionViviendaActual {
+    PROPIEDAD = 'PROPIEDAD',
+    ALQUILER = 'ALQUILER',
+    FAMILIAR = 'FAMILIAR'
 }
 
 export enum PermisoResidencia {

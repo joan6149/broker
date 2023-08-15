@@ -27,3 +27,23 @@
 <ng-template #residencePermit>
     <app-residence-permit class="row d-flex flex-md-row justify-content-center align-items-center" [petitionType]="this.mortageDataManagement.petitionType"></app-residence-permit>
 </ng-template>
+
+<!-- Set situation of current home -->
+<ng-template #currentSituationHouse>
+    <app-current-housing-situation class="row d-flex flex-md-row justify-content-center align-items-center" [petitionType]="this.mortageDataManagement.petitionType"></app-current-housing-situation>
+</ng-template>
+
+<!-- Set laboral situation -->
+<ng-template #labSituation>
+    <app-current-laboral-situation class="row d-flex flex-md-row justify-content-center align-items-center" [petitionType]="this.mortageDataManagement.petitionType"></app-current-laboral-situation>
+</ng-template>
+
+<!-- Set isUsually property -->
+<ng-template #isUsuallyHouse>
+    <app-is-usually-house class="row d-flex flex-md-row justify-content-center align-items-center"></app-is-usually-house>
+</ng-template>
+
+<!-- Set Property Value -->
+<ng-template #propertyValue>
+    <app-property-house-value class="row d-flex flex-md-row justify-content-center align-items-center"></app-property-house-value>
+</ng-template>

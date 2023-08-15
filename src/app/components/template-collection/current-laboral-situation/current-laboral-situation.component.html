@@ -1,1 +1,25 @@
-<p>current-laboral-situation works!</p>
+<!-- Step2 Solicitante -->
+<div class="col-6" [ngClass]="petitionType === 'INDIVIDUAL' ? 'col-md-12': 'col-md-6'">
+    <h2>Solicitante</h2>
+    <div>
+        <ngx-lab-data-form #solicitanteDataForm [title]="'SOLICITANTE'" 
+                                                [listOfTypeLaboralSituation]="listOfTypeOfSituation"
+                                                [listFunctionaryType]="listOfFunctionaryType"
+                                                [listAutonomType]="listofAutonomType"
+                                                (OnformStateChange)="checkForm($event)"></ngx-lab-data-form>
+    </div>
+    <button *ngIf="petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherForm('ACOMPANIANTE', solicitanteDataForm)">Igual que Acompañante</button>
+</div>
+<!-- REVISAR INPUTS QUE NO FUNCIONA  -->
+<!-- Step2 Acompanante -->
+<div *ngIf="petitionType === 'CONJUNTA'" class="col-6 mt-5 mt-md-0 col-md-6">
+    <h2>Acompañante</h2>
+    <div>
+        <ngx-lab-data-form #acompanianteDataForm [title]="'ACOMPANIANTE'" 
+                                                 [listOfTypeLaboralSituation]="listOfTypeOfSituation"
+                                                 [listFunctionaryType]="listOfFunctionaryType"
+                                                 [listAutonomType]="listofAutonomType"
+                                                 (OnformStateChange)="checkForm($event)"></ngx-lab-data-form>
+    </div>
+    <button class="btn btn-success" (click)="sameOtherForm('SOLICITANTE', acompanianteDataForm)">Igual que Solicitante</button>
+</div>

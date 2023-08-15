@@ -33,7 +33,7 @@ export class CivilStateComponent extends AbstractCombolistComponent implements O
   }
 
   setValue(estado: any) {
-    console.log("ESTADO ==> ",estado);
+    console.log("RECIBO A SETVALUE => ", estado);
     this.lastSelected = estado;
     this.mortageData.solicitante.estadoCivil = estado.name;
     if(this.mortageData.acompaniante !== null) {

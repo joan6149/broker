@@ -1,17 +1,17 @@
 <!-- Step3 Estado civil solicitante-->
 <div class="col-12 col-md-6">
     <div class="mb-3">
-        <ngx-select-list #estadoCivilSolicitante [listItems]="EstadosCivilesSolicitante" (OnSelectItem)="setEstadoCivil($event)"></ngx-select-list>
+        <ngx-select-list #estadoCivilSolicitante [listItems]="listSolicitant" (OnSelectItem)="setValue($event)"></ngx-select-list>
     </div>
-    <button *ngIf="mortageData.petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherCivilState('ACOMPANIANTE', estadoCivilSolicitante)">Igual que Acompañante</button>
+    <button *ngIf="mortageData.petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherCombo('ACOMPANIANTE', estadoCivilSolicitante)">Igual que Acompañante</button>
 </div>
 
 
 <!-- Step3 Estado civil acompanante -->
 <div *ngIf="petitionType === 'CONJUNTA'" class="col-12 mt-5 mt-md-0 col-md-6">
     <div class="mb-3">
-        <ngx-select-list #estadoCivilAcompaniante [listItems]="EstadosCivilesAcompanante"></ngx-select-list>
+        <ngx-select-list #estadoCivilAcompaniante [listItems]="listAcompaniant"></ngx-select-list>
     </div>
-    <button class="btn btn-success" (click)="sameOtherCivilState('SOLICITANTE', estadoCivilAcompaniante)">Igual que Solicitante</button>
+    <button class="btn btn-success" (click)="sameOtherCombo('SOLICITANTE', estadoCivilAcompaniante)">Igual que Solicitante</button>
 </div>
 

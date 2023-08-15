@@ -23,6 +23,10 @@ export class TemplateCollectionComponent implements OnInit, AfterViewInit {
   @ViewChild('directionForm') directionForm!:TemplateRef<any>;
   @ViewChild('sons') sons!:TemplateRef<any>;
   @ViewChild('residencePermit') residencePermit!: TemplateRef<any>;
+  @ViewChild('currentSituationHouse') currentSituationHouse!: TemplateRef<any>;
+  @ViewChild('labSituation') labSituation!: TemplateRef<any>;
+  @ViewChild('isUsuallyHouse') isUsuallyHouse!: TemplateRef<any>;
+  @ViewChild('propertyValue') propertyValue!: TemplateRef<any>;
   
   /*@ViewChild('initDataFormS') initDataFormS!: TemplateRef<any>;
   @ViewChild('initDataFormA') initDataFormA!: TemplateRef<any>; */
@@ -95,6 +99,16 @@ export class TemplateCollectionComponent implements OnInit, AfterViewInit {
     } as MortageTemplate);
 
     this.templateCollectionService.setTemplate({
+      name: 'isUsuallyHouse',
+      template: this.isUsuallyHouse,
+    } as MortageTemplate);
+
+    this.templateCollectionService.setTemplate({
+      name: 'propertyValue',
+      template: this.propertyValue,
+    } as MortageTemplate);
+
+    this.templateCollectionService.setTemplate({
       name: 'directionForm',
       template: this.directionForm,
       templateOptions: {
@@ -117,7 +131,19 @@ export class TemplateCollectionComponent implements OnInit, AfterViewInit {
       template: this.residencePermit
     } as MortageTemplate);
 
-    
+    this.templateCollectionService.setTemplate({
+      name: 'currentSituationHouse',
+      template: this.currentSituationHouse
+    } as MortageTemplate);
+
+    this.templateCollectionService.setTemplate({
+      name: 'labSituation',
+      template: this.labSituation,
+      templateOptions: {
+        mandatory: true,
+        isCorrect: false
+      } as MortageTemplateOptions
+    } as MortageTemplate);
 
   }
 
