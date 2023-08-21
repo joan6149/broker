@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NewMortage } from 'src/app/pages/user/models/NewMortage.model';
+import { NewMortage, PetitionType } from 'src/app/pages/user/models/NewMortage.model';
 import { TemplateCollectionService } from '../template-collection.service';
 
 @Component({
@@ -16,6 +16,8 @@ export class SonsComponent implements OnInit {
 
   ngOnInit(): void {
     this.mortageData = this.templateCollectionService.mortageData;
+    console.log("SONS FIRST ==> ", this.mortageData);
+    this.sendIsCorrect();
   }
 
   sameOtherHijos(source: string) {
@@ -26,6 +28,33 @@ export class SonsComponent implements OnInit {
 
     if(source === 'ACOMPANIANTE') {
       this.mortageData.solicitante.hijosAcargo = this.mortageData.acompaniante.hijosAcargo;
+    }
+  }
+
+  sendIsCorrect() {
+    
+    if(this.mortageData.petitionType === PetitionType.INDIVIDUAL) {
+      if(this.mortageData.solicitante.hijosAcargo) {
+        console.log("CORRETO")
+        this.templateCollectionService.setCurrentTemplateIsCorrect(true);
+      } else {
+        console.log("INCORRETO")
+        this.templateCollectionService.setCurrentTemplateIsCorrect(false);
+      }
+    }
+
+    if(this.mortageData.petitionType === PetitionType.CONJUNTA) {
+      let isCorrectSol: boolean = false;
+      let isCorrectAco: boolean = false;
+      if(this.mortageData.solicitante.hijosAcargo) {
+        isCorrectSol = true;
+      }
+
+      if(this.mortageData.acompaniante.hijosAcargo) {
+        isCorrectAco = true
+      }
+
+      this.templateCollectionService.setCurrentTemplateIsCorrect(isCorrectSol && isCorrectAco);
     }
   }
 

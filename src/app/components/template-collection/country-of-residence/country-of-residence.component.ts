@@ -46,6 +46,15 @@ export class CountryOfResidenceComponent implements OnInit {
 
     //this.allowNextStep = this.mortageData.petitionType === PetitionType.CONJUNTA ? this.correctSolicitanteData && this.correctAcompanianteData : this.correctSolicitanteData;
     console.log("FORMSTATE ==> ", formState);
+    if(formState.status === 'INVALID') {
+      this.templateCollectionService.setCurrentTemplateIsCorrect(false);
+    }
+
+    if(formState.status === 'VALID') {
+      this.templateCollectionService.setCurrentTemplateIsCorrect(true);
+    }
+
+
     console.log("MORTAGEE ==> ", this.mortageData);
     //console.log("PASOOOO ==> ", this.allowNextStep);
   }

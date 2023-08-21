@@ -10,48 +10,15 @@
         <button class="btn btn-warning" (click)="nextStep(-1)">Previous</button>
         <button class="btn btn-success" 
                 *ngIf="+currentStep < numberOfSteps"
+                [disabled]="currentStepIsCorrect === false"
                 (click)="nextStep(+1)">Next</button>
         <button class="btn btn-success" 
                 *ngIf="+currentStep === numberOfSteps" 
+                [disabled]="currentStepIsCorrect === false"
                 (click)="submit()">Finalize</button>
     </div>
 </div>
 
 <ng-template #EmptyTemplate></ng-template>
-
-
-
-
-<!-- Step6 Situación vivienda actual (PROPIEDAD, ALQUILER, FAMILIAR, SIN VIVIENDA)-->
-<ng-template #viviendaActual>
-    <div class="new_mortage__forms__solicitante">
-        
-    </div>
-</ng-template>
-
-<!-- Step7 Situación Laboral-->
-<ng-template #situacionLaboral>
-    <div class="new_mortage__forms__solicitante">
-        
-    </div>
-</ng-template>
-
-<!-- Step8 Sera su vivienda habitual?-->
-
-<!-- Step9 Años de pagamiento -->
-
-<!-- Step10 donde esta la vivienda -->
-
-<!-- Step11 Metros cuadrados-->
-
-<!-- Step12 Tipo construccion-->
-
-<!-- Step13 Solicitada en otras entiaddes-->
-
-<!-- Step14 Cual es su profesion?-->
-
-<!-- Step15 Fecha de inicio de trabajo-->
-
-<!-- Step16 Ingresos y gastos-->
 
 

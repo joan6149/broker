@@ -47,10 +47,10 @@ export interface Solicitante {
 }
 
 export interface SituacionLaboral {
-    tipoSituacion: TipoSituacionLaboral,
-    profesion: string,
-    tipoFuncionario?: TipoFuncionario,
-    tipoAutonomo?: TipoAutonomo,
+    typeLaboralSituation: TipoSituacionLaboral,
+    profession: string,
+    functionaryType?: TipoFuncionario,
+    autonomType?: TipoAutonomo,
     fechaInicio: Date
 }
 

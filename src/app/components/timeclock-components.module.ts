@@ -53,7 +53,6 @@ import { DomoCommonDirectiveModule } from '@domo/domo-commons-lib';
     CurrentHousingSituationComponent,
     CurrentLaboralSituationComponent,
     PropertyHouseValueComponent,
-    AbstractMortageFormComponent,
     IsUsuallyHouseComponent
   ],
   exports: [

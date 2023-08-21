@@ -27,7 +27,7 @@ export const environment = {
     minMortage: 40000,
     maxYears: 30,
     minYears: 1,
-    maxPercentage: 1 // quiere decir que lo maximo a hipotecar es el 80% del valor del piso
+    maxPercentage: 0.8 // quiere decir que lo maximo a hipotecar es el 80% del valor del piso
   },
 
   // Configuracion de compañia y logo

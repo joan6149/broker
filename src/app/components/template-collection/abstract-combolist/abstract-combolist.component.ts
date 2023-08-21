@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, inject } from '@angular/core';
+import { Component, OnInit, Input, inject, Output, EventEmitter } from '@angular/core';
 import { SelectListItem } from '@domo/domo-commons-lib/lib/models/SelectList.model';
 import { EstadoCivil, NewMortage } from 'src/app/pages/user/models/NewMortage.model';
 import { TemplateCollectionService } from '../template-collection.service';

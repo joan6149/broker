@@ -8,7 +8,7 @@
     margin: 0;
     height: 2em;
     line-height: 2em;
-    text-align: left;
+    //text-align: left;
 }
 
 .propertyValue {
@@ -40,6 +40,8 @@
 .inputStyle {
     border-color: transparent !important;
     text-align: center;
+    cursor: pointer;
+    
 }
 
 .incorrectInputValue {
@@ -48,4 +50,9 @@
     border-radius: 6px;
     outline-color: red;
     background-color: red;
+}
+
+.fixedInput {
+    cursor: default;
+    color: #d6d6d6;
 }

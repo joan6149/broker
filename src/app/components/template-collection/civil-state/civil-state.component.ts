@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TemplateCollectionService } from '../template-collection.service';
-import { EstadoCivil, NewMortage } from 'src/app/pages/user/models/NewMortage.model';
+import { EstadoCivil } from 'src/app/pages/user/models/NewMortage.model';
 import { SelectListItem } from '@domo/domo-commons-lib/lib/models/SelectList.model';
-import { SelectListComponent } from '@domo/domo-commons-lib';
 import { AbstractCombolistComponent } from '../abstract-combolist/abstract-combolist.component';
 
 @Component({
@@ -39,6 +37,7 @@ export class CivilStateComponent extends AbstractCombolistComponent implements O
     if(this.mortageData.acompaniante !== null) {
       this.mortageData.acompaniante.estadoCivil = estado.name;
     }
+    this.templateCollectionService.setNextTemplate(1);
   }
 
 }

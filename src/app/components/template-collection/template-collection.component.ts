@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { TemplateCollectionService } from './template-collection.service';
 import { Observable } from 'rxjs';
 import { NewMortage, PetitionType } from 'src/app/pages/user/models/NewMortage.model';
@@ -60,15 +60,16 @@ export class TemplateCollectionComponent implements OnInit, AfterViewInit {
   setPetitionType(petition: PetitionType): void {
     this.mortageDataManagement.petitionType = petition;
     this.sendMortageData();
+    this.templateCollectionService.setNextTemplate(1);
   }
 
-  getInitData(initdata: InitDataInterface) {
+  /*getInitData(initdata: InitDataInterface) {
     this.mortageDataManagement.solicitante = initdata.solicitantData;
     if(initdata.acompaniantdata) {
       this.mortageDataManagement.acompaniante = initdata.acompaniantdata
     }
     this.sendMortageData();
-  }
+  } */
 
 
   private sendMortageData(): void {
@@ -81,21 +82,19 @@ export class TemplateCollectionComponent implements OnInit, AfterViewInit {
 
     this.templateCollectionService.setTemplate({
       name: 'typeOfPetition',
-      template: this.typeOfPetition
+      template: this.typeOfPetition,
+      autoNext: true
     } as MortageTemplate)
 
     this.templateCollectionService.setTemplate({
       name: 'basicInformation',
-      template: this.basicInformation,
-      templateOptions: {
-        mandatory: true,
-        isCorrect: false
-      } as MortageTemplateOptions
+      template: this.basicInformation
     } as MortageTemplate);
 
     this.templateCollectionService.setTemplate({
       name: 'civilState',
       template: this.civilState,
+      autoNext: true
     } as MortageTemplate);
 
     this.templateCollectionService.setTemplate({
@@ -105,7 +104,7 @@ export class TemplateCollectionComponent implements OnInit, AfterViewInit {
 
     this.templateCollectionService.setTemplate({
       name: 'propertyValue',
-      template: this.propertyValue,
+      template: this.propertyValue
     } as MortageTemplate);
 
     this.templateCollectionService.setTemplate({

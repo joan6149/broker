@@ -1,15 +1,15 @@
 import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild, Inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NewMortage } from '../../models/NewMortage.model';
+import { NewMortage, PetitionType } from '../../models/NewMortage.model';
 import { AbstractStepPageComponent, MortageTemplate } from 'src/app/components/abstract-step-page/abstract-step-page.component';
-import { Subscription, last } from 'rxjs';
+import { Subscription, skip } from 'rxjs';
 
 @Component({
   selector: 'app-new-mortgage',
   templateUrl: '../../../../components/abstract-step-page/abstract-step-page.component.html',
   styleUrls: ['./new-mortgage.component.scss']
 })
-export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> implements OnInit, AfterViewInit, OnDestroy {
+export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> implements OnInit {
 
   
 
@@ -26,9 +26,6 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
 
   /** Send values betwen solicitants */
   values: any;
-
-  /** Subscriptnions */
-  subscriptions: Subscription[] = [];
 
   numDeHijosSolicitante: string = '0';
   numDeHijosAcompaniante: string = '0';
@@ -61,18 +58,16 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     // Me suscribo a cambios en el Template
     this.subscriptions.push(this.templateCollectionService.getTemplates().subscribe((mortageTemplate: MortageTemplate) => {
       this.templateCollection.set(mortageTemplate.name || '9999', mortageTemplate);
-      console.log("VEAMOS LA TENPLATE ==> ", mortageTemplate);
-      console.log("Lista ==> ", this.templateCollection);
     }))
-  }
 
-  override ngAfterViewInit() {
-    this.setTemplates();
-    this.getTemplate();
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(s => s.unsubscribe());
+    // Me subscribo a los nextSteps de los componentes que pueden cambiar de step sin next
+    this.subscriptions.push(this.templateCollectionService.getNextTemplate().pipe(
+      skip(1)
+    ).subscribe((next: number) => {
+      if(this.mortageData.petitionType !== PetitionType.CONJUNTA) {
+        //this.nextStep(+next);
+      }
+    }))
   }
 
   setTitles() {
@@ -90,18 +85,22 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
 
   setTemplates() {
     this.templates.set('1', this.templateCollection.get('typeOfPetition') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('10', this.templateCollection.get('basicInformation') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('8', this.templateCollection.get('basicInformation') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('3', this.templateCollection.get('civilState') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('4', this.templateCollection.get('directionForm') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('5', this.templateCollection.get('sons') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('6', this.templateCollection.get('residencePermit') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('7', this.templateCollection.get('currentSituationHouse') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('8', this.templateCollection.get('labSituation') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('2', this.templateCollection.get('labSituation') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('9', this.templateCollection.get('isUsuallyHouse') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('2', this.templateCollection.get('propertyValue') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('10', this.templateCollection.get('propertyValue') ?? {template: this.EmptyTemplate} as MortageTemplate);
 
     this.numberOfSteps = this.templates.size;
     console.log("Templates => ", this.templates);
+
+    if(this.templates.get(this.currentStep)?.templateOptions === undefined || this.templates.get(this.currentStep)?.templateOptions?.isCorrect === true) {
+      this.currentStepIsCorrect = true
+    }
   }
 
   submit() {

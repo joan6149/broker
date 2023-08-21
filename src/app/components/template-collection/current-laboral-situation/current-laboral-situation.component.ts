@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NewMortage, TipoAutonomo, TipoFuncionario, TipoSituacionLaboral } from 'src/app/pages/user/models/NewMortage.model';
 import { AbstractMortageFormComponent } from '../abstract-mortage-form/abstract-mortage-form.component';
 import { InitDataFormComponent } from '@domo/domo-commons-lib';
+import { InitFormState } from '@domo/domo-commons-lib/lib/components/forms/models/InitForm.interface';
 
 @Component({
   selector: 'app-current-laboral-situation',
@@ -17,9 +18,6 @@ export class CurrentLaboralSituationComponent extends AbstractMortageFormCompone
   constructor() {
     super();
     this.generateLists();
-    console.log("Type => ", this.listOfTypeOfSituation);
-    console.log("FuncType => ", this.listOfFunctionaryType);
-    console.log("AutType => ", this.listofAutonomType);
    }
 
    private generateLists(): void {
@@ -28,14 +26,23 @@ export class CurrentLaboralSituationComponent extends AbstractMortageFormCompone
     this.listofAutonomType = Object.values(TipoAutonomo);
    }
 
-   private generateTypeOfSituationList(): void {
+   public checkForm(formState: InitFormState) {
+
+    this.solicitantIsCorrect = (formState.formName === 'SOLICITANTE' && formState.status === 'VALID') ? true : false;
+    this.acompaniantisCorrect = (formState.formName === 'ACOMPANIANTE' && formState.status === 'VALID') ? true : false;
+
+    if(this.solicitantIsCorrect === true) {
+      this.mortageData.solicitante.situacionLaboral = {...this.mortageData.solicitante.situacionLaboral ,...formState.value};
+    }
+
     
-   }
-   private generateFunctionaryList(): void {
+    if(this.acompaniantisCorrect === true) {
+      this.mortageData.acompaniante.situacionLaboral = {...this.mortageData.acompaniante.situacionLaboral ,...formState.value};
+    }
 
-   }
-   private generateAutonomList(): void {
 
-   }
+    this.sendCheckFormIsCorrect();
+    
+  }
 
 }

@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { TemplateCollectionService } from '../template-collection.service';
 
 @Component({
   selector: 'app-property-house-value',
@@ -28,15 +29,19 @@ export class PropertyHouseValueComponent implements OnInit {
   mortagePercentage: number = this.updateMortagePercentageImport();
 
   isCorrectForm: boolean = this.validateForm();
+  showErrorDialog: boolean = false;
 
   MIN_ENTRY_CONTRIBUTE: number = this.propertyValue*this.MIN_TO_CONTRIBUTE;
   MAX_ENTRY_CONTRIBUTE: number = this.propertyValue;
   MIN_TOTAL_ENTRY_CONTRIBUTE: number = this.propertyValue*this.MIN_TO_CONTRIBUTE + this.propertyValue*0.12;
   MAX_TOTAL_ENTRY_CONTRIBUTE: number = this.propertyValue + this.propertyValue*0.12;
 
+  ERROR_MSG: string = '';
+  ERROR_TITLE: string = 'Error en el campo ';
 
 
-  constructor() {}
+
+  constructor(private templateService: TemplateCollectionService) {}
 
   ngOnInit(): void {
     
@@ -44,9 +49,11 @@ export class PropertyHouseValueComponent implements OnInit {
 
   set totalEntryAportation(totalEntryAportation: number) {
     this._totalEntryAportation = totalEntryAportation;
-    this.mortageImport = this.updateMortageImport();
-    this.mortagePercentage = this.updateMortagePercentageImport();
-    this.entryValue = this._totalEntryAportation - this.taxAndCost;
+    if(!this.minMaxValueExceded(this.totalEntryAportation, this.MIN_TOTAL_ENTRY_CONTRIBUTE, this.MAX_TOTAL_ENTRY_CONTRIBUTE)) {
+      this.mortageImport = this.updateMortageImport();
+      this.mortagePercentage = this.updateMortagePercentageImport();
+      this.entryValue = this._totalEntryAportation - this.taxAndCost;
+    }
   }
 
   set yearsToMortage(yearsToMortageValue: number) {
@@ -80,6 +87,7 @@ export class PropertyHouseValueComponent implements OnInit {
 
   sliderPropertyValue(event: any) {
     this.propertyValue = +event.value;
+    this.validatePropertyValue();
   }
 
   sliderEntryValue(event: any) {
@@ -87,6 +95,7 @@ export class PropertyHouseValueComponent implements OnInit {
     this.totalEntryAportation = this.entryValue + this.taxAndCost;
     this.mortageImport = this.updateMortageImport();
     this.mortagePercentage = this.updateMortagePercentageImport();
+    this.validateEntryValue();
   }
 
   sliderTaxAndCostValue(event: any) {
@@ -116,10 +125,12 @@ export class PropertyHouseValueComponent implements OnInit {
 
   sliderTotalAportationValue(event: any) {
     this.totalEntryAportation = +event.value;
+    this.validateTotalEntryValue();
   }
 
   sliderYearsValue(event: any) {
     this.yearsToMortage = +event.value;
+    this.validateTotalYearsValue();
   }
 
   minMaxValueExceded(value: number, minValue?: number, maxValue?: number): boolean {
@@ -135,11 +146,72 @@ export class PropertyHouseValueComponent implements OnInit {
     return false;
   }
 
+  closeErrorDialog() {
+    this.showErrorDialog = false;
+    console.log(this.showErrorDialog);
+  }
+
+  /**
+   * Funciones de validacion de valores
+   */
+
   validateForm(): boolean {
-    return !(this.minMaxValueExceded(this.MIN_MORTAGE, this.MAX_MORTAGE, this.propertyValue) || 
-             this.minMaxValueExceded(this.MIN_YEARS, this.MAX_YEARS, this.yearsToMortage) ||
-             this.minMaxValueExceded(this.MIN_TOTAL_ENTRY_CONTRIBUTE, this.MAX_TOTAL_ENTRY_CONTRIBUTE, this.totalEntryAportation) ||
+    return !(this.minMaxValueExceded(this.propertyValue, this.MIN_MORTAGE, this.MAX_MORTAGE) || 
+             this.minMaxValueExceded(this.yearsToMortage, this.MIN_YEARS, this.MAX_YEARS) ||
+             this.minMaxValueExceded(this.totalEntryAportation, this.MIN_TOTAL_ENTRY_CONTRIBUTE, this.MAX_TOTAL_ENTRY_CONTRIBUTE) ||
              this.minMaxValueExceded(this.entryValue, this.MIN_ENTRY_CONTRIBUTE, this.MAX_ENTRY_CONTRIBUTE));
+  }
+
+  validatePropertyValue() {
+    if(this.minMaxValueExceded(this.propertyValue, this.MIN_MORTAGE, this.MAX_MORTAGE)) {
+      this.ERROR_TITLE = this.ERROR_TITLE+'Valor de la propiedad'
+      this.ERROR_MSG = 'Valor de la propedad incorrecto'; 
+      this.showErrorDialog = true;
+      this.isCorrectForm = false;
+      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+    } else {
+      this.isCorrectForm = true;
+      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+    }
+  }
+
+  validateEntryValue() {
+    if(this.minMaxValueExceded(this.entryValue, this.MIN_ENTRY_CONTRIBUTE, this.MAX_ENTRY_CONTRIBUTE)) {
+      this.ERROR_TITLE = this.ERROR_TITLE+'valor de entrada'
+      this.ERROR_MSG = 'Valor de entrada incorrecto'; 
+      this.showErrorDialog = true;
+      this.isCorrectForm = false;
+      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+    } else {
+      this.isCorrectForm = true;
+      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+    }
+  }
+
+  validateTotalEntryValue() {
+    if(this.minMaxValueExceded(this.totalEntryAportation, this.MIN_TOTAL_ENTRY_CONTRIBUTE, this.MAX_TOTAL_ENTRY_CONTRIBUTE)) {
+      this.ERROR_TITLE = this.ERROR_TITLE+'total valor de entrada'
+      this.ERROR_MSG = `Para el importe ${this.propertyValue}€ el campo valor de entrada debe estar entre ${this.MIN_TOTAL_ENTRY_CONTRIBUTE}€ y ${this.MAX_TOTAL_ENTRY_CONTRIBUTE}€`; 
+      this.showErrorDialog = true;
+      this.isCorrectForm = false;
+      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+    } else {
+      this.isCorrectForm = true;
+      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+    }
+  }
+
+  validateTotalYearsValue() {
+    if(this.minMaxValueExceded(this.yearsToMortage, this.MIN_YEARS, this.MAX_YEARS)) {
+      this.ERROR_TITLE = this.ERROR_TITLE+'Años'
+      this.ERROR_MSG = 'Total de años incorrecto'; 
+      this.showErrorDialog = true;
+      this.isCorrectForm = false;
+      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+    } else {
+      this.isCorrectForm = true;
+      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+    }
   }
 
 }

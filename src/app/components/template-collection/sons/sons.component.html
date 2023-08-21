@@ -3,7 +3,7 @@
     <div class="mb-3">
         <mat-form-field appearance="fill">
             <mat-label>Numero de hijos</mat-label>
-            <mat-select [(value)]="mortageData.solicitante.hijosAcargo" #hijosSolicitante>
+            <mat-select [(value)]="mortageData.solicitante.hijosAcargo" #hijosSolicitante (valueChange)="sendIsCorrect()">
                 <mat-option value="0">ninguno</mat-option>
                 <mat-option value="1">1</mat-option>
                 <mat-option value="2">2</mat-option>

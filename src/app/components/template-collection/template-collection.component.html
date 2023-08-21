@@ -5,12 +5,14 @@
 
 <!-- Set basic information-->
 <ng-template #basicInformation>
-    <app-init-data-form class="row d-flex flex-md-row justify-content-center align-items-center" [petitionType]="this.mortageDataManagement.petitionType" (onSubmitData)="getInitData($event)"></app-init-data-form>
+    <app-init-data-form class="row d-flex flex-md-row justify-content-center align-items-center" [petitionType]="this.mortageDataManagement.petitionType"></app-init-data-form>
 </ng-template>
 
 <!-- Set civil state-->
 <ng-template #civilState>
-    <app-civil-state class="row d-flex flex-md-row justify-content-center align-items-center" [petitionType]="this.mortageDataManagement.petitionType"></app-civil-state>
+    <div class="row justify-content-center">
+        <app-civil-state class="row d-flex flex-md-row justify-content-center align-items-center" [petitionType]="this.mortageDataManagement.petitionType"></app-civil-state>
+    </div>
 </ng-template>
 
 <!-- Set direction -->

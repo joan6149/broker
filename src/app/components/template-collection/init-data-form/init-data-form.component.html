@@ -4,7 +4,7 @@
     <div>
         <ngx-init-data-form #solicitanteDataForm [title]="'SOLICITANTE'" (OnformStateChange)="checkForm($event)"></ngx-init-data-form>
     </div>
-    <button *ngIf="petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherFormInit('ACOMPANIANTE', solicitanteDataForm)">Igual que Acompañante</button>
+    <button *ngIf="petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherForm('ACOMPANIANTE', solicitanteDataForm)">Igual que Acompañante</button>
 </div>
 
 <!-- Step2 Acompanante -->
@@ -13,5 +13,5 @@
     <div>
         <ngx-init-data-form #acompanianteDataForm [title]="'ACOMPANIANTE'" (OnformStateChange)="checkForm($event)"></ngx-init-data-form>
     </div>
-    <button class="btn btn-success" (click)="sameOtherFormInit('SOLICITANTE', acompanianteDataForm)">Igual que Solicitante</button>
+    <button class="btn btn-success" (click)="sameOtherForm('SOLICITANTE', acompanianteDataForm)">Igual que Solicitante</button>
 </div>
