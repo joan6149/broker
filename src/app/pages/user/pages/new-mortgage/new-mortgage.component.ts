@@ -85,13 +85,13 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
 
   setTemplates() {
     this.templates.set('1', this.templateCollection.get('typeOfPetition') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('8', this.templateCollection.get('basicInformation') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('4', this.templateCollection.get('basicInformation') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('3', this.templateCollection.get('civilState') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('4', this.templateCollection.get('directionForm') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('2', this.templateCollection.get('directionForm') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('5', this.templateCollection.get('sons') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('6', this.templateCollection.get('residencePermit') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('7', this.templateCollection.get('currentSituationHouse') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('2', this.templateCollection.get('labSituation') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('8', this.templateCollection.get('labSituation') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('9', this.templateCollection.get('isUsuallyHouse') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('10', this.templateCollection.get('propertyValue') ?? {template: this.EmptyTemplate} as MortageTemplate);
 

@@ -28,8 +28,13 @@ export class CurrentLaboralSituationComponent extends AbstractMortageFormCompone
 
    public checkForm(formState: InitFormState) {
 
-    this.solicitantIsCorrect = (formState.formName === 'SOLICITANTE' && formState.status === 'VALID') ? true : false;
-    this.acompaniantisCorrect = (formState.formName === 'ACOMPANIANTE' && formState.status === 'VALID') ? true : false;
+    if(formState.formName === 'SOLICITANTE') {
+      this.solicitantIsCorrect = formState.status === 'VALID' ? true : false
+    }
+
+    if(formState.formName === 'ACOMPANIANTE') {
+      this.acompaniantisCorrect = formState.status === 'VALID' ? true : false;
+    }
 
     if(this.solicitantIsCorrect === true) {
       this.mortageData.solicitante.situacionLaboral = {...this.mortageData.solicitante.situacionLaboral ,...formState.value};

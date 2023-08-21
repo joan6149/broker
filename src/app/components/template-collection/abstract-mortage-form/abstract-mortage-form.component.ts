@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, inject, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
 import { AbstractDataFormComponent } from '@domo/domo-commons-lib/lib/components/forms/abstract-data-form/abstract-data-form.component';
 import { NewMortage, PetitionType } from 'src/app/pages/user/models/NewMortage.model';
 import { DataFormData } from '../models/initData.interface';
@@ -25,8 +25,9 @@ export abstract class AbstractMortageFormComponent implements OnInit {
   templateCollectionService: TemplateCollectionService = inject(TemplateCollectionService);
 
 
-  @ViewChild('solicitanteDataForm', {static: true}) solicitanteDataForm!: AbstractDataFormComponent;
-  @ViewChild('acompanianteDataForm', {static: true}) acompanianteDataForm!: AbstractDataFormComponent;
+  @ViewChild('solicitanteDataForm') solicitanteDataForm!: AbstractDataFormComponent;
+  @ViewChild('acompanianteDataForm') acompanianteDataForm!: AbstractDataFormComponent;
+
 
   constructor() {}
 

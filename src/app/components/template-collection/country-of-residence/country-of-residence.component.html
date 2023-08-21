@@ -1,15 +1,18 @@
 <!-- Step4 Pais de residencia -->
 <div class="col-7" [ngClass]="mortageData.petitionType === 'INDIVIDUAL' ? 'col-md-12': 'col-md-6'">
     <div >
-        <ngx-direction-data-form #solicitanteDataDirectionForm [title]="'SOLICITANTE'" (OnformStateChange)="checkFormDirection($event)"></ngx-direction-data-form>
+        <ngx-direction-data-form #solicitanteDataForm [title]="'SOLICITANTE'" (OnformStateChange)="checkForm($event)"></ngx-direction-data-form>
     </div>
-    <button *ngIf="mortageData.petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherFormDirection('ACOMPANIANTE', solicitanteDataDirectionForm)">Igual que Acompañante</button>
+    <button *ngIf="mortageData.petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherForm('ACOMPANIANTE', solicitanteDataForm)">Igual que Acompañante</button>
 </div>
 
 <!-- Step4 Pais de residencia -->
 <div class="col-7 mt-5 mt-md-0 col-md-6" *ngIf="petitionType === 'CONJUNTA'">
     <div>
-        <ngx-direction-data-form #acompanianteDataDirectionForm [title]="'ACOMPANIANTE'" (OnformStateChange)="checkFormDirection($event)"></ngx-direction-data-form>
+        <ngx-direction-data-form #acompanianteDataForm [title]="'ACOMPANIANTE'" (OnformStateChange)="checkForm($event)"></ngx-direction-data-form>
     </div>
-    <button class="btn btn-success" (click)="sameOtherFormDirection('SOLICITANTE', acompanianteDataDirectionForm)">Igual que Solicitante</button>
+    <button class="btn btn-success" (click)="sameOtherForm('SOLICITANTE', acompanianteDataForm)">Igual que Solicitante</button>
 </div>
+
+
+
