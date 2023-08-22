@@ -41,7 +41,6 @@ export class CivilStateComponent extends AbstractCombolistComponent implements O
 
   protected override setValue(estado: SelectListItem, source?: string | undefined): void {
     
-    console.log("RECIBO A SETVALUE => ", estado);
     if(source && source === Source.SOLICITANTE) {
       this.currentSolicitantSelectedValue = estado;
       this.mortageData.solicitante.estadoCivil = estado.name;

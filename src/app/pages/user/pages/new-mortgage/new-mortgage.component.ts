@@ -64,7 +64,6 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     this.subscriptions.push(this.templateCollectionService.getNextTemplate().pipe(
       skip(1)
     ).subscribe((next: number) => {
-      console.log("RECIBIDO NEXT TEMPLATE ==> ", next);
       this.nextStep(+this.currentStep+next);
     }))
   }
@@ -95,7 +94,6 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     this.templates.set('10', this.templateCollection.get('propertyValue') ?? {template: this.EmptyTemplate} as MortageTemplate);
 
     this.numberOfSteps = this.templates.size;
-    console.log("Templates => ", this.templates);
 
     if(this.templates.get(this.currentStep)?.templateOptions === undefined || this.templates.get(this.currentStep)?.templateOptions?.isCorrect === true) {
       this.currentStepIsCorrect = true

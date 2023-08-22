@@ -30,6 +30,16 @@ import {FormsModule} from '@angular/forms';
 import { ComponentsModule } from '@domo/domo-commons-lib';
 import { DomoCommonPipesModule } from '@domo/domo-commons-lib';
 import { DomoCommonDirectiveModule } from '@domo/domo-commons-lib';
+import { KindOfHouseComponent } from './template-collection/kind-of-house/kind-of-house.component';
+import { CurrentHiringStateComponent } from './template-collection/current-hiring-state/current-hiring-state.component';
+import { M2HouseComponent } from './template-collection/m2-house/m2-house.component';
+import { KindOfConstructionComponent } from './template-collection/kind-of-construction/kind-of-construction.component';
+import { IsAvalComponent } from './template-collection/is-aval/is-aval.component';
+import { IsRequestedAnotherBancsComponent } from './template-collection/is-requested-another-bancs/is-requested-another-bancs.component';
+import { IsDoHaciendaLastYearComponent } from './template-collection/is-do-hacienda-last-year/is-do-hacienda-last-year.component';
+import { IngressEgressMothlyComponent } from './template-collection/ingress-egress-mothly/ingress-egress-mothly.component';
+import { VerifyYourMailComponent } from './template-collection/verify-your-mail/verify-your-mail.component';
+import { ReadyToGoMainViewComponent } from './template-collection/ready-to-go-main-view/ready-to-go-main-view.component';
 
 
 @NgModule({
@@ -53,7 +63,17 @@ import { DomoCommonDirectiveModule } from '@domo/domo-commons-lib';
     CurrentHousingSituationComponent,
     CurrentLaboralSituationComponent,
     PropertyHouseValueComponent,
-    IsUsuallyHouseComponent
+    IsUsuallyHouseComponent,
+    KindOfHouseComponent,
+    CurrentHiringStateComponent,
+    M2HouseComponent,
+    KindOfConstructionComponent,
+    IsAvalComponent,
+    IsRequestedAnotherBancsComponent,
+    IsDoHaciendaLastYearComponent,
+    IngressEgressMothlyComponent,
+    VerifyYourMailComponent,
+    ReadyToGoMainViewComponent
   ],
   exports: [
     BestOfertComponent,

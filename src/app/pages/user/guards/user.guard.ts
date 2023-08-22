@@ -19,13 +19,6 @@ export class UserGuard implements CanActivate, CanMatch, CanLoad, CanActivateChi
       return of(false);
     }
 
-    console.log('Activate', token);
-
-    console.log('RutasACTI_user', route);
-    console.log('Segmentos_acti_user', state.url);
-
-    console.log('currentUser', this.userService.currentUser);
-
     if(this.userService.currentUser && this.userService.currentUser?.role !== Role.USER) {
       this.router.navigate(['login']);
       return of(false);
@@ -42,8 +35,6 @@ export class UserGuard implements CanActivate, CanMatch, CanLoad, CanActivateChi
       return of(false);
     }
 
-    console.log('Rutas', route);
-    console.log('Segmentos', segments);
 
     if(this.userService.currentUser && this.userService.currentUser?.role !== Role.USER) {
       this.router.navigate(['login']);
@@ -61,9 +52,6 @@ export class UserGuard implements CanActivate, CanMatch, CanLoad, CanActivateChi
       this.router.navigate(['login']);
       return of(false);
     }
-
-    console.log('RutasCLOAD', route);
-    console.log('SegmentosCLOAD', segments);
 
     if(this.userService.currentUser && this.userService.currentUser?.role !== Role.USER) {
       this.router.navigate(['login']);

@@ -19,7 +19,6 @@ export class TemplateCollectionService {
 
 
   setTemplate(mortageTemplate: MortageTemplate): void {
-    console.log("ENVIO EL TEMPLATE ==>", mortageTemplate);
     this.template.next(mortageTemplate);
   }
 

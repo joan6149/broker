@@ -39,7 +39,6 @@ export class ResidencePermitComponent extends AbstractCombolistComponent {
   }
   protected override setValue(estado: SelectListItem, source?: string): void {
 
-    console.log("RECIBO A SETVALUE => ", estado);
     if(source && source === Source.SOLICITANTE) {
       this.currentSolicitantSelectedValue = estado;
       this.mortageData.solicitante.permisoResidencia = estado.name;

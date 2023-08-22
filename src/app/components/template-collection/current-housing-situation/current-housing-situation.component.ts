@@ -39,7 +39,6 @@ export class CurrentHousingSituationComponent extends AbstractCombolistComponent
   }
   protected override setValue(estado: SelectListItem, source?:string): void {
 
-    console.log("RECIBO A SETVALUE => ", estado);
     if(source && source === Source.SOLICITANTE) {
       this.currentSolicitantSelectedValue = estado;
       this.mortageData.solicitante.situacionViviendaActual = estado.name;

@@ -47,7 +47,6 @@ export class TemplateCollectionComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.templateCollectionService.getMortageData().subscribe((mor: NewMortage) => {
       this.mortageDataManagement = mor;
-      console.log("MORTAGE desde TEMLATE", this.mortageDataManagement);
       //this.setFormValues();
     });
   }
@@ -61,14 +60,6 @@ export class TemplateCollectionComponent implements OnInit, AfterViewInit {
     this.mortageDataManagement.petitionType = petition;
     this.sendMortageData();
   }
-
-  /*getInitData(initdata: InitDataInterface) {
-    this.mortageDataManagement.solicitante = initdata.solicitantData;
-    if(initdata.acompaniantdata) {
-      this.mortageDataManagement.acompaniante = initdata.acompaniantdata
-    }
-    this.sendMortageData();
-  } */
 
 
   private sendMortageData(): void {

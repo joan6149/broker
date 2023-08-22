@@ -20,7 +20,6 @@ export class UserService {
   }
 
   registerUser(user: UserDto): Observable<UserDto> {
-    console.log(user);
     return this.httpClient.post<UserDto>(`${environment.backend}/${this.urlSlice}/register`, user);
   }
 
@@ -32,7 +31,6 @@ export class UserService {
     return this.checkUserToken(token).pipe(
       tap((user: UserDto) => {
         this.currentUser = {...user};
-        console.log('CurrentUser en servicio', this.currentUser);
       }),
       map((user: UserDto) => user.role && user.role === role ? true : false)
     )
