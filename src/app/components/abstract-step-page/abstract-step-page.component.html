@@ -7,7 +7,7 @@
         <ng-container #container></ng-container>
     </div>
     <div class="buttons">
-        <button class="btn btn-warning" (click)="nextStep(-1)">Previous</button>
+        <button class="btn btn-warning" *ngIf="+currentStep > 1" (click)="nextStep(-1)">Previous</button>
         <button class="btn btn-success" 
                 *ngIf="+currentStep < numberOfSteps"
                 [disabled]="currentStepIsCorrect === false"
