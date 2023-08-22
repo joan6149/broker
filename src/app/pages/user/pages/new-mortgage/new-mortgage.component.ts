@@ -64,9 +64,8 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     this.subscriptions.push(this.templateCollectionService.getNextTemplate().pipe(
       skip(1)
     ).subscribe((next: number) => {
-      if(this.mortageData.petitionType !== PetitionType.CONJUNTA) {
-        //this.nextStep(+next);
-      }
+      console.log("RECIBIDO NEXT TEMPLATE ==> ", next);
+      this.nextStep(+this.currentStep+next);
     }))
   }
 
@@ -85,10 +84,10 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
 
   setTemplates() {
     this.templates.set('1', this.templateCollection.get('typeOfPetition') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('5', this.templateCollection.get('basicInformation') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('2', this.templateCollection.get('basicInformation') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('3', this.templateCollection.get('civilState') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('4', this.templateCollection.get('directionForm') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('2', this.templateCollection.get('sons') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('5', this.templateCollection.get('sons') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('6', this.templateCollection.get('residencePermit') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('7', this.templateCollection.get('currentSituationHouse') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('8', this.templateCollection.get('labSituation') ?? {template: this.EmptyTemplate} as MortageTemplate);

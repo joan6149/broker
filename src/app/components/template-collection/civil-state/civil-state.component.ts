@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EstadoCivil, Source } from 'src/app/pages/user/models/NewMortage.model';
+import { EstadoCivil, PetitionType, Source } from 'src/app/pages/user/models/NewMortage.model';
 import { SelectListItem } from '@domo/domo-commons-lib/lib/models/SelectList.model';
 import { AbstractCombolistComponent } from '../abstract-combolist/abstract-combolist.component';
 
@@ -20,7 +20,6 @@ export class CivilStateComponent extends AbstractCombolistComponent implements O
       name: this.mortageData.acompaniante?.estadoCivil ? this.mortageData.acompaniante?.estadoCivil : EstadoCivil.CASADO,
       isSelected: true
     }, Source.ACOMPANIANTE)
-    
   }
 
   setAllValues(): void {
@@ -53,8 +52,6 @@ export class CivilStateComponent extends AbstractCombolistComponent implements O
       this.mortageData.acompaniante.estadoCivil = estado.name;
       this.currentAcompaniantSelectedValue = estado;
     }
-    
-    this.templateCollectionService.setNextTemplate(1);
   }
 
 }

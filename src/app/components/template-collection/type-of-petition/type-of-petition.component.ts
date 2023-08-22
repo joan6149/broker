@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PetitionType } from 'src/app/pages/user/models/NewMortage.model';
+import { TemplateCollectionService } from '../template-collection.service';
 
 @Component({
   selector: 'app-type-of-petition',
@@ -11,7 +12,7 @@ export class TypeOfPetitionComponent implements OnInit {
   @Input() data!: PetitionType;
   @Output() OnSelectPetitionType: EventEmitter<PetitionType> = new EventEmitter<PetitionType>();
 
-  constructor() { }
+  constructor(private templateCollection: TemplateCollectionService) { }
 
   ngOnInit(): void {
   }

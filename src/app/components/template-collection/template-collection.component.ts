@@ -60,7 +60,6 @@ export class TemplateCollectionComponent implements OnInit, AfterViewInit {
   setPetitionType(petition: PetitionType): void {
     this.mortageDataManagement.petitionType = petition;
     this.sendMortageData();
-    this.templateCollectionService.setNextTemplate(1);
   }
 
   /*getInitData(initdata: InitDataInterface) {

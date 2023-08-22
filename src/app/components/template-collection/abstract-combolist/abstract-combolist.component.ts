@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, inject, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { SelectListItem } from '@domo/domo-commons-lib/lib/models/SelectList.model';
-import { EstadoCivil, NewMortage } from 'src/app/pages/user/models/NewMortage.model';
+import { EstadoCivil, NewMortage, PetitionType, Source } from 'src/app/pages/user/models/NewMortage.model';
 import { TemplateCollectionService } from '../template-collection.service';
 import { ComponentsModule, SelectListComponent } from '@domo/domo-commons-lib';
 import { CommonModule } from '@angular/common';
@@ -22,8 +22,8 @@ export abstract class AbstractCombolistComponent implements OnInit {
 
   currentSolicitantSelectedValue!: SelectListItem;
   currentAcompaniantSelectedValue?: SelectListItem;
-
   lastSelected?: SelectListItem;
+  firstLoad: boolean = true;
 
   sinoCombobox = [
     {
@@ -52,11 +52,21 @@ export abstract class AbstractCombolistComponent implements OnInit {
 
   sameOtherCombo(source: string, selectList: SelectListComponent) {
     if(source === 'SOLICITANTE') {
+      this.currentAcompaniantSelectedValue = {...this.currentSolicitantSelectedValue} as SelectListItem;
       selectList.typeSelected(this.currentSolicitantSelectedValue!, false)
+      this.setValue({...this.currentSolicitantSelectedValue} as SelectListItem, Source.ACOMPANIANTE);
     }
 
     if(source === 'ACOMPANIANTE') {
+      this.currentSolicitantSelectedValue = {...this.currentAcompaniantSelectedValue} as SelectListItem
       selectList.typeSelected(this.currentAcompaniantSelectedValue!, false)
+      this.setValue({...this.currentAcompaniantSelectedValue} as SelectListItem, Source.SOLICITANTE);
+    }
+  }
+
+  nextTemplate(): void {
+    if(this.petitionType === PetitionType.INDIVIDUAL && this.firstLoad === false) {
+      this.templateCollectionService.setNextTemplate(1);
     }
   }
 
