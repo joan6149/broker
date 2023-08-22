@@ -39,6 +39,21 @@ export class CountryOfResidenceComponent extends AbstractMortageFormComponent {
     this.sendCheckFormIsCorrect();
   }
 
+  override fillFormFields(): void {
+
+    if(this.mortageData.solicitante.direccion) {
+      this.solicitanteDataForm.setFormValues(this.mortageData.solicitante.direccion);
+      this.solicitantIsCorrect = true;
+    }
+
+    if(this.mortageData.acompaniante.direccion) {
+      this.acompanianteDataForm.setFormValues(this.mortageData.acompaniante.direccion);
+      this.acompaniantisCorrect = true;
+    }
+    
+    this.sendCheckFormIsCorrect();
+  }
+
 
 
 }

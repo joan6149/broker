@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, inject, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, inject, QueryList, ViewChildren, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { AbstractDataFormComponent } from '@domo/domo-commons-lib/lib/components/forms/abstract-data-form/abstract-data-form.component';
 import { NewMortage, PetitionType } from 'src/app/pages/user/models/NewMortage.model';
 import { DataFormData } from '../models/initData.interface';
@@ -10,7 +10,7 @@ import { TemplateCollectionService } from '../template-collection.service';
   templateUrl: './abstract-mortage-form.component.html',
   styleUrls: ['./abstract-mortage-form.component.scss']
 })
-export abstract class AbstractMortageFormComponent implements OnInit {
+export abstract class AbstractMortageFormComponent implements OnInit, AfterViewInit {
 
   @Input('petitionType') petitionType!: string;
   mortageData!: NewMortage;
@@ -23,6 +23,7 @@ export abstract class AbstractMortageFormComponent implements OnInit {
   itsSameAcompaniant: boolean = false;
 
   templateCollectionService: TemplateCollectionService = inject(TemplateCollectionService);
+  cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
 
   @ViewChild('solicitanteDataForm') solicitanteDataForm!: AbstractDataFormComponent;
@@ -33,6 +34,10 @@ export abstract class AbstractMortageFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.mortageData = this.templateCollectionService.mortageData;
+  }
+
+  ngAfterViewInit(): void {
+    this.fillFormFields();
   }
 
   setFormValues(data: DataFormData): void {
@@ -73,6 +78,7 @@ export abstract class AbstractMortageFormComponent implements OnInit {
     }
   }
 
-  abstract checkForm(formState: InitFormState): void;
+  abstract checkForm(formState: InitFormState | string): void;
+  abstract fillFormFields(): void;
 
 }

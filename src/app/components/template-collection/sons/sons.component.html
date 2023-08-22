@@ -3,14 +3,14 @@
     <div class="mb-3">
         <mat-form-field appearance="fill">
             <mat-label>Numero de hijos</mat-label>
-            <mat-select [(value)]="mortageData.solicitante.hijosAcargo" #hijosSolicitante (valueChange)="sendIsCorrect()">
-                <mat-option value="0">ninguno</mat-option>
-                <mat-option value="1">1</mat-option>
-                <mat-option value="2">2</mat-option>
-                <mat-option value="3">3</mat-option>
-                <mat-option value="4">4</mat-option>
-                <mat-option value="5">5</mat-option>
-                <mat-option value="mas">mas de 5</mat-option>
+            <mat-select [(ngModel)]="solicitantComboValue" #solicitanteDataCombo (valueChange)="checkForm($event)">
+                <mat-option value="0_SOLICITANTE">ninguno</mat-option>
+                <mat-option value="1_SOLICITANTE">1</mat-option>
+                <mat-option value="2_SOLICITANTE">2</mat-option>
+                <mat-option value="3_SOLICITANTE">3</mat-option>
+                <mat-option value="4_SOLICITANTE">4</mat-option>
+                <mat-option value="5_SOLICITANTE">5</mat-option>
+                <mat-option value="mas_SOLICITANTE">mas de 5</mat-option>
             </mat-select>
         </mat-form-field>
     </div>
@@ -23,14 +23,14 @@
     <div class="mb-3">
         <mat-form-field appearance="fill">
             <mat-label>Numero de hijos</mat-label>
-            <mat-select [(value)]="mortageData.acompaniante.hijosAcargo" #hijosAcompaniante>
-                <mat-option value="0">ninguno</mat-option>
-                <mat-option value="1">1</mat-option>
-                <mat-option value="2">2</mat-option>
-                <mat-option value="3">3</mat-option>
-                <mat-option value="4">4</mat-option>
-                <mat-option value="5">5</mat-option>
-                <mat-option value="mas">mas de 5</mat-option>
+            <mat-select [(value)]="acompaniantComboValue" #acompanianteDataCombo (valueChange)="checkForm($event)">
+                <mat-option value="0_ACOMPANIANTE">ninguno</mat-option>
+                <mat-option value="1_ACOMPANIANTE">1</mat-option>
+                <mat-option value="2_ACOMPANIANTE">2</mat-option>
+                <mat-option value="3_ACOMPANIANTE">3</mat-option>
+                <mat-option value="4_ACOMPANIANTE">4</mat-option>
+                <mat-option value="5_ACOMPANIANTE">5</mat-option>
+                <mat-option value="mas_ACOMPANIANTE">mas de 5</mat-option>
             </mat-select>
         </mat-form-field>
     </div>

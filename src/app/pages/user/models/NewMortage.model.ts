@@ -29,6 +29,11 @@ export enum PetitionType {
     CONJUNTA = 'CONJUNTA'
 }
 
+export enum Source {
+    SOLICITANTE = 'SOLICITANTE',
+    ACOMPANIANTE = 'ACOMPANIANTE'
+}
+
 export interface Solicitante {
     email: string,
     nombre: string,

@@ -50,4 +50,19 @@ export class CurrentLaboralSituationComponent extends AbstractMortageFormCompone
     
   }
 
+  override fillFormFields(): void {
+
+    if(this.mortageData.solicitante.situacionLaboral) {
+      this.solicitanteDataForm.setFormValues(this.mortageData.solicitante.situacionLaboral);
+      this.solicitantIsCorrect = true;
+    }
+
+    if(this.mortageData.acompaniante.situacionLaboral) {
+      this.acompanianteDataForm.setFormValues(this.mortageData.acompaniante.situacionLaboral);
+      this.acompaniantisCorrect = true;
+    }
+    
+    this.sendCheckFormIsCorrect();
+  }
+
 }

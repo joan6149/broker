@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, inject, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, inject, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { SelectListItem } from '@domo/domo-commons-lib/lib/models/SelectList.model';
 import { EstadoCivil, NewMortage } from 'src/app/pages/user/models/NewMortage.model';
 import { TemplateCollectionService } from '../template-collection.service';
@@ -17,8 +17,11 @@ export abstract class AbstractCombolistComponent implements OnInit {
   @Input('petitionType') petitionType!: string;
   mortageData!: NewMortage;
 
-  listSolicitant!: SelectListItem[];
-  listAcompaniant!: SelectListItem[];
+  listSolicitant: SelectListItem[] = [];
+  listAcompaniant: SelectListItem[] = [];
+
+  currentSolicitantSelectedValue!: SelectListItem;
+  currentAcompaniantSelectedValue?: SelectListItem;
 
   lastSelected?: SelectListItem;
 
@@ -37,10 +40,11 @@ export abstract class AbstractCombolistComponent implements OnInit {
 
   templateCollectionService: TemplateCollectionService = inject(TemplateCollectionService);
 
-  constructor() { }
+  constructor() {
+    this.mortageData = this.templateCollectionService.mortageData;
+   }
 
   ngOnInit(): void {
-    this.mortageData = this.templateCollectionService.mortageData;
     this.setAllValues();
   }
 
@@ -48,14 +52,13 @@ export abstract class AbstractCombolistComponent implements OnInit {
 
   sameOtherCombo(source: string, selectList: SelectListComponent) {
     if(source === 'SOLICITANTE') {
-      selectList.typeSelected(this.lastSelected!, false)
+      selectList.typeSelected(this.currentSolicitantSelectedValue!, false)
     }
 
     if(source === 'ACOMPANIANTE') {
-      selectList.typeSelected(this.lastSelected!, false)
+      selectList.typeSelected(this.currentAcompaniantSelectedValue!, false)
     }
   }
 
-  protected abstract setValue(estado: SelectListItem): void;
-
+  protected abstract setValue(estado: SelectListItem, source?: string): void;
 }

@@ -1,61 +1,89 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NewMortage, PetitionType } from 'src/app/pages/user/models/NewMortage.model';
-import { TemplateCollectionService } from '../template-collection.service';
+import { Component, ElementRef, ViewChild} from '@angular/core';
+import { AbstractMortageFormComponent } from '../abstract-mortage-form/abstract-mortage-form.component';
+import { InitFormState } from '@domo/domo-commons-lib/lib/components/forms/models/InitForm.interface';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-sons',
   templateUrl: './sons.component.html',
   styleUrls: ['./sons.component.scss']
 })
-export class SonsComponent implements OnInit {
+export class SonsComponent extends AbstractMortageFormComponent {
 
-  @Input('petitionType') petitionType!: string;
-  mortageData!: NewMortage;
+  solicitantComboValue: string = '-1_SOLICITANTE';
+  acompaniantComboValue: string = '-1_ACOMPANIANTE';
 
-  constructor(private templateCollectionService: TemplateCollectionService) { }
+  constructor() {
+    super();
+   }
 
-  ngOnInit(): void {
-    this.mortageData = this.templateCollectionService.mortageData;
-    console.log("SONS FIRST ==> ", this.mortageData);
-    this.sendIsCorrect();
+  override checkForm(formState: string): void {
+
+    const value: string = formState.split('_')[0];
+    const formName: string = formState.split('_')[1];
+
+    if(this.itsSameSolicitant === false) {
+      if(formName === 'SOLICITANTE') {
+        this.solicitantIsCorrect = value !== '-1' ? true : false;
+      }
+    }
+
+    if(this.itsSameAcompaniant === false) {
+      if(formName === 'ACOMPANIANTE') {
+        this.acompaniantisCorrect = value !== '-1' ? true : false;
+      }
+    }
+
+
+    if(this.solicitantIsCorrect === true) {
+      this.mortageData.solicitante.hijosAcargo = value;
+    }
+
+    
+    if(this.acompaniantisCorrect === true) {
+      this.mortageData.acompaniante.hijosAcargo = value;
+    }
+
+    this.sendCheckFormIsCorrect();
+
+  }
+
+  override fillFormFields(): void {
+    const solicitanteExists: boolean = this.mortageData.solicitante && this.mortageData.solicitante.hijosAcargo !== undefined;
+    const acompanianteExists: boolean = this.mortageData.acompaniante && this.mortageData.acompaniante.hijosAcargo !== undefined;
+
+    if(solicitanteExists) {
+      this.solicitantIsCorrect = true;
+      this.solicitantComboValue = `${this.mortageData.solicitante.hijosAcargo}_SOLICITANTE`
+    }
+
+    if(acompanianteExists) {
+      this.acompaniantisCorrect = true;
+      this.acompaniantComboValue = `${this.mortageData.acompaniante.hijosAcargo}_ACOMPANIANTE`
+    }
+    
+    //this.checkForm(`${this.mortageData.solicitante.hijosAcargo}_SOLICITANTE`)
+    this.sendCheckFormIsCorrect();
+
   }
 
   sameOtherHijos(source: string) {
     
     if(source === 'SOLICITANTE') {
+      this.acompaniantComboValue = `${this.mortageData.solicitante.hijosAcargo}_ACOMPANIANTE`
       this.mortageData.acompaniante.hijosAcargo = this.mortageData.solicitante.hijosAcargo;
+      this.checkForm(`${this.mortageData.acompaniante.hijosAcargo}_ACOMPANIANTE`)
     }
 
     if(source === 'ACOMPANIANTE') {
+      this.solicitantComboValue = `${this.mortageData.acompaniante.hijosAcargo}_SOLICITANTE`
       this.mortageData.solicitante.hijosAcargo = this.mortageData.acompaniante.hijosAcargo;
+      this.checkForm(`${this.mortageData.solicitante.hijosAcargo}_SOLICITANTE`)
     }
-  }
 
-  sendIsCorrect() {
+    //this.sendCheckFormIsCorrect();
     
-    if(this.mortageData.petitionType === PetitionType.INDIVIDUAL) {
-      if(this.mortageData.solicitante.hijosAcargo) {
-        console.log("CORRETO")
-        this.templateCollectionService.setCurrentTemplateIsCorrect(true);
-      } else {
-        console.log("INCORRETO")
-        this.templateCollectionService.setCurrentTemplateIsCorrect(false);
-      }
-    }
-
-    if(this.mortageData.petitionType === PetitionType.CONJUNTA) {
-      let isCorrectSol: boolean = false;
-      let isCorrectAco: boolean = false;
-      if(this.mortageData.solicitante.hijosAcargo) {
-        isCorrectSol = true;
-      }
-
-      if(this.mortageData.acompaniante.hijosAcargo) {
-        isCorrectAco = true
-      }
-
-      this.templateCollectionService.setCurrentTemplateIsCorrect(isCorrectSol && isCorrectAco);
-    }
+    
   }
 
 }

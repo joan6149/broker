@@ -39,4 +39,28 @@ export class InitDataFormAppComponent extends AbstractMortageFormComponent {
     
   }
 
+  override fillFormFields(): void {
+
+    const solicitanteExists: boolean = this.mortageData.solicitante && this.mortageData.solicitante.email !== undefined;
+    const acompanianteExists: boolean = this.mortageData.acompaniante && this.mortageData.acompaniante.email !== undefined;
+
+    if(solicitanteExists) {
+      this.solicitantIsCorrect = true;
+    }
+
+    if(acompanianteExists) {
+      this.acompaniantisCorrect = true;
+    }
+    
+    this.sendCheckFormIsCorrect();
+
+    if(solicitanteExists) {
+      this.solicitanteDataForm.setFormValues({...this.mortageData.solicitante});
+    }
+
+    if(acompanianteExists) {
+      this.acompanianteDataForm.setFormValues({...this.mortageData.acompaniante});
+    }
+  }
+
 }

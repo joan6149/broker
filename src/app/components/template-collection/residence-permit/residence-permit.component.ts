@@ -29,7 +29,7 @@ export class ResidencePermitComponent extends AbstractCombolistComponent {
       } as SelectListItem
     })
   }
-  protected override setValue(estado: SelectListItem): void {
+  protected override setValue(estado: SelectListItem, source?: string): void {
     console.log("ESTADO ==> ",estado);
     this.lastSelected = estado;
     this.mortageData.solicitante.permisoResidencia = estado.name;
