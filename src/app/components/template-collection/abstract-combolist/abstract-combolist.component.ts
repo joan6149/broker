@@ -70,5 +70,14 @@ export abstract class AbstractCombolistComponent implements OnInit {
     }
   }
 
+  setSinoValues(): SelectListItem[] {
+    return this.sinoCombobox.map((val: SelectListItem) => {
+      return {
+        name: val.name,
+        isSelected: val.name === this.currentSolicitantSelectedValue?.name ? true : false
+      }
+    });
+  }
+
   protected abstract setValue(estado: SelectListItem, source?: string): void;
 }

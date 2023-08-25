@@ -6,7 +6,7 @@ import { Source, TipoSituacionViviendaActual } from 'src/app/pages/user/models/N
 @Component({
   selector: 'app-current-housing-situation',
   templateUrl: '../abstract-combolist/./abstract-combolist.component.html',
-  styleUrls: ['./current-housing-situation.component.scss']
+  styleUrls: ['../abstract-combolist/./abstract-combolist.component.scss']
 })
 export class CurrentHousingSituationComponent extends AbstractCombolistComponent {
 

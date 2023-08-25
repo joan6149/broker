@@ -56,7 +56,8 @@ export interface Solicitante {
     hijosAcargo: string,
     situacionLaboral: SituacionLaboral,
     ingresos: Ingreso[],
-    gastos: Gasto[]
+    gastos: Gasto[],
+    ultimaDeclaracionEnEspania: boolean
 }
 
 export interface SituacionLaboral {
