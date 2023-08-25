@@ -83,7 +83,7 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
 
   setTemplates() {
     this.templates.set('1', this.templateCollection.get('typeOfPetition') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('17', this.templateCollection.get('basicInformation') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('14', this.templateCollection.get('basicInformation') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('3', this.templateCollection.get('civilState') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('4', this.templateCollection.get('directionForm') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('5', this.templateCollection.get('sons') ?? {template: this.EmptyTemplate} as MortageTemplate);
@@ -96,10 +96,10 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     this.templates.set('12', this.templateCollection.get('currentHiringState') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('13', this.templateCollection.get('addressNewProperty') ?? {template: this.EmptyTemplate} as MortageTemplate);
     /** Por hacer */
-    this.templates.set('14', this.templateCollection.get('m2House') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('2', this.templateCollection.get('m2House') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('15', this.templateCollection.get('kindOfConstruction') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('16', this.templateCollection.get('isAval') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('2', this.templateCollection.get('isHaciendaLastYear') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('17', this.templateCollection.get('isHaciendaLastYear') ?? {template: this.EmptyTemplate} as MortageTemplate);
 
     this.numberOfSteps = this.templates.size;
 
