@@ -1,6 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef, AfterViewInit, inject, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { TemplateCollectionService } from '../template-collection/template-collection.service';
-import { NewMortage } from 'src/app/pages/user/models/NewMortage.model';
 import { Subscription } from 'rxjs';
 
 
@@ -12,6 +11,7 @@ enum Perfil {
 
 export interface MortageTemplate {
   name?: string,
+  title: string,
   template: TemplateRef<any>,
   templateOptions?: MortageTemplateOptions,
   autoNext?:boolean

@@ -21,7 +21,6 @@ import { ResidencePermitComponent } from './template-collection/residence-permit
 import { CurrentHousingSituationComponent } from './template-collection/current-housing-situation/current-housing-situation.component';
 import { CurrentLaboralSituationComponent } from './template-collection/current-laboral-situation/current-laboral-situation.component';
 import { PropertyHouseValueComponent } from './template-collection/property-house-value/property-house-value.component';
-import { AbstractMortageFormComponent } from './template-collection/abstract-mortage-form/abstract-mortage-form.component';
 import { IsUsuallyHouseComponent } from './template-collection/is-usually-house/is-usually-house.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatInputModule} from '@angular/material/input';

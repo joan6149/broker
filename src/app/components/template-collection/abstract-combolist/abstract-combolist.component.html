@@ -1,14 +1,16 @@
 <!-- Step3 Estado civil solicitante-->
-<div class="col-md-8 col-6">
+<div class="col-8 col-xl-6 mb-5 mb-xl-0">
+    <h3 class="fw-bold">Solicitante</h3>
     <div class="mb-3">
         <ngx-select-list #estadoCivilSolicitante [listItems]="listSolicitant" (OnSelectItem)="setValue($event, 'SOLICITANTE')"></ngx-select-list>
     </div>
-    <button *ngIf="mortageData.petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherCombo('ACOMPANIANTE', estadoCivilSolicitante)">Igual que Acompañante</button>
+    <button *ngIf="mortageData.petitionType === 'CONJUNTA' && listAcompaniant.length > 0" class="btn btn-success" (click)="sameOtherCombo('ACOMPANIANTE', estadoCivilSolicitante)">Igual que Acompañante</button>
 </div>
 
 
 <!-- Step3 Estado civil acompanante -->
-<div *ngIf="petitionType === 'CONJUNTA'" class="col-md-8 mt-5 mt-md-0 col-6">
+<div *ngIf="petitionType === 'CONJUNTA' && listAcompaniant.length > 0" class="col-8 col-xl-6">
+    <h3 class="fw-bold">Acompañante</h3>
     <div class="mb-3">
         <ngx-select-list #estadoCivilAcompaniante [listItems]="listAcompaniant" (OnSelectItem)="setValue($event, 'ACOMPANIANTE')"></ngx-select-list>
     </div>

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { EstadoCivil, PetitionType, Source } from 'src/app/pages/user/models/NewMortage.model';
+import { Component} from '@angular/core';
+import { EstadoCivil, Source } from 'src/app/pages/user/models/NewMortage.model';
 import { SelectListItem } from '@domo/domo-commons-lib/lib/models/SelectList.model';
 import { AbstractCombolistComponent } from '../abstract-combolist/abstract-combolist.component';
 
@@ -8,7 +8,7 @@ import { AbstractCombolistComponent } from '../abstract-combolist/abstract-combo
   templateUrl: '../abstract-combolist/./abstract-combolist.component.html',
   styleUrls: ['./civil-state.component.scss']
 })
-export class CivilStateComponent extends AbstractCombolistComponent implements OnInit {
+export class CivilStateComponent extends AbstractCombolistComponent {
   
   constructor() {
     super();

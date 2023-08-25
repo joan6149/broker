@@ -5,22 +5,30 @@ export class NewMortage {
     solicitante: Solicitante;
     acompaniante: Solicitante;
     viviendaHabitual: boolean;
-    hipotecaActual: Hipoteca;
+    hipoteca: Hipoteca;
     periodoNuevaPeticion: number; //Años a los que quieres poner la hipoteca
     ubicacionVivienda: Direccion;
     m2: number;
-    tipoConstruccion: TipoConstruccion;
+    tipoConstruccion: string;
 
     constructor() {
         this.petitionType = PetitionType.INDIVIDUAL;
         this.solicitante = {} as Solicitante;
         this.acompaniante = {} as Solicitante;
         this.viviendaHabitual = true;
-        this.hipotecaActual = {} as Hipoteca;
+        this.hipoteca = this.createNewHipoteca();
         this.periodoNuevaPeticion = 0;
         this.ubicacionVivienda = {} as Direccion;
         this.m2 = 0;
-        this.tipoConstruccion = TipoConstruccion.PISO;
+        this.tipoConstruccion = tiposDeConstruccion.get(0)!;
+    }
+
+    private createNewHipoteca(): Hipoteca {
+        return {
+            vivienda: {
+                tipoVivienda: TipoVivienda.OBRA_NUEVA
+            }
+        } as Hipoteca
     }
 }
 
@@ -72,13 +80,12 @@ export interface Gasto {
 
 export interface Hipoteca {
     valorPropiedad: number,
-    importePendiente?: number,
-    tipoInteres: TipoInteres,
-    tasaInteres: number,
-    anosPendientes: number,
-    fechaFirmaHipoteca?: Date,
-    situacionVivienda?: Direccion,
-    banco: string
+    valorEntrada: number,
+    costesImpuestos: number,
+    valorTotalEntradaAportar: number,
+    porcentageHipotecar: number,
+    anos: number,
+    vivienda: Vivienda,
 }
 
 export interface Direccion {
@@ -91,16 +98,35 @@ export interface Direccion {
     codPostal: string
 }
 
+export interface Vivienda {
+    tipoVivienda: string,
+    estadoActual: string,
+    situacionVivienda?: Direccion
+}
+
+export const estadosActuales = new Map<number, string>([
+    [0, 'TENGO NOTA SIMPLE'],
+    [1, 'TENGO RESERVA'],
+    [2, 'TENGO LAS ARRAS'],
+    [3, 'TENGO LA TASACIÓN'],
+    [4, 'NO TENGO VIVIENDA IDENTIFICADA']
+]);
+
+export const tiposDeConstruccion = new Map<number, string>([
+    [0, 'PISO DE UNA PLANTA'],
+    [1, 'PISO DUPLEX'],
+    [2, 'CHALET ADOSADO'],
+    [3, 'CHALET INDEPENDIENTE']
+])
+
+export enum TipoVivienda {
+    OBRA_NUEVA = 'OBRA NUEVA',
+    EXISTENTE = 'EXISTENTE'
+}
+
 export enum TipoInteres {
     FIJO = 'FIJO',
     VARIABLE = 'VARIABLE'
-}
-
-export enum TipoConstruccion {
-    PISO,
-    DUPLEX,
-    CHALETA,
-    CHALETI
 }
 
 

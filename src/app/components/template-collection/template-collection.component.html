@@ -49,3 +49,38 @@
 <ng-template #propertyValue>
     <app-property-house-value class="row d-flex flex-md-row justify-content-center align-items-center"></app-property-house-value>
 </ng-template>
+
+<!-- Set Tipo de vivienda (obra nueva o existente) -->
+<ng-template #kindOfHouse>
+    <app-kind-of-house class="row d-flex flex-md-row justify-content-center align-items-center"></app-kind-of-house>
+</ng-template>
+
+<!-- Set estado actual de peticion (arras, tasacion etcc que tengo) -->
+<ng-template #currentHiringState>
+    <app-current-hiring-state class="row d-flex flex-md-row justify-content-center align-items-center"></app-current-hiring-state>
+</ng-template>
+
+<!-- Set direction -->
+<ng-template #addressNewProperty>
+    <app-country-of-residence class="row d-flex flex-md-row justify-content-center align-items-center" [petitionType]="'INDIVIDUAL'"></app-country-of-residence>
+</ng-template>
+
+<!-- Set metros cuadrados de la casa -->
+<ng-template #m2House>
+    <app-m2-house class="row d-flex flex-md-row justify-content-center align-items-center"></app-m2-house>
+</ng-template>
+
+<!-- Set tipo de construccion duplex no duplex etc -->
+<ng-template #kindOfConstruction>
+    <app-kind-of-construction class="row d-flex flex-md-row justify-content-center align-items-center"></app-kind-of-construction>
+</ng-template>
+
+<!-- Set tienes o puedes conseguir aval? -->
+<ng-template #isAval>
+    <app-is-aval class="row d-flex flex-md-row justify-content-center align-items-center"></app-is-aval>
+</ng-template>
+
+<!-- Set has realizado la declaracion de renta el ultimo año en españa-->
+<ng-template #isHaciendaLastYear>
+        <app-is-do-hacienda-last-year class="row d-flex flex-md-row justify-content-center align-items-center"></app-is-do-hacienda-last-year>
+</ng-template>
