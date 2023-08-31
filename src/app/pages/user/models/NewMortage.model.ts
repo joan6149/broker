@@ -7,8 +7,7 @@ export class NewMortage {
     viviendaHabitual: boolean;
     hipoteca: Hipoteca;
     periodoNuevaPeticion: number; //Años a los que quieres poner la hipoteca
-    ubicacionVivienda: Direccion;
-    m2: number;
+    //ubicacionVivienda: Direccion;
     tipoConstruccion: string;
 
     constructor() {
@@ -18,15 +17,15 @@ export class NewMortage {
         this.viviendaHabitual = true;
         this.hipoteca = this.createNewHipoteca();
         this.periodoNuevaPeticion = 0;
-        this.ubicacionVivienda = {} as Direccion;
-        this.m2 = 0;
-        this.tipoConstruccion = tiposDeConstruccion.get(0)!;
+        //this.ubicacionVivienda = {} as Direccion;
+        this.tipoConstruccion = TiposDeConstruccion.get(0)!;
     }
 
     private createNewHipoteca(): Hipoteca {
         return {
             vivienda: {
-                tipoVivienda: TipoVivienda.OBRA_NUEVA
+                tipoVivienda: TipoVivienda.OBRA_NUEVA,
+                m2: 100
             }
         } as Hipoteca
     }
@@ -58,6 +57,7 @@ export interface Solicitante {
     ingresos: Ingreso[],
     gastos: Gasto[],
     ultimaDeclaracionEnEspania: boolean
+    tengoAval: boolean;
 }
 
 export interface SituacionLaboral {
@@ -101,11 +101,13 @@ export interface Direccion {
 
 export interface Vivienda {
     tipoVivienda: string,
+    tipoConstruccion: string,
     estadoActual: string,
+    m2: number,
     situacionVivienda?: Direccion
 }
 
-export const estadosActuales = new Map<number, string>([
+export const EstadosActuales = new Map<number, string>([
     [0, 'TENGO NOTA SIMPLE'],
     [1, 'TENGO RESERVA'],
     [2, 'TENGO LAS ARRAS'],
@@ -113,7 +115,7 @@ export const estadosActuales = new Map<number, string>([
     [4, 'NO TENGO VIVIENDA IDENTIFICADA']
 ]);
 
-export const tiposDeConstruccion = new Map<number, string>([
+export const TiposDeConstruccion = new Map<number, string>([
     [0, 'PISO DE UNA PLANTA'],
     [1, 'PISO DUPLEX'],
     [2, 'CHALET ADOSADO'],

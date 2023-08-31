@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, inject, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, inject } from '@angular/core';
 import { SelectListItem } from '@domo/domo-commons-lib/lib/models/SelectList.model';
 import { EstadoCivil, NewMortage, PetitionType, Source } from 'src/app/pages/user/models/NewMortage.model';
 import { TemplateCollectionService } from '../template-collection.service';
@@ -48,8 +48,6 @@ export abstract class AbstractCombolistComponent implements OnInit {
     this.setAllValues();
   }
 
-  protected abstract setAllValues(): void;
-
   sameOtherCombo(source: string, selectList: SelectListComponent) {
     if(source === 'SOLICITANTE') {
       this.currentAcompaniantSelectedValue = {...this.currentSolicitantSelectedValue} as SelectListItem;
@@ -79,5 +77,19 @@ export abstract class AbstractCombolistComponent implements OnInit {
     });
   }
 
+  protected setSiNoInitialValue(): void {
+    this.setValue({
+      name: 'SI',
+      isSelected: true
+    } as SelectListItem, Source.SOLICITANTE)
+
+    this.setValue({
+      name: 'SI',
+      isSelected: true
+    } as SelectListItem, Source.ACOMPANIANTE)
+  }
+
+
+  protected abstract setAllValues(): void;
   protected abstract setValue(estado: SelectListItem, source?: string): void;
 }

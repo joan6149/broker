@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { NewMortage } from 'src/app/pages/user/models/NewMortage.model';
+import { TemplateCollectionService } from '../template-collection.service';
 
 @Component({
   selector: 'app-m2-house',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class M2HouseComponent implements OnInit {
 
-  constructor() { }
+  mortageData!: NewMortage;
+  templateCollectionService: TemplateCollectionService = inject(TemplateCollectionService);
+  
+  constructor() {
+    this.mortageData = this.templateCollectionService.mortageData;
+   }
 
   ngOnInit(): void {
+  }
+
+  doGetM2Value(evt: number) {
+    console.log(evt);
+    this.mortageData.hipoteca.vivienda.m2 = evt;
   }
 
 }

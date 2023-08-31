@@ -12,16 +12,7 @@ export class IsDoHaciendaLastYearComponent extends AbstractCombolistComponent {
 
   constructor() {
     super();
-
-    this.setValue({
-      name: 'SI',
-      isSelected: true
-    } as SelectListItem, Source.SOLICITANTE)
-
-    this.setValue({
-      name: 'SI',
-      isSelected: true
-    } as SelectListItem, Source.ACOMPANIANTE)
+    this.setSiNoInitialValue();
 
   }
 

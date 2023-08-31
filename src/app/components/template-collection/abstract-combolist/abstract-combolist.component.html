@@ -1,6 +1,6 @@
 <!-- Step3 Estado civil solicitante-->
 <div class="col-8 col-xl-6 mb-5 mb-xl-0">
-    <h3 class="fw-bold">Solicitante</h3>
+    <h3 class="fw-bold" *ngIf="listAcompaniant.length > 0">Solicitante</h3>
     <div class="mb-3">
         <ngx-select-list #estadoCivilSolicitante [listItems]="listSolicitant" [selectedItem]="currentSolicitantSelectedValue" (OnSelectItem)="setValue($event, 'SOLICITANTE')"></ngx-select-list>
     </div>
