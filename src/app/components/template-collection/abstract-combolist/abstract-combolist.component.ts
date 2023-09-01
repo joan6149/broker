@@ -5,6 +5,11 @@ import { TemplateCollectionService } from '../template-collection.service';
 import { ComponentsModule, SelectListComponent } from '@domo/domo-commons-lib';
 import { CommonModule } from '@angular/common';
 
+export enum SimpleAnswer {
+  SI = 'SI',
+  NO = 'NO'
+}
+
 @Component({
   selector: 'app-abstract-combolist',
   templateUrl: './abstract-combolist.component.html',
@@ -27,12 +32,12 @@ export abstract class AbstractCombolistComponent implements OnInit {
 
   sinoCombobox = [
     {
-      name: 'SI',
+      name: SimpleAnswer.SI,
       isSelected: true,
       item: true
     } as SelectListItem, 
     {
-      name: 'NO',
+      name: SimpleAnswer.NO,
       isSelected: false,
       item: false
     } as SelectListItem
@@ -42,6 +47,7 @@ export abstract class AbstractCombolistComponent implements OnInit {
 
   constructor() {
     this.mortageData = this.templateCollectionService.mortageData;
+    this.setAllValues();
    }
 
   ngOnInit(): void {
@@ -79,14 +85,16 @@ export abstract class AbstractCombolistComponent implements OnInit {
 
   protected setSiNoInitialValue(): void {
     this.setValue({
-      name: 'SI',
+      name: SimpleAnswer.SI,
       isSelected: true
     } as SelectListItem, Source.SOLICITANTE)
 
-    this.setValue({
-      name: 'SI',
-      isSelected: true
-    } as SelectListItem, Source.ACOMPANIANTE)
+    if(this.listAcompaniant.length > 0) {
+      this.setValue({
+        name: SimpleAnswer.SI,
+        isSelected: true
+      } as SelectListItem, Source.ACOMPANIANTE)
+    }
   }
 
 

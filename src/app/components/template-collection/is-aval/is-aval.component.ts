@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AbstractCombolistComponent } from '../abstract-combolist/abstract-combolist.component';
 import { SelectListItem } from '@domo/domo-commons-lib/lib/models/SelectList.model';
 import { Source } from 'src/app/pages/user/models/NewMortage.model';

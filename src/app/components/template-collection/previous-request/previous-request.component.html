@@ -1,0 +1,24 @@
+<!-- Step3 Estado civil solicitante-->
+<div class="col-8 col-xl-6 mb-5 mb-xl-0">
+    <h3 class="fw-bold" *ngIf="listAcompaniant.length > 0">Solicitante</h3>
+    <div class="mb-3">
+        <ngx-select-list #estadoCivilSolicitante [listItems]="listSolicitant" [selectedItem]="currentSolicitantSelectedValue" (OnSelectItem)="setValue($event, 'SOLICITANTE')"></ngx-select-list>
+    </div>
+    <button *ngIf="mortageData.petitionType === 'CONJUNTA' && listAcompaniant.length > 0" class="btn btn-success" (click)="sameOtherCombo('ACOMPANIANTE', estadoCivilSolicitante)">Igual que Acompañante</button>
+</div>
+
+<ng-container *ngIf="previousRequestAnswer === 'SI'">
+    <div class="row">
+        <h3>¿Con que entidades estas trabajando?</h3>
+        <div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">Bancos</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                <label class="form-check-label" for="inlineCheckbox2">Brokers</label>
+              </div>
+        </div>
+    </div>
+</ng-container>

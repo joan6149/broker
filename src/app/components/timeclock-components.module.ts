@@ -39,6 +39,7 @@ import { IsDoHaciendaLastYearComponent } from './template-collection/is-do-hacie
 import { IngressEgressMothlyComponent } from './template-collection/ingress-egress-mothly/ingress-egress-mothly.component';
 import { VerifyYourMailComponent } from './template-collection/verify-your-mail/verify-your-mail.component';
 import { ReadyToGoMainViewComponent } from './template-collection/ready-to-go-main-view/ready-to-go-main-view.component';
+import { PreviousRequestComponent } from './template-collection/previous-request/previous-request.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { ReadyToGoMainViewComponent } from './template-collection/ready-to-go-ma
     IsDoHaciendaLastYearComponent,
     IngressEgressMothlyComponent,
     VerifyYourMailComponent,
-    ReadyToGoMainViewComponent
+    ReadyToGoMainViewComponent,
+    PreviousRequestComponent
   ],
   exports: [
     BestOfertComponent,

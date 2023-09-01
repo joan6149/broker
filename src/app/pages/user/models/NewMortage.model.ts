@@ -4,21 +4,15 @@ export class NewMortage {
     petitionType: PetitionType;
     solicitante: Solicitante;
     acompaniante: Solicitante;
-    viviendaHabitual: boolean;
+    //viviendaHabitual: boolean;
     hipoteca: Hipoteca;
-    periodoNuevaPeticion: number; //Años a los que quieres poner la hipoteca
-    //ubicacionVivienda: Direccion;
-    tipoConstruccion: string;
 
     constructor() {
         this.petitionType = PetitionType.INDIVIDUAL;
         this.solicitante = {} as Solicitante;
         this.acompaniante = {} as Solicitante;
-        this.viviendaHabitual = true;
+        //this.viviendaHabitual = true;
         this.hipoteca = this.createNewHipoteca();
-        this.periodoNuevaPeticion = 0;
-        //this.ubicacionVivienda = {} as Direccion;
-        this.tipoConstruccion = TiposDeConstruccion.get(0)!;
     }
 
     private createNewHipoteca(): Hipoteca {
@@ -85,26 +79,39 @@ export interface Hipoteca {
     costesImpuestos: number,
     valorTotalEntradaAportar: number,
     porcentageHipotecar: number,
+    importeHipoteca: number,
     anos: number,
     vivienda: Vivienda,
+    solicitudPrevia: SolicitudPrevia
 }
 
-export interface Direccion {
+export interface SolicitudPrevia {
+    bancos: string[],
+    brokers: string[]
+}
+
+export interface DireccionBase {
     pais: string,
     ciudad: string,
     provincia: string,
+    comunidadAutonoma?: string
+}
+
+export interface Direccion extends DireccionBase {
     calle: string,
     piso: string,
     puerta: string,
-    codPostal: string
+    codPostal: string,
 }
 
 export interface Vivienda {
+    viviendaHabitual: boolean,
     tipoVivienda: string,
     tipoConstruccion: string,
     estadoActual: string,
     m2: number,
-    situacionVivienda?: Direccion
+    valorVivienda: number,
+    situacionVivienda?: DireccionBase
 }
 
 export const EstadosActuales = new Map<number, string>([

@@ -14,7 +14,7 @@ export class IsUsuallyHouseComponent extends AbstractCombolistComponent {
     super();
 
     this.setValue({
-      name: this.mortageData.viviendaHabitual && this.mortageData.viviendaHabitual === true ? this.sinoCombobox[0].name : this.sinoCombobox[1].name,
+      name: this.mortageData.hipoteca.vivienda.viviendaHabitual && this.mortageData.hipoteca.vivienda.viviendaHabitual === true ? this.sinoCombobox[0].name : this.sinoCombobox[1].name,
       isSelected: true
     })
 
@@ -32,7 +32,7 @@ export class IsUsuallyHouseComponent extends AbstractCombolistComponent {
 
   protected override setValue(estado: SelectListItem, source?: string | undefined): void {
     this.currentSolicitantSelectedValue = estado;
-    this.mortageData.viviendaHabitual = estado.name === 'SI' ? true : false;
+    this.mortageData.hipoteca.vivienda.viviendaHabitual = estado.name === 'SI' ? true : false;
   }
 
 

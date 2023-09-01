@@ -34,6 +34,7 @@ export class TemplateCollectionComponent implements OnInit, AfterViewInit {
   @ViewChild('kindOfConstruction') kindOfConstruction!: TemplateRef<any>;
   @ViewChild('isAval') isAval!: TemplateRef<any>;
   @ViewChild('isHaciendaLastYear') isHaciendaLastYear!: TemplateRef<any>;
+  @ViewChild('previousRequest') previousRequest!: TemplateRef<any>;
   
   /*@ViewChild('initDataFormS') initDataFormS!: TemplateRef<any>;
   @ViewChild('initDataFormA') initDataFormA!: TemplateRef<any>; */
@@ -180,7 +181,12 @@ export class TemplateCollectionComponent implements OnInit, AfterViewInit {
       title: '¿Has realizado la declaración de hacienda en españa el ultimo año?',
       template: this.isHaciendaLastYear,
     } as MortageTemplate);
-
+    
+    this.templateCollectionService.setTemplate({
+      name: 'previousRequest',
+      title: '¿Has solicitado ya la hipoteca con otros bancos?',
+      template: this.previousRequest,
+    } as MortageTemplate);
   }
 
 }
