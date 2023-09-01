@@ -83,15 +83,15 @@ export abstract class AbstractCombolistComponent implements OnInit {
     });
   }
 
-  protected setSiNoInitialValue(): void {
+  protected setSiNoInitialValue(initialValue?: string): void {
     this.setValue({
-      name: SimpleAnswer.SI,
+      name: initialValue ? initialValue : SimpleAnswer.SI,
       isSelected: true
     } as SelectListItem, Source.SOLICITANTE)
 
     if(this.listAcompaniant.length > 0) {
       this.setValue({
-        name: SimpleAnswer.SI,
+        name: initialValue ? initialValue : SimpleAnswer.SI,
         isSelected: true
       } as SelectListItem, Source.ACOMPANIANTE)
     }
