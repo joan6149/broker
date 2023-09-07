@@ -12,6 +12,8 @@ import { AbstractMortageFormComponent } from '../abstract-mortage-form/abstract-
 })
 export class CountryOfResidenceComponent extends AbstractMortageFormComponent {
 
+  shortDirection = false;
+
   constructor() {
     super();
     }

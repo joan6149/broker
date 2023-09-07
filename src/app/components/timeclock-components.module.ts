@@ -41,6 +41,10 @@ import { VerifyYourMailComponent } from './template-collection/verify-your-mail/
 import { ReadyToGoMainViewComponent } from './template-collection/ready-to-go-main-view/ready-to-go-main-view.component';
 import { PreviousRequestComponent } from './template-collection/previous-request/previous-request.component';
 
+// PrimeNG
+import {KnobModule} from 'primeng/knob';
+import {SliderModule} from 'primeng/slider';
+
 
 @NgModule({
   declarations: [
@@ -93,11 +97,8 @@ import { PreviousRequestComponent } from './template-collection/previous-request
     ComponentsModule,
     DomoCommonPipesModule,
     DomoCommonDirectiveModule,
-    // Angular material imports
-    MatFormFieldModule,
-    MatSelectModule,
-    MatSliderModule,
-    MatInputModule,
+    KnobModule,
+    SliderModule,
     FormsModule
   ]
 })

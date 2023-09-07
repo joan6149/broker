@@ -10,17 +10,19 @@ import { MatSelect } from '@angular/material/select';
 })
 export class SonsComponent extends AbstractMortageFormComponent {
 
-  solicitantComboValue: string = '-1_SOLICITANTE';
-  acompaniantComboValue: string = '-1_ACOMPANIANTE';
+  solicitantComboValue: any = '0_SOLICITANTE';
+  acompaniantComboValue: any = '0_ACOMPANIANTE';
 
   constructor() {
     super();
    }
 
-  override checkForm(formState: string): void {
+  override checkForm(formState: any): void {
 
-    const value: string = formState.split('_')[0];
-    const formName: string = formState.split('_')[1];
+    console.log(formState);
+
+    const value: string = formState.target.value.split('_')[0];
+    const formName: string = formState.target.value.split('_')[1];
 
     if(this.itsSameSolicitant === false) {
       if(formName === 'SOLICITANTE') {

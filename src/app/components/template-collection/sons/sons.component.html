@@ -1,18 +1,16 @@
 <!-- Step4 Situación Hijos y personas a cargo Solicitante -->
-<div class="col-12 col-md-6">
-    <div class="mb-3">
-        <mat-form-field appearance="fill">
-            <mat-label>Numero de hijos</mat-label>
-            <mat-select [(ngModel)]="solicitantComboValue" #solicitanteDataCombo (valueChange)="checkForm($event)">
-                <mat-option value="0_SOLICITANTE">ninguno</mat-option>
-                <mat-option value="1_SOLICITANTE">1</mat-option>
-                <mat-option value="2_SOLICITANTE">2</mat-option>
-                <mat-option value="3_SOLICITANTE">3</mat-option>
-                <mat-option value="4_SOLICITANTE">4</mat-option>
-                <mat-option value="5_SOLICITANTE">5</mat-option>
-                <mat-option value="mas_SOLICITANTE">mas de 5</mat-option>
-            </mat-select>
-        </mat-form-field>
+<div class="col-4">
+    <div class="mb-3 form-floating">
+        <select name="solicitant" class="form-select" [(ngModel)]="solicitantComboValue" #solicitanteDataCombo (change)="checkForm($event)">
+            <option value="0_SOLICITANTE">Ninguno</option>
+            <option value="1_SOLICITANTE">1 hijo</option>
+            <option value="2_SOLICITANTE">2 hijos</option>
+            <option value="3_SOLICITANTE">3 hijos</option>
+            <option value="4_SOLICITANTE">4 hijos</option>
+            <option value="5_SOLICITANTE">5 hijos</option>
+            <option value="mas_SOLICITANTE">Mas de 5</option>
+        </select>
+        <label for="solicitant">Numero de hijos</label>
     </div>
     <button *ngIf="mortageData.petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherHijos('ACOMPANIANTE')">Igual que Acompañante</button>
 </div>
@@ -21,18 +19,16 @@
 
 <div class="col-12 mt-5 mt-md-0 col-md-6" *ngIf="petitionType === 'CONJUNTA'">
     <div class="mb-3">
-        <mat-form-field appearance="fill">
-            <mat-label>Numero de hijos</mat-label>
-            <mat-select [(value)]="acompaniantComboValue" #acompanianteDataCombo (valueChange)="checkForm($event)">
-                <mat-option value="0_ACOMPANIANTE">ninguno</mat-option>
-                <mat-option value="1_ACOMPANIANTE">1</mat-option>
-                <mat-option value="2_ACOMPANIANTE">2</mat-option>
-                <mat-option value="3_ACOMPANIANTE">3</mat-option>
-                <mat-option value="4_ACOMPANIANTE">4</mat-option>
-                <mat-option value="5_ACOMPANIANTE">5</mat-option>
-                <mat-option value="mas_ACOMPANIANTE">mas de 5</mat-option>
-            </mat-select>
-        </mat-form-field>
+            <label>Numero de hijos</label>
+            <select [(value)]="acompaniantComboValue" #acompanianteDataCombo (change)="checkForm($event)">
+                <option value="0_ACOMPANIANTE">ninguno</option>
+                <option value="1_ACOMPANIANTE">1</option>
+                <option value="2_ACOMPANIANTE">2</option>
+                <option value="3_ACOMPANIANTE">3</option>
+                <option value="4_ACOMPANIANTE">4</option>
+                <option value="5_ACOMPANIANTE">5</option>
+                <option value="mas_ACOMPANIANTE">mas de 5</option>
+            </select>
     </div>
     <button class="btn btn-success" (click)="sameOtherHijos('SOLICITANTE')">Igual que Solicitante</button>
 </div>

@@ -5,7 +5,7 @@ import { AbstractMortageFormComponent } from '../abstract-mortage-form/abstract-
 
 @Component({
   selector: 'app-init-data-form',
-  templateUrl: './init-data-form.component.html',
+  templateUrl: '../abstract-mortage-form/./abstract-mortage-form.component.html',
   styleUrls: ['./init-data-form.component.scss']
 })
 export class InitDataFormAppComponent extends AbstractMortageFormComponent {

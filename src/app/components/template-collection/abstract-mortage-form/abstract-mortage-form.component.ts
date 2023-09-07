@@ -4,11 +4,15 @@ import { NewMortage, PetitionType } from 'src/app/pages/user/models/NewMortage.m
 import { DataFormData } from '../models/initData.interface';
 import { InitFormState } from '@domo/domo-commons-lib/lib/components/forms/models/InitForm.interface';
 import { TemplateCollectionService } from '../template-collection.service';
+import { CommonModule } from '@angular/common';
+import { ComponentsModule } from '@domo/domo-commons-lib';
 
 @Component({
   selector: 'app-abstract-mortage-form',
   templateUrl: './abstract-mortage-form.component.html',
-  styleUrls: ['./abstract-mortage-form.component.scss']
+  styleUrls: ['./abstract-mortage-form.component.scss'],
+  standalone: true,
+  imports: [ CommonModule, ComponentsModule]
 })
 export abstract class AbstractMortageFormComponent implements OnInit, AfterViewInit {
 

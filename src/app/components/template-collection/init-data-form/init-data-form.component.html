@@ -1,6 +1,6 @@
 <!-- Step2 Solicitante -->
-<div class="col-6" [ngClass]="petitionType === 'INDIVIDUAL' ? 'col-md-12': 'col-md-6'">
-    <h2>Solicitante</h2>
+<div class="col-7" [ngClass]="petitionType === 'INDIVIDUAL' ? 'col-md-12': 'col-md-6'">
+    <h3 class="fw-bold">Solicitante</h3>
     <div>
         <ngx-init-data-form #solicitanteDataForm [title]="'SOLICITANTE'" (OnformStateChange)="checkForm($event)"></ngx-init-data-form>
     </div>
@@ -8,8 +8,8 @@
 </div>
 
 <!-- Step2 Acompanante -->
-<div *ngIf="petitionType === 'CONJUNTA'" class="col-6 mt-5 mt-md-0 col-md-6">
-    <h2>Acompañante</h2>
+<div *ngIf="petitionType === 'CONJUNTA'" class="col-7 mt-5 mt-md-0 col-md-6">
+    <h3 class="fw-bold">Acompañante</h3>
     <div>
         <ngx-init-data-form #acompanianteDataForm [title]="'ACOMPANIANTE'" (OnformStateChange)="checkForm($event)"></ngx-init-data-form>
     </div>

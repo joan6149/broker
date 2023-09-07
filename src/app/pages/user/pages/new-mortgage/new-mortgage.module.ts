@@ -19,10 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
     CommonModule,
     TimeclockComponentsModule,
     NewMortgageRoutingModule,
-    ComponentsModule,
-    // Imports de angular material
-    MatFormFieldModule,
-    MatSelectModule
+    ComponentsModule
   ]
 })
 export class NewMortgageModule { }
