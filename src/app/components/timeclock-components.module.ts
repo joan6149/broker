@@ -7,10 +7,8 @@ import { MainAnnouncementComponent } from './main-announcement/main-announcement
 import { MovileAnimationComponent } from './movile-animation/movile-animation.component';
 import { TextBoxComponent } from './text-box/text-box.component';
 import { TopComponent } from './top/top.component';
-import { IndOrColectiveComponent } from './step-components/ind-or-colective/ind-or-colective.component';
-import { DataFormComponent } from './step-components/data-form/data-form.component';
+import { IndOrColectiveComponent } from './template-collection/ind-or-colective/ind-or-colective.component';
 import { TemplateCollectionComponent } from './template-collection/template-collection.component';
-import { TypeOfPetitionComponent } from './template-collection/type-of-petition/type-of-petition.component';
 import { InitDataFormAppComponent } from './template-collection/init-data-form/init-data-form.component';
 import { CivilStateComponent } from './template-collection/civil-state/civil-state.component';
 import { CountryOfResidenceComponent } from './template-collection/country-of-residence/country-of-residence.component';
@@ -52,8 +50,6 @@ import {SliderModule} from 'primeng/slider';
     TextBoxComponent,
     TopComponent,
     IndOrColectiveComponent,
-    DataFormComponent,
-    TypeOfPetitionComponent,
     TemplateCollectionComponent,
     InitDataFormAppComponent,
     CivilStateComponent,
@@ -85,7 +81,6 @@ import {SliderModule} from 'primeng/slider';
     TextBoxComponent,
     TopComponent,
     IndOrColectiveComponent,
-    DataFormComponent,
     TemplateCollectionComponent
   ],
   imports: [

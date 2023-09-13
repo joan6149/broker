@@ -38,6 +38,7 @@ export abstract class AbstractMortageFormComponent implements OnInit, AfterViewI
 
   ngOnInit(): void {
     this.mortageData = this.templateCollectionService.mortageData;
+    this.petitionType = this.mortageData.petitionType;
   }
 
   ngAfterViewInit(): void {

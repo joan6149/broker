@@ -1,18 +1,20 @@
-<!-- Step3 Estado civil solicitante-->
-<div class="col-8 col-xl-6 mb-5 mb-xl-0">
-    <h3 class="fw-bold" *ngIf="listAcompaniant.length > 0">Solicitante</h3>
-    <div class="mb-3">
-        <ngx-select-list #estadoCivilSolicitante [listItems]="listSolicitant" [selectedItem]="currentSolicitantSelectedValue" (OnSelectItem)="setValue($event, 'SOLICITANTE')"></ngx-select-list>
+<div class="row justify-content-center">
+    <!-- Step3 Estado civil solicitante-->
+    <div class="col-8 col-xl-6 mb-5 mb-xl-0">
+        <h3 class="fw-bold" *ngIf="listAcompaniant.length > 0">Solicitante</h3>
+        <div class="mb-3">
+            <ngx-select-list #estadoCivilSolicitante [listItems]="listSolicitant" [selectedItem]="currentSolicitantSelectedValue" (OnSelectItem)="setValue($event, 'SOLICITANTE')"></ngx-select-list>
+        </div>
+        <button *ngIf="mortageData.petitionType === 'CONJUNTA' && listAcompaniant.length > 0" class="btn btn-success" (click)="sameOtherCombo('ACOMPANIANTE', estadoCivilSolicitante)">Igual que Acompañante</button>
     </div>
-    <button *ngIf="mortageData.petitionType === 'CONJUNTA' && listAcompaniant.length > 0" class="btn btn-success" (click)="sameOtherCombo('ACOMPANIANTE', estadoCivilSolicitante)">Igual que Acompañante</button>
-</div>
-
-
-<!-- Step3 Estado civil acompanante -->
-<div *ngIf="petitionType === 'CONJUNTA' && listAcompaniant.length > 0" class="col-8 col-xl-6">
-    <h3 class="fw-bold">Acompañante</h3>
-    <div class="mb-3">
-        <ngx-select-list #estadoCivilAcompaniante [listItems]="listAcompaniant" [selectedItem]="currentAcompaniantSelectedValue" (OnSelectItem)="setValue($event, 'ACOMPANIANTE')"></ngx-select-list>
+    
+    
+    <!-- Step3 Estado civil acompanante -->
+    <div *ngIf="mortageData.petitionType === 'CONJUNTA' && listAcompaniant.length > 0" class="col-8 col-xl-6">
+        <h3 class="fw-bold">Acompañante</h3>
+        <div class="mb-3">
+            <ngx-select-list #estadoCivilAcompaniante [listItems]="listAcompaniant" [selectedItem]="currentAcompaniantSelectedValue" (OnSelectItem)="setValue($event, 'ACOMPANIANTE')"></ngx-select-list>
+        </div>
+        <button class="btn btn-success" (click)="sameOtherCombo('SOLICITANTE', estadoCivilAcompaniante)">Igual que Solicitante</button>
     </div>
-    <button class="btn btn-success" (click)="sameOtherCombo('SOLICITANTE', estadoCivilAcompaniante)">Igual que Solicitante</button>
 </div>

@@ -62,7 +62,6 @@ export class SonsComponent extends AbstractMortageFormComponent {
       this.acompaniantComboValue = `${this.mortageData.acompaniante.hijosAcargo}_ACOMPANIANTE`
     }
     
-    //this.checkForm(`${this.mortageData.solicitante.hijosAcargo}_SOLICITANTE`)
     this.sendCheckFormIsCorrect();
 
   }

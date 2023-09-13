@@ -19,7 +19,7 @@ export enum SimpleAnswer {
 })
 export abstract class AbstractCombolistComponent implements OnInit {
 
-  @Input('petitionType') petitionType!: string;
+  @Input('petitionType') petitionType?: string;
   mortageData!: NewMortage;
 
   listSolicitant: SelectListItem[] = [];
@@ -47,11 +47,17 @@ export abstract class AbstractCombolistComponent implements OnInit {
 
   constructor() {
     this.mortageData = this.templateCollectionService.mortageData;
-    this.setAllValues();
+    if(!this.petitionType) {
+      this.petitionType = this.mortageData.petitionType
+    }
+    console.log("mortage => ", this.mortageData);
+    console.log("petititon => ", this.petitionType);
+    //this.setAllValues();
    }
 
   ngOnInit(): void {
     this.setAllValues();
+    console.log("lista aco==> ", this.listAcompaniant);
   }
 
   sameOtherCombo(source: string, selectList: SelectListComponent) {

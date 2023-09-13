@@ -14,10 +14,6 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
   
 
   /** Plantillas */
-  @ViewChild('paisResS') paisResS!: TemplateRef<any>;
-  @ViewChild('paisResA') paisResA!: TemplateRef<any>;
-  @ViewChild('hijosS') hijosS!: TemplateRef<any>;
-  @ViewChild('hijosA') hijosA!: TemplateRef<any>;
   @ViewChild('EmptyTemplate') EmptyTemplate!: TemplateRef<any>;
 
   /** Template collection */
@@ -37,7 +33,6 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
   constructor() {
     super();
     this.numberOfSteps = 1;
-    this.setTitles();
     this.mortageData = new NewMortage();
 
   }
@@ -68,34 +63,20 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     }))
   }
 
-  setTitles() {
-    this.titles.set('1', 'Tipo de solicitud');
-    this.titles.set('2', 'Datos');
-    this.titles.set('3', 'Estado civil');
-    this.titles.set('4', 'Direccion');
-    this.titles.set('5', 'Hijos a Cargo');
-    this.titles.set('6', 'Permiso de residencia');
-    this.titles.set('7', 'Situacion residencia actual');
-    this.titles.set('8', 'Situacion laboral');
-    this.titles.set('9', '¿Sera vivienda habitual?');
-    this.titles.set('10', '¿Cuál es el valor de la propiedad?');
-  }
-
   setTemplates() {
     this.templates.set('1', this.templateCollection.get('typeOfPetition') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('10', this.templateCollection.get('basicInformation') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('5', this.templateCollection.get('basicInformation') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('3', this.templateCollection.get('civilState') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('4', this.templateCollection.get('directionForm') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('5', this.templateCollection.get('sons') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('2', this.templateCollection.get('sons') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('6', this.templateCollection.get('residencePermit') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('7', this.templateCollection.get('currentSituationHouse') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('8', this.templateCollection.get('labSituation') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('9', this.templateCollection.get('isUsuallyHouse') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('2', this.templateCollection.get('propertyValue') ?? {template: this.EmptyTemplate} as MortageTemplate);
+    this.templates.set('10', this.templateCollection.get('propertyValue') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('11', this.templateCollection.get('kindOfHouse') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('12', this.templateCollection.get('currentHiringState') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('13', this.templateCollection.get('addressNewProperty') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    /** Por hacer */
     this.templates.set('14', this.templateCollection.get('m2House') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('15', this.templateCollection.get('kindOfConstruction') ?? {template: this.EmptyTemplate} as MortageTemplate);
     this.templates.set('16', this.templateCollection.get('isAval') ?? {template: this.EmptyTemplate} as MortageTemplate);
