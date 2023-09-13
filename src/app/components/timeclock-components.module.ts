@@ -15,15 +15,11 @@ import { InitDataFormAppComponent } from './template-collection/init-data-form/i
 import { CivilStateComponent } from './template-collection/civil-state/civil-state.component';
 import { CountryOfResidenceComponent } from './template-collection/country-of-residence/country-of-residence.component';
 import { SonsComponent } from './template-collection/sons/sons.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 import { ResidencePermitComponent } from './template-collection/residence-permit/residence-permit.component';
 import { CurrentHousingSituationComponent } from './template-collection/current-housing-situation/current-housing-situation.component';
 import { CurrentLaboralSituationComponent } from './template-collection/current-laboral-situation/current-laboral-situation.component';
 import { PropertyHouseValueComponent } from './template-collection/property-house-value/property-house-value.component';
 import { IsUsuallyHouseComponent } from './template-collection/is-usually-house/is-usually-house.component';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatInputModule} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 
 import { ComponentsModule } from '@domo/domo-commons-lib';

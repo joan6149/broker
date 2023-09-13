@@ -1,7 +1,5 @@
 import { Component, ElementRef, ViewChild} from '@angular/core';
 import { AbstractMortageFormComponent } from '../abstract-mortage-form/abstract-mortage-form.component';
-import { InitFormState } from '@domo/domo-commons-lib/lib/components/forms/models/InitForm.interface';
-import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-sons',

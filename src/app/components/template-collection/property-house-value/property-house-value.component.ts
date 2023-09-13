@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { TemplateCollectionService } from '../template-collection.service';
 import { NewMortage } from 'src/app/pages/user/models/NewMortage.model';
@@ -23,7 +23,7 @@ export class PropertyHouseValueComponent implements OnInit {
 
 
   _propertyValue: number = this.MIN_MORTAGE;
-  entryValue: number = this.propertyValue*this.MIN_TO_CONTRIBUTE;
+  _entryValue: number = this.propertyValue*this.MIN_TO_CONTRIBUTE;
   taxAndCost: number = this.propertyValue*0.12;
   _totalEntryAportation: number = this.entryValue + this.taxAndCost;
   _yearsToMortage: number = this.MIN_YEARS;
@@ -33,7 +33,7 @@ export class PropertyHouseValueComponent implements OnInit {
   isCorrectForm: boolean = this.validateForm();
   showErrorDialog: boolean = false;
 
-  MIN_ENTRY_CONTRIBUTE: number = this.propertyValue*this.MIN_TO_CONTRIBUTE;
+  MIN_ENTRY_CONTRIBUTE: number = this.MIN_MORTAGE*this.MIN_TO_CONTRIBUTE;
   MAX_ENTRY_CONTRIBUTE: number = this.propertyValue;
   MIN_TOTAL_ENTRY_CONTRIBUTE: number = this.propertyValue*this.MIN_TO_CONTRIBUTE + this.propertyValue*0.12;
   MAX_TOTAL_ENTRY_CONTRIBUTE: number = this.propertyValue + this.propertyValue*0.12;
@@ -43,7 +43,7 @@ export class PropertyHouseValueComponent implements OnInit {
 
 
 
-  constructor(private templateService: TemplateCollectionService) {
+  constructor(private templateService: TemplateCollectionService, private cdr: ChangeDetectorRef) {
 
   }
 
@@ -54,14 +54,19 @@ export class PropertyHouseValueComponent implements OnInit {
   }
 
   set totalEntryAportation(totalEntryAportation: number) {
+    this.MAX_TOTAL_ENTRY_CONTRIBUTE = this.propertyValue + this.taxAndCost;
+    this.MIN_TOTAL_ENTRY_CONTRIBUTE = this.propertyValue*this.MIN_TO_CONTRIBUTE + this.propertyValue*0.12;
     this._totalEntryAportation = totalEntryAportation;
-    if(!this.minMaxValueExceded(this.totalEntryAportation, this.MIN_TOTAL_ENTRY_CONTRIBUTE, this.MAX_TOTAL_ENTRY_CONTRIBUTE)) {
-      this.mortageImport = this.updateMortageImport();
-      this.mortageData.hipoteca.importeHipoteca = this.mortageImport;
-      this.mortagePercentage = this.updateMortagePercentageImport();
-      this.mortageData.hipoteca.porcentageHipotecar = this.mortagePercentage;
-      this.entryValue = this._totalEntryAportation - this.taxAndCost;
-    }
+  }
+
+  set entryValue(entryValue:number) {
+    this._entryValue = entryValue;
+    this.totalEntryAportation = this.entryValue+this.taxAndCost;
+    this.mortageImport = this.updateMortageImport();
+  }
+
+  get entryValue(): number {
+    return this._entryValue;
   }
 
   set yearsToMortage(yearsToMortageValue: number) {
@@ -79,50 +84,25 @@ export class PropertyHouseValueComponent implements OnInit {
 
   set propertyValue(propertyValue: number) {
     this._propertyValue = propertyValue;
+    this.MIN_ENTRY_CONTRIBUTE = this.propertyValue*this.MIN_TO_CONTRIBUTE;
+    this.MAX_ENTRY_CONTRIBUTE = this.propertyValue;
+    this.MAX_TOTAL_ENTRY_CONTRIBUTE = this.propertyValue + this.propertyValue*0.12;
+    this.MIN_TOTAL_ENTRY_CONTRIBUTE = this.propertyValue*this.MIN_TO_CONTRIBUTE + this.propertyValue*0.12;
     this.mortageData.hipoteca.valorPropiedad = propertyValue;
     this.mortageData.hipoteca.vivienda.valorVivienda = propertyValue;
     this.entryValue = this.propertyValue*this.MIN_TO_CONTRIBUTE;
     this.mortageData.hipoteca.valorEntrada = this.entryValue;
     this.taxAndCost = this.propertyValue*0.12;
     this.mortageData.hipoteca.costesImpuestos = this.taxAndCost;
-    this.totalEntryAportation = this.entryValue + this.taxAndCost;
-    this.mortageData.hipoteca.valorTotalEntradaAportar = this.totalEntryAportation;
     this.mortageImport = this.updateMortageImport();
-    this.mortageData.hipoteca.importeHipoteca = this.mortageImport;
     this.mortagePercentage = this.updateMortagePercentageImport();
+    this.mortageData.hipoteca.valorTotalEntradaAportar = this.totalEntryAportation;
+    this.mortageData.hipoteca.importeHipoteca = this.mortageImport;
     this.mortageData.hipoteca.porcentageHipotecar = this.mortagePercentage;
-    this.MAX_TOTAL_ENTRY_CONTRIBUTE = this.propertyValue + this.propertyValue*0.12;
-    this.MIN_TOTAL_ENTRY_CONTRIBUTE = this.propertyValue*this.MIN_TO_CONTRIBUTE + this.propertyValue*0.12;
-    this.MIN_ENTRY_CONTRIBUTE = this.propertyValue*this.MIN_TO_CONTRIBUTE;
-    this.MAX_ENTRY_CONTRIBUTE = this.propertyValue;
   }
 
   get propertyValue(): number {
     return this._propertyValue;
-  }
-
-  sliderPropertyValue(event: any) {
-    this.propertyValue = +event.value;
-    this.validatePropertyValue();
-  }
-
-  sliderEntryValue(event: any) {
-    this.entryValue = +event.value;
-    this.mortageData.hipoteca.valorEntrada = this.entryValue;
-    this.totalEntryAportation = this.entryValue + this.taxAndCost;
-    this.mortageData.hipoteca.valorTotalEntradaAportar = this.totalEntryAportation;
-    this.mortageImport = this.updateMortageImport();
-    this.mortageData.hipoteca.importeHipoteca = this.mortageImport;
-    this.mortagePercentage = this.updateMortagePercentageImport();
-    this.mortageData.hipoteca.porcentageHipotecar = this.mortagePercentage;
-    this.validateEntryValue();
-  }
-
-  sliderTaxAndCostValue(event: any) {
-    this.taxAndCost = +event.value;
-    this.mortageData.hipoteca.costesImpuestos = this.taxAndCost;
-    this.totalEntryAportation = this.entryValue + this.taxAndCost;
-    this.mortageData.hipoteca.valorTotalEntradaAportar = this.totalEntryAportation;
   }
 
   checkIfNumber(event: KeyboardEvent) {
@@ -138,24 +118,6 @@ export class PropertyHouseValueComponent implements OnInit {
 
   updateMortagePercentageImport(): number {
     return (this.mortageImport / this.propertyValue) * 100;
-  }
-
-  recalculateImports() {
-    this.mortageImport = this.updateMortageImport();
-    this.mortageData.hipoteca.importeHipoteca = this.mortageImport;
-    this.mortagePercentage = this.updateMortagePercentageImport();
-    this.mortageData.hipoteca.porcentageHipotecar = this.mortagePercentage;
-  }
-
-  sliderTotalAportationValue(event: any) {
-    this.totalEntryAportation = +event.value;
-    this.mortageData.hipoteca.valorTotalEntradaAportar = this.totalEntryAportation;
-    this.validateTotalEntryValue();
-  }
-
-  sliderYearsValue(event: any) {
-    this.yearsToMortage = +event.value;
-    this.validateTotalYearsValue();
   }
 
   minMaxValueExceded(value: number, minValue?: number, maxValue?: number): boolean {

@@ -5,10 +5,6 @@ import { NewMortgageRoutingModule } from './new-mortgage-routing.module';
 import { TimeclockComponentsModule } from 'src/app/components/timeclock-components.module';
 import { ComponentsModule } from '@domo/domo-commons-lib';
 
-// Angular material components
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatSelectModule } from '@angular/material/select';
-
 
 
 @NgModule({

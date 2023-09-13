@@ -1,14 +1,10 @@
 <div class="row d-flex justify-content-evenly mb-4">
-    <div class="col-12 col-sm-4">
-        <input class="text-edit propertyValue inputStyle" 
-               [(ngModel)]="propertyValue" ngxOnlyNumber 
-               [ngClass]="{'incorrectInputValue' : minMaxValueExceded(propertyValue, MIN_MORTAGE, MAX_MORTAGE)}" 
-               (blur)="validatePropertyValue()"/>
-    </div>
     <div class="col-4 col-sm-4">
-        <mat-slider class="propertyValue-slider" [min]="MIN_MORTAGE" [max]="MAX_MORTAGE" step="500" (input)="sliderPropertyValue($event)">
-            <input matSliderThumb>
-        </mat-slider>
+        <p-knob [(ngModel)]="propertyValue" 
+                [min]="MIN_MORTAGE" 
+                [max]="MAX_MORTAGE" 
+                [step]="100" 
+                [size]="200"></p-knob>
     </div>
 </div>
 <h1 class="mt-4 text-md-start">Aporte inicial</h1>
@@ -20,19 +16,20 @@
         </h3>
     </div>
     <div class="col-12 col-md-4 d-flex justify-content-center">
-        <input class="text-edit subPropertyValue inputStyle" 
-        [(ngModel)]="entryValue" ngxOnlyNumber 
-        [ngClass]="{'incorrectInputValue' : minMaxValueExceded(entryValue, MIN_ENTRY_CONTRIBUTE, MAX_ENTRY_CONTRIBUTE)}" 
-        (blur)="validateEntryValue()"/>
+        <h2 class="text-edit subPropertyValue fixedInput">
+            {{entryValue}}
+        </h2>
     </div>
     <div class="col-4 d-flex justify-content-end">
-        <mat-slider style ="width: 100%;" [min]="MIN_ENTRY_CONTRIBUTE" [max]="MAX_ENTRY_CONTRIBUTE" [(ngModel)]="entryValue" (input)="sliderEntryValue($event)">
-            <input matSliderThumb>
-        </mat-slider>
+        <p-slider style="width:100%;" [(ngModel)]="entryValue" 
+                                      [animate]="true" 
+                                      [step]="100"
+                                      [min]="MIN_ENTRY_CONTRIBUTE" 
+                                      [max]="MAX_ENTRY_CONTRIBUTE"></p-slider>
     </div>
 </div>
 
-<div class="row justify-content-center">
+<div class="row">
     <div class="col-12 col-md-4">
         <h3 class="text-edit-title text-md-start">
             Costes e impuestos: 
@@ -42,11 +39,6 @@
         <h2 class="text-edit subPropertyValue fixedInput">
             {{taxAndCost}}
         </h2>
-    </div>
-    <div class="col-4">
-        <!-- <mat-slider min="4800" max="60000" [(ngModel)]="taxAndCost" (input)="sliderTaxAndCostValue($event)">
-            <input matSliderThumb>
-        </mat-slider> -->
     </div>
 </div>
 
@@ -59,15 +51,14 @@
         </h3>
     </div>
     <div class="col-12 col-md-4 d-flex justify-content-center">
-        <input class="text-edit propertyValue inputStyle" #totalEntry 
-               [(ngModel)]="totalEntryAportation" ngxOnlyNumber 
-               [ngClass]="{'incorrectInputValue' : minMaxValueExceded(totalEntryAportation, MIN_TOTAL_ENTRY_CONTRIBUTE, MAX_TOTAL_ENTRY_CONTRIBUTE)}" 
-               (blur)="validateTotalEntryValue()"/>
+        <h1 class="text-edit subPropertyValue fixedInput">
+            {{totalEntryAportation}}
+        </h1>
     </div>
     <div class="col-4 d-flex justify-content-end">
-        <mat-slider style ="width: 100%;" [min]="MIN_TOTAL_ENTRY_CONTRIBUTE" [max]="MAX_TOTAL_ENTRY_CONTRIBUTE" [(ngModel)]="totalEntryAportation" (input)="sliderTotalAportationValue($event)">
-            <input matSliderThumb>
-        </mat-slider>
+        <!--<p-slider style="width:100%;" [(ngModel)]="totalEntryAportation" 
+                                      [min]="MIN_TOTAL_ENTRY_CONTRIBUTE" 
+                                      [max]="MAX_TOTAL_ENTRY_CONTRIBUTE"></p-slider> -->
     </div>
 </div>
 
@@ -75,7 +66,7 @@
 
 <h1 class="mt-4 text-md-start">Hipoteca</h1>
 <hr />
-<div class="row justify-content-center">
+<div class="row justify-content-start text-align-right">
     <div class="col-12 col-md-4">
         <h3 class="text-edit-title text-md-start">
             Importe de la Hipoteca: 
@@ -87,7 +78,7 @@
         </h2>
     </div>
 </div>
-<div class="row justify-content-center">
+<div class="row justify-content-start">
     <div class="col-12 col-md-4">
         <h3 class="text-edit-title text-md-start">
             Porcentaje de la hipoteca: 
@@ -103,7 +94,7 @@
 
 <hr />
 
-<div class="row justify-content-center justify-content-md-end">
+<div class="row justify-content-start justify-content-md-end">
     <div class="col-12 col-md-2">
         <h3 class="text-edit-title text-md-start">
             Años: 
@@ -116,12 +107,11 @@
                (blur)="validateTotalYearsValue()"/>
     </div>
     <div class="col-4 col-md-4 d-flex align-self-md-end">
-        <mat-slider style ="width: 100%;" [min]="MIN_YEARS" [max]="MAX_YEARS" [(ngModel)]="yearsToMortage" (input)="sliderYearsValue($event)">
-            <input matSliderThumb>
-        </mat-slider>
+        <p-slider style="width:100%;" [(ngModel)]="yearsToMortage" 
+                                      [min]="MIN_YEARS" 
+                                      [max]="MAX_YEARS"></p-slider>
     </div>
 </div>
 
 <!-- Dialogos de error -->
-<ngx-domo-dialog *ngIf="showErrorDialog === true" [correct]="false" [message]="ERROR_MSG" [title]="ERROR_TITLE" (onOkey)="closeErrorDialog()"></ngx-domo-dialog>
 
