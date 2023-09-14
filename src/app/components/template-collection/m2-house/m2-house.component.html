@@ -1,10 +1,12 @@
-<!-- Step3 Estado civil solicitante-->
-<div class="col-8 col-xl-6 mb-5 mb-xl-0">
-    <div class="mb-3">
-        <ngx-couter-input-button [min]="10" 
-                                 [max]="10000" 
-                                 [value]="mortageData.hipoteca.vivienda.m2" 
-                                 (m2Value)="doGetM2Value($event)"
-                                 ngxOnlyNumber></ngx-couter-input-button>
+<div class="row justify-content-center">
+    <!-- Step3 Estado civil solicitante-->
+    <div class="col-8 col-xl-6 mb-5 mb-xl-0">
+        <div class="mb-3">
+            <ngx-couter-input-button [min]="10" 
+                                     [max]="10000" 
+                                     [value]="mortageData.hipoteca.vivienda.m2" 
+                                     (m2Value)="doGetM2Value($event)"
+                                     ngxOnlyNumber></ngx-couter-input-button>
+        </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, inject, QueryList, ViewChildren, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, inject, OnDestroy, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { AbstractDataFormComponent } from '@domo/domo-commons-lib/lib/components/forms/abstract-data-form/abstract-data-form.component';
 import { NewMortage, PetitionType } from 'src/app/pages/user/models/NewMortage.model';
 import { DataFormData } from '../models/initData.interface';
@@ -6,6 +6,7 @@ import { InitFormState } from '@domo/domo-commons-lib/lib/components/forms/model
 import { TemplateCollectionService } from '../template-collection.service';
 import { CommonModule } from '@angular/common';
 import { ComponentsModule } from '@domo/domo-commons-lib';
+import { BaseForm } from '../base-form-component/base-form';
 
 @Component({
   selector: 'app-abstract-mortage-form',
@@ -14,7 +15,7 @@ import { ComponentsModule } from '@domo/domo-commons-lib';
   standalone: true,
   imports: [ CommonModule, ComponentsModule]
 })
-export abstract class AbstractMortageFormComponent implements OnInit, AfterViewInit {
+export abstract class AbstractMortageFormComponent extends BaseForm implements OnInit, AfterViewInit, OnDestroy {
 
   @Input('petitionType') petitionType!: string;
   mortageData!: NewMortage;
@@ -33,12 +34,18 @@ export abstract class AbstractMortageFormComponent implements OnInit, AfterViewI
   @ViewChild('solicitanteDataForm') solicitanteDataForm!: AbstractDataFormComponent;
   @ViewChild('acompanianteDataForm') acompanianteDataForm!: AbstractDataFormComponent;
 
-
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
     this.mortageData = this.templateCollectionService.mortageData;
     this.petitionType = this.mortageData.petitionType;
+  }
+
+  ngOnDestroy(): void {
+    this.solicitantIsCorrect = false;
+    this.acompaniantisCorrect = false;
   }
 
   ngAfterViewInit(): void {
@@ -75,11 +82,11 @@ export abstract class AbstractMortageFormComponent implements OnInit, AfterViewI
   protected sendCheckFormIsCorrect(): void {
 
     if(this.mortageData.petitionType === PetitionType.INDIVIDUAL) {
-      this.templateCollectionService.setCurrentTemplateIsCorrect(this.solicitantIsCorrect);
+      this.isValid(this.solicitantIsCorrect);
     }
 
     if(this.mortageData.petitionType === PetitionType.CONJUNTA) {
-      this.templateCollectionService.setCurrentTemplateIsCorrect(this.solicitantIsCorrect && this.acompaniantisCorrect);
+      this.isValid(this.solicitantIsCorrect && this.acompaniantisCorrect);
     }
   }
 

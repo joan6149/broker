@@ -2,13 +2,14 @@ import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } fr
 import { environment } from 'src/environments/environment';
 import { TemplateCollectionService } from '../template-collection.service';
 import { NewMortage } from 'src/app/pages/user/models/NewMortage.model';
+import { BaseForm } from '../base-form-component/base-form';
 
 @Component({
   selector: 'app-property-house-value',
   templateUrl: './property-house-value.component.html',
   styleUrls: ['./property-house-value.component.scss']
 })
-export class PropertyHouseValueComponent implements OnInit {
+export class PropertyHouseValueComponent extends BaseForm implements OnInit {
 
   @ViewChild('totalEntry') totalEntry!: ElementRef<any>;
   mortageData!: NewMortage;
@@ -44,10 +45,11 @@ export class PropertyHouseValueComponent implements OnInit {
 
 
   constructor(private templateService: TemplateCollectionService, private cdr: ChangeDetectorRef) {
-
+    super();
   }
 
   ngOnInit(): void {
+    this.isValid(true);
     this.mortageData = this.templateService.mortageData;
     this.mortageData.hipoteca.importeHipoteca = this.updateMortageImport();
     this.mortageData.hipoteca.porcentageHipotecar = this.updateMortagePercentageImport();
@@ -155,10 +157,10 @@ export class PropertyHouseValueComponent implements OnInit {
       this.ERROR_MSG = 'Valor de la propedad incorrecto'; 
       this.showErrorDialog = true;
       this.isCorrectForm = false;
-      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+      this.isValid(this.isCorrectForm);
     } else {
       this.isCorrectForm = true;
-      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+      this.isValid(this.isCorrectForm);
     }
   }
 
@@ -168,10 +170,10 @@ export class PropertyHouseValueComponent implements OnInit {
       this.ERROR_MSG = 'Valor de entrada incorrecto'; 
       this.showErrorDialog = true;
       this.isCorrectForm = false;
-      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+      this.isValid(this.isCorrectForm);
     } else {
       this.isCorrectForm = true;
-      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+      this.isValid(this.isCorrectForm);
     }
   }
 
@@ -181,10 +183,10 @@ export class PropertyHouseValueComponent implements OnInit {
       this.ERROR_MSG = `Para el importe ${this.propertyValue}€ el campo valor de entrada debe estar entre ${this.MIN_TOTAL_ENTRY_CONTRIBUTE}€ y ${this.MAX_TOTAL_ENTRY_CONTRIBUTE}€`; 
       this.showErrorDialog = true;
       this.isCorrectForm = false;
-      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+      this.isValid(this.isCorrectForm);
     } else {
       this.isCorrectForm = true;
-      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+      this.isValid(this.isCorrectForm);
     }
   }
 
@@ -194,10 +196,10 @@ export class PropertyHouseValueComponent implements OnInit {
       this.ERROR_MSG = 'Total de años incorrecto'; 
       this.showErrorDialog = true;
       this.isCorrectForm = false;
-      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+      this.isValid(this.isCorrectForm);
     } else {
       this.isCorrectForm = true;
-      this.templateService.setCurrentTemplateIsCorrect(this.isCorrectForm);
+      this.isValid(this.isCorrectForm);
     }
   }
 

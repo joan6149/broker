@@ -44,9 +44,9 @@ export class PreviousRequestComponent extends AbstractCombolistComponent impleme
 
   validateTemplate() {
     if(!this.bancosCheck && !this.brokersCheck && this.previousRequestAnswer === SimpleAnswer.SI) {
-      this.templateCollectionService.setCurrentTemplateIsCorrect(false);
+      this.isValid(false);
     } else {
-      this.templateCollectionService.setCurrentTemplateIsCorrect(true);
+      this.isValid(true);
     }
   }
 

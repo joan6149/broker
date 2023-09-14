@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, inject } from '@angular/core';
 import { SelectListItem } from '@domo/domo-commons-lib/lib/models/SelectList.model';
-import { EstadoCivil, NewMortage, PetitionType, Source } from 'src/app/pages/user/models/NewMortage.model';
+import { NewMortage, Source } from 'src/app/pages/user/models/NewMortage.model';
 import { TemplateCollectionService } from '../template-collection.service';
 import { ComponentsModule, SelectListComponent } from '@domo/domo-commons-lib';
 import { CommonModule } from '@angular/common';
+import { BaseForm } from '../base-form-component/base-form';
 
 export enum SimpleAnswer {
   SI = 'SI',
@@ -17,7 +18,7 @@ export enum SimpleAnswer {
   standalone: true,
   imports: [ CommonModule, ComponentsModule]
 })
-export abstract class AbstractCombolistComponent implements OnInit {
+export abstract class AbstractCombolistComponent extends BaseForm implements OnInit {
 
   @Input('petitionType') petitionType?: string;
   mortageData!: NewMortage;
@@ -46,18 +47,16 @@ export abstract class AbstractCombolistComponent implements OnInit {
   templateCollectionService: TemplateCollectionService = inject(TemplateCollectionService);
 
   constructor() {
+    super();
     this.mortageData = this.templateCollectionService.mortageData;
     if(!this.petitionType) {
       this.petitionType = this.mortageData.petitionType
     }
-    console.log("mortage => ", this.mortageData);
-    console.log("petititon => ", this.petitionType);
-    //this.setAllValues();
    }
 
   ngOnInit(): void {
     this.setAllValues();
-    console.log("lista aco==> ", this.listAcompaniant);
+    this.isValid(true);
   }
 
   sameOtherCombo(source: string, selectList: SelectListComponent) {
@@ -74,10 +73,9 @@ export abstract class AbstractCombolistComponent implements OnInit {
     }
   }
 
+  // Metodo no implementado para pasar a la siguiente template sin necesidad de clicar al 'NEXT'
   nextTemplate(): void {
-    if(this.petitionType === PetitionType.INDIVIDUAL && this.firstLoad === false) {
-      this.templateCollectionService.setNextTemplate(1);
-    }
+    
   }
 
   setSinoValues(): SelectListItem[] {

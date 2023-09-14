@@ -1,6 +1,7 @@
-import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef, AfterViewInit, inject, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { TemplateCollectionService } from '../template-collection/template-collection.service';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef, AfterViewInit, inject, OnDestroy, ChangeDetectorRef, ComponentFactoryResolver } from '@angular/core';
+import { TemplateCollectionService } from '../template-collection.service';
+import { Subscription, of } from 'rxjs';
+import { BaseForm } from '../base-form-component/base-form';
 
 
 
@@ -12,14 +13,14 @@ enum Perfil {
 export interface MortageTemplate {
   name?: string,
   title: string,
-  template: TemplateRef<any>,
+  template?: TemplateRef<any>,
+  component: any,
   templateOptions?: MortageTemplateOptions,
   autoNext?:boolean
 }
 
 export interface MortageTemplateOptions {
   mandatory: boolean
-  isCorrect: boolean
 }
 
 
@@ -54,6 +55,7 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
 
    /** Subscriptnions */
    subscriptions: Subscription[] = [];
+   validationSubscription: Subscription = new Subscription();
 
   constructor() { }
   ngOnDestroy(): void {
@@ -63,11 +65,6 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
   ngAfterViewInit(): void {
     this.setTemplates();
     this.getTemplate();
-    // Me subscribo a las validaciones de las templates
-    this.subscriptions.push(this.templateCollectionService.getCurrentTemplateisCorrect().subscribe((isCorrect: boolean) => {
-      this.currentStepIsCorrect = isCorrect;
-      this.cdrService.detectChanges();
-    }))
   }
 
   nextForm(nextStep:number) {
@@ -88,10 +85,16 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
   }
 
   getTemplate(): void {
-    this.container.clear();
     const template: MortageTemplate | undefined = this.templates.get(this.currentStep);
+
     if(template) {
-      this.container.createEmbeddedView(template.template);
+      this.validationSubscription.unsubscribe();
+      this.container.clear();
+      const component: BaseForm = this.container.createComponent<any>(template.component).instance;
+      this.validationSubscription = component.templateIsValid().subscribe((valid: boolean) => {
+        this.currentStepIsCorrect = valid;
+        this.cdrService.detectChanges();
+      })
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { infiniteMovileAnimation, movileAnimation } from './animation/movileAnimation.animation';
+import { infiniteMovileAnimation } from './animation/movileAnimation.animation';
 
 @Component({
   selector: 'app-movile-animation',

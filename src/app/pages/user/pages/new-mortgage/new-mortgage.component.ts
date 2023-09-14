@@ -1,15 +1,21 @@
-import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild, Inject, OnDestroy } from '@angular/core';
+import { Component, TemplateRef, ViewChild, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NewMortage, PetitionType } from '../../models/NewMortage.model';
-import { AbstractStepPageComponent, MortageTemplate } from 'src/app/components/abstract-step-page/abstract-step-page.component';
-import { Subscription, skip } from 'rxjs';
+import { NewMortage } from '../../models/NewMortage.model';
+import { AbstractStepPageComponent, MortageTemplate } from 'src/app/components/template-collection/abstract-step-page/abstract-step-page.component';
+import { IndOrColectiveComponent } from 'src/app/components/template-collection/ind-or-colective/ind-or-colective.component';
+import { InitDataFormAppComponent } from 'src/app/components/template-collection/init-data-form/init-data-form.component';
+import { CivilStateComponent } from 'src/app/components/template-collection/civil-state/civil-state.component';
+import { SonsComponent } from 'src/app/components/template-collection/sons/sons.component';
+import { ResidencePermitComponent } from 'src/app/components/template-collection/residence-permit/residence-permit.component';
+import { CurrentHousingSituationComponent } from 'src/app/components/template-collection/current-housing-situation/current-housing-situation.component';
+import { CountryOfResidenceComponent } from 'src/app/components/template-collection/country-of-residence/country-of-residence.component';
 
 @Component({
   selector: 'app-new-mortgage',
-  templateUrl: '../../../../components/abstract-step-page/abstract-step-page.component.html',
-  styleUrls: ['../../../../components/abstract-step-page/abstract-step-page.component.scss']
+  templateUrl: '../../../../components/template-collection/abstract-step-page/abstract-step-page.component.html',
+  styleUrls: ['../../../../components/template-collection/abstract-step-page/abstract-step-page.component.scss']
 })
-export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> implements OnInit {
+export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> {
 
   
 
@@ -39,55 +45,13 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
 
   @Inject(ActivatedRoute) private route!: ActivatedRoute;
 
-  ngOnInit(): void {
-    this.mortageData = this.templateCollectionService.mortageData;
-    this.templateCollectionService.templateList.forEach((mortageTemplate: MortageTemplate) => {
-      this.templateCollection.set(mortageTemplate.name || '9999', mortageTemplate)
-    })
-
-    // Me suscribo a cambios en el Mortagedata
-    this.subscriptions.push(this.templateCollectionService.getMortageData().subscribe((mortageData: NewMortage) => {
-      this.mortageData = mortageData;
-    }));
-
-    // Me suscribo a cambios en el Template
-    this.subscriptions.push(this.templateCollectionService.getTemplates().subscribe((mortageTemplate: MortageTemplate) => {
-      this.templateCollection.set(mortageTemplate.name || '9999', mortageTemplate);
-    }))
-
-    // Me subscribo a los nextSteps de los componentes que pueden cambiar de step sin next
-    this.subscriptions.push(this.templateCollectionService.getNextTemplate().pipe(
-      skip(1)
-    ).subscribe((next: number) => {
-      this.nextStep(+this.currentStep+next);
-    }))
-  }
-
   setTemplates() {
-    this.templates.set('1', this.templateCollection.get('typeOfPetition') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('5', this.templateCollection.get('basicInformation') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('3', this.templateCollection.get('civilState') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('4', this.templateCollection.get('directionForm') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('2', this.templateCollection.get('sons') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('6', this.templateCollection.get('residencePermit') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('7', this.templateCollection.get('currentSituationHouse') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('8', this.templateCollection.get('labSituation') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('9', this.templateCollection.get('isUsuallyHouse') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('10', this.templateCollection.get('propertyValue') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('11', this.templateCollection.get('kindOfHouse') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('12', this.templateCollection.get('currentHiringState') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('13', this.templateCollection.get('addressNewProperty') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('14', this.templateCollection.get('m2House') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('15', this.templateCollection.get('kindOfConstruction') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('16', this.templateCollection.get('isAval') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('17', this.templateCollection.get('isHaciendaLastYear') ?? {template: this.EmptyTemplate} as MortageTemplate);
-    this.templates.set('18', this.templateCollection.get('previousRequest') ?? {template: this.EmptyTemplate} as MortageTemplate);
-
-    this.numberOfSteps = this.templates.size;
-
-    if(this.templates.get(this.currentStep)?.templateOptions === undefined || this.templates.get(this.currentStep)?.templateOptions?.isCorrect === true) {
-      this.currentStepIsCorrect = true
-    }
+    this.templateCollectionService.getNewMortageTemplates().subscribe((templates: MortageTemplate[]) => {
+      this.numberOfSteps = templates.length;
+      templates.forEach((template: MortageTemplate, index: number) => {
+        this.templates.set(`${index+1}`, template);
+      })
+    });
   }
 
   submit() {

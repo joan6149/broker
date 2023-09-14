@@ -17,8 +17,6 @@ export class SonsComponent extends AbstractMortageFormComponent {
 
   override checkForm(formState: any): void {
 
-    console.log(formState);
-
     const value: string = formState.target.value.split('_')[0];
     const formName: string = formState.target.value.split('_')[1];
 

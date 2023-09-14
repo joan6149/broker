@@ -1,36 +1,39 @@
-<!-- Step4 Situación Hijos y personas a cargo Solicitante -->
-<div class="col-4">
-    <div class="mb-3 form-floating">
-        <select name="solicitant" class="form-select" [(ngModel)]="solicitantComboValue" #solicitanteDataCombo (change)="checkForm($event)">
-            <option value="0_SOLICITANTE">Ninguno</option>
-            <option value="1_SOLICITANTE">1 hijo</option>
-            <option value="2_SOLICITANTE">2 hijos</option>
-            <option value="3_SOLICITANTE">3 hijos</option>
-            <option value="4_SOLICITANTE">4 hijos</option>
-            <option value="5_SOLICITANTE">5 hijos</option>
-            <option value="mas_SOLICITANTE">Mas de 5</option>
-        </select>
-        <label for="solicitant">Numero de hijos</label>
+<div class="row justify-content-center">
+    <!-- Step4 Situación Hijos y personas a cargo Solicitante -->
+    <div class="col-4">
+        <div class="mb-3 form-floating">
+            <select name="solicitant" class="form-select" [(ngModel)]="solicitantComboValue" #solicitanteDataCombo (change)="checkForm($event)">
+                <option value="0_SOLICITANTE">Ninguno</option>
+                <option value="1_SOLICITANTE">1 hijo</option>
+                <option value="2_SOLICITANTE">2 hijos</option>
+                <option value="3_SOLICITANTE">3 hijos</option>
+                <option value="4_SOLICITANTE">4 hijos</option>
+                <option value="5_SOLICITANTE">5 hijos</option>
+                <option value="mas_SOLICITANTE">Mas de 5</option>
+            </select>
+            <label for="solicitant">Numero de hijos</label>
+        </div>
+        <button *ngIf="mortageData.petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherHijos('ACOMPANIANTE')">Igual que Acompañante</button>
     </div>
-    <button *ngIf="mortageData.petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherHijos('ACOMPANIANTE')">Igual que Acompañante</button>
-</div>
-
-<!-- Step4 Situación Hijos y personas a cargo Acompañante -->
-
-<div class="col-4" *ngIf="mortageData.petitionType === 'CONJUNTA'">
-    <div class="mb-3 form-floating">
-        <select name="acompaniant" class="form-select" [(ngModel)]="acompaniantComboValue" #acompaniantDataCombo (change)="checkForm($event)">
-            <option value="0_ACOMPANIANTE">Ninguno</option>
-            <option value="1_ACOMPANIANTE">1 hijo</option>
-            <option value="2_ACOMPANIANTE">2 hijos</option>
-            <option value="3_ACOMPANIANTE">3 hijos</option>
-            <option value="4_ACOMPANIANTE">4 hijos</option>
-            <option value="5_ACOMPANIANTE">5 hijos</option>
-            <option value="mas_ACOMPANIANTE">Mas de 5</option>
-        </select>
-        <label for="acompaniant">Numero de hijos</label>
+    
+    <!-- Step4 Situación Hijos y personas a cargo Acompañante -->
+    
+    <div class="col-4" *ngIf="mortageData.petitionType === 'CONJUNTA'">
+        <div class="mb-3 form-floating">
+            <select name="acompaniant" class="form-select" [(ngModel)]="acompaniantComboValue" #acompaniantDataCombo (change)="checkForm($event)">
+                <option value="0_ACOMPANIANTE">Ninguno</option>
+                <option value="1_ACOMPANIANTE">1 hijo</option>
+                <option value="2_ACOMPANIANTE">2 hijos</option>
+                <option value="3_ACOMPANIANTE">3 hijos</option>
+                <option value="4_ACOMPANIANTE">4 hijos</option>
+                <option value="5_ACOMPANIANTE">5 hijos</option>
+                <option value="mas_ACOMPANIANTE">Mas de 5</option>
+            </select>
+            <label for="acompaniant">Numero de hijos</label>
+        </div>
+        <button class="btn btn-success" (click)="sameOtherHijos('SOLICITANTE')">Igual que Solicitante</button>
     </div>
-    <button class="btn btn-success" (click)="sameOtherHijos('SOLICITANTE')">Igual que Solicitante</button>
+
 </div>
 
 

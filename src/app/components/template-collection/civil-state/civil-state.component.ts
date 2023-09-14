@@ -6,7 +6,7 @@ import { AbstractCombolistComponent } from '../abstract-combolist/abstract-combo
 @Component({
   selector: 'app-civil-state',
   templateUrl: '../abstract-combolist/./abstract-combolist.component.html',
-  styleUrls: ['./civil-state.component.scss']
+  styleUrls: ['../abstract-combolist/./abstract-combolist.component.scss']
 })
 export class CivilStateComponent extends AbstractCombolistComponent {
   
@@ -22,7 +22,7 @@ export class CivilStateComponent extends AbstractCombolistComponent {
     }, Source.ACOMPANIANTE)
   }
 
-  setAllValues(): void {
+  protected override setAllValues(): void {
 
     this.listSolicitant = Object.values(EstadoCivil).map((val: string) => {
       return {

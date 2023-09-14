@@ -17,6 +17,7 @@ import { appReducers } from './app.reducer';
 import { EffectsModule, provideEffects } from '@ngrx/effects';
 import { AppEffects } from './appStore/effects';
 import { UserService } from './services/user.service';
+import { TemplateCollectionModule } from './components/template-collection/template-collection.module';
 
 
 @NgModule({
