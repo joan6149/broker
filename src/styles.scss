@@ -22,3 +22,11 @@ h3 {
     font-size: 16px;
     font-weight: bold;
 }
+
+label {
+    color: #6c757d;
+}
+// esto deberias de tenerlo en otro scss e importarlo para poder editar todos los estilos de prime
+.p-calendar {
+    width: 100%;
+}
