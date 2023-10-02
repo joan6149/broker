@@ -19,6 +19,7 @@ import { IsUsuallyHouseComponent } from './is-usually-house/is-usually-house.com
 import { PropertyHouseValueComponent } from './property-house-value/property-house-value.component';
 import { KindOfHouseComponent } from './kind-of-house/kind-of-house.component';
 import { CurrentHiringStateComponent } from './current-hiring-state/current-hiring-state.component';
+import { IncomeAndExpensesComponent } from './income-and-expenses/income-and-expenses.component';
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +45,7 @@ export class TemplateCollectionService {
         component: IndOrColectiveComponent
       } as MortageTemplate,
   
-      {
+     /* {
         name: 'basicInformation',
         title: 'Información paersonal',
         component: InitDataFormAppComponent
@@ -79,7 +80,7 @@ export class TemplateCollectionService {
         name: 'currentSituationHouse',
         title: 'Situación de la vivienda actual',
         component: CurrentHousingSituationComponent
-      } as MortageTemplate,
+      } as MortageTemplate, 
       {
         name: 'labSituation',
         title: 'Situación laboral',
@@ -144,6 +145,12 @@ export class TemplateCollectionService {
         name: 'previousRequest',
         title: '¿Has solicitado ya la hipoteca con otros bancos?',
         component: PreviousRequestComponent
+      } as MortageTemplate, */
+
+      {
+        name: 'incomeAndExpenses',
+        title: '¿Cuales son tus ingresos y gastos mensuales?',
+        component: IncomeAndExpensesComponent
       } as MortageTemplate,
     ]
   }

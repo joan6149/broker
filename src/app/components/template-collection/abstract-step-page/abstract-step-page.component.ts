@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef, AfterViewI
 import { TemplateCollectionService } from '../template-collection.service';
 import { Subscription, of } from 'rxjs';
 import { BaseForm } from '../base-form-component/base-form';
+import { PetitionType } from 'src/app/pages/user/models/NewMortage.model';
 
 
 
@@ -16,6 +17,7 @@ export interface MortageTemplate {
   template?: TemplateRef<any>,
   component: any,
   templateOptions?: MortageTemplateOptions,
+  typeOfPetition?: string,
   autoNext?:boolean
 }
 
@@ -88,6 +90,7 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
     const template: MortageTemplate | undefined = this.templates.get(this.currentStep);
 
     if(template) {
+      this.configureTemplate(template);
       this.validationSubscription.unsubscribe();
       this.container.clear();
       const component: BaseForm = this.container.createComponent<any>(template.component).instance;
@@ -95,6 +98,7 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
         this.currentStepIsCorrect = valid;
         this.cdrService.detectChanges();
       })
+      console.log(`Step: ${this.currentStep}: ${JSON.stringify(template)}`);
     }
   }
 
@@ -125,5 +129,6 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
 
   abstract submit(): void;
   abstract setTemplates(): void;
+  abstract configureTemplate(template: MortageTemplate): void
 
 }

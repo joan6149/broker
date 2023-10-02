@@ -1,0 +1,45 @@
+<div class="row justify-content-center mt-5">
+    <!-- Solicitante -->
+    <div class="col-12 mb-5 mb-xl-0">
+        <div class="row d-flex justify-content-center align-center mb-4">
+            <div class="col-4 border-start">
+                <h2>{{ingresosTotales}}€</h2>
+                <p class="sub_index">Ingresos totales</p>
+            </div>
+            <div class="col-4 border-start">
+                <h2>{{gastosTotales}}€</h2>
+                <p class="sub_index">Gastos totales</p>
+            </div>
+            <div class="col-4 border-start border-end">
+                <h2>0%</h2>
+                <p class="sub_index">Ratio de endeudamiento</p>
+            </div>
+        </div>
+        <p-tabView [styleClass]="'headerClass'">
+            <p-tabPanel header="Solicitante">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-6">
+                        <h5>Ingresos</h5>
+                        <app-income-and-expenses-form-array #ingresosSolicitante [initValues]="solicitanteInitIngresValues" [conceptValues]="ingressConceptValues" (onValueChange)="addIngresValue($event, 'SOLICITANTE')"></app-income-and-expenses-form-array>
+                    </div>
+                    <div class="col-6">
+                        <h5>Gastos</h5>
+                        <app-income-and-expenses-form-array #ingresosSolicitante [initValues]="solicitanteInitDegresValues" [conceptValues]="gastosConceptValue" (onValueChange)="addExValue($event, 'SOLICITANTE')"></app-income-and-expenses-form-array>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel *ngIf="petitionType === 'CONJUNTA'" header="Acompañante">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-6">
+                        <h5>Ingresos</h5>
+                        <app-income-and-expenses-form-array #ingresosAcompaniante [initValues]="acompanianteInitIngresValues" [conceptValues]="ingressConceptValues" (onValueChange)="addIngresValue($event, 'ACOMPANIANTE')"></app-income-and-expenses-form-array>
+                    </div>
+                    <div class="col-6">
+                        <h5>Gastos</h5>
+                        <app-income-and-expenses-form-array #degresosAcompaniante [initValues]="acompanianteInitDegresValues" [conceptValues]="gastosConceptValue" (onValueChange)="addExValue($event, 'ACOMPANIANTE')"></app-income-and-expenses-form-array>
+                    </div>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>

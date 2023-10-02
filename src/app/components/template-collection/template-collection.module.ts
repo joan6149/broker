@@ -1,7 +1,10 @@
 // Angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+//Domo commons lib
+import { ComponentsModule, DomoCommonDirectiveModule, DomoCommonPipesModule } from '@domo/domo-commons-lib';
 
 // Template components
 import { IndOrColectiveComponent } from './ind-or-colective/ind-or-colective.component';
@@ -25,12 +28,16 @@ import { IngressEgressMothlyComponent } from './ingress-egress-mothly/ingress-eg
 import { VerifyYourMailComponent } from './verify-your-mail/verify-your-mail.component';
 import { ReadyToGoMainViewComponent } from './ready-to-go-main-view/ready-to-go-main-view.component';
 import { PreviousRequestComponent } from './previous-request/previous-request.component';
+import { TemplateCollectionService } from './template-collection.service';
+import { IncomeAndExpensesComponent } from './income-and-expenses/income-and-expenses.component';
+import { IncomeAndExpensesFormArrayComponent } from './income-and-expenses/income-and-expenses-form-array/income-and-expenses-form-array.component';
 
 // PrimeNG
 import {KnobModule} from 'primeng/knob';
 import {SliderModule} from 'primeng/slider';
-import { ComponentsModule, DomoCommonDirectiveModule, DomoCommonPipesModule } from '@domo/domo-commons-lib';
-import { TemplateCollectionService } from './template-collection.service';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {TabViewModule} from 'primeng/tabview';
+import {DropdownModule} from 'primeng/dropdown';
 
 
 
@@ -56,16 +63,22 @@ import { TemplateCollectionService } from './template-collection.service';
     IngressEgressMothlyComponent,
     VerifyYourMailComponent,
     ReadyToGoMainViewComponent,
-    PreviousRequestComponent
+    PreviousRequestComponent,
+    IncomeAndExpensesComponent,
+    IncomeAndExpensesFormArrayComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     KnobModule,
     SliderModule,
     ComponentsModule,
     DomoCommonPipesModule,
-    DomoCommonDirectiveModule
+    DomoCommonDirectiveModule,
+    InputNumberModule,
+    TabViewModule,
+    DropdownModule
   ],
   exports: [
     IndOrColectiveComponent,

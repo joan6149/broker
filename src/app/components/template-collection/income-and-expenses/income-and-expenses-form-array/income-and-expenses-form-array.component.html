@@ -1,0 +1,33 @@
+
+<form>
+    <div #IngresDegressInput *ngFor="let _ of [].constructor(numOfVisibleCombos); let i = index">
+        <div class="row d-flex justify-content-center mb-3">
+            <div class="col-7 col-md-9">
+                <div class="mb-3">
+                    <select class="form-select" aria-label="Default select example" [(ngModel)]="dropdownsSelection[i].selectedOption" [ngModelOptions]="{standalone: true}" (change)="doChange($event, i)">
+                        <option *ngFor="let option of dropdownsSelection[i].options" [disabled]="isUsed(option)" [value]="option">{{option}}</option>
+                    </select>
+                </div>
+                <div class="">
+                    <div class="inputNumber input-group mb-3">
+                        <input ngxOnlyNumber [currency]="'EUR'" type="text" class="form-control" placeholder="0€" aria-label="Example text with button addon" aria-describedby="button-addon1" 
+                                [(ngModel)]="inputvalue[i]"
+                                (change)="updateInput($event, i)" 
+                                [ngModelOptions]="{standalone: true}"
+                                [disabled]="dropdownsSelection[i].selectedOption === ''">
+                        <button [disabled]="dropdownsSelection[i].selectedOption === ''" class="btn btn-outline-success" type="button" id="button-plus" (click)="plusValue($event, i)">+</button>
+                        <button [disabled]="dropdownsSelection[i].selectedOption === ''" class="btn btn-outline-danger" type="button" id="button-substract" (click)="substractValue($event, i)">-</button>   
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 d-flex justify-content-center align-items-center flex-column row-gap-2">
+                <button *ngIf="i > 0" type="button" class="btn btn-danger rounded-circle"(click)="removeCombobox(i)">-</button>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-2 me-5">
+            <button type="button" *ngIf="numOfVisibleCombos < conceptValues.length" class="btn btn-success rounded-circle"(click)="addCombobox()">+</button>
+        </div>
+    </div>
+</form>

@@ -1,4 +1,5 @@
 import { SelectListItem } from "@domo/domo-commons-lib/lib/models/SelectList.model";
+import { InExValue } from "src/app/components/template-collection/income-and-expenses/income-and-expenses-form-array/income-and-expenses-form-array.component";
 
 export class NewMortage {
     petitionType: PetitionType;
@@ -48,8 +49,10 @@ export interface Solicitante {
     situacionViviendaActual: string,
     hijosAcargo: string,
     situacionLaboral: SituacionLaboral,
-    ingresos: Ingreso[],
-    gastos: Gasto[],
+    ingresos: InExValue[],
+    totalIngresos: number,
+    gastos: InExValue[],
+    totalGastos: number,
     ultimaDeclaracionEnEspania: boolean
     tengoAval: boolean;
 }

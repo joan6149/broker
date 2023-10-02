@@ -1,6 +1,6 @@
 import { Component, TemplateRef, ViewChild, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NewMortage } from '../../models/NewMortage.model';
+import { NewMortage, PetitionType } from '../../models/NewMortage.model';
 import { AbstractStepPageComponent, MortageTemplate } from 'src/app/components/template-collection/abstract-step-page/abstract-step-page.component';
 import { IndOrColectiveComponent } from 'src/app/components/template-collection/ind-or-colective/ind-or-colective.component';
 import { InitDataFormAppComponent } from 'src/app/components/template-collection/init-data-form/init-data-form.component';
@@ -16,8 +16,6 @@ import { CountryOfResidenceComponent } from 'src/app/components/template-collect
   styleUrls: ['../../../../components/template-collection/abstract-step-page/abstract-step-page.component.scss']
 })
 export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> {
-
-  
 
   /** Plantillas */
   @ViewChild('EmptyTemplate') EmptyTemplate!: TemplateRef<any>;
@@ -39,7 +37,8 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
   constructor() {
     super();
     this.numberOfSteps = 1;
-    this.mortageData = new NewMortage();
+    this.mortageData = this.templateCollectionService.mortageData;
+
 
   }
 
@@ -49,9 +48,17 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     this.templateCollectionService.getNewMortageTemplates().subscribe((templates: MortageTemplate[]) => {
       this.numberOfSteps = templates.length;
       templates.forEach((template: MortageTemplate, index: number) => {
+        this.mortageData.petitionType === PetitionType.INDIVIDUAL ? template.typeOfPetition = PetitionType.INDIVIDUAL : template.typeOfPetition = PetitionType.CONJUNTA;
         this.templates.set(`${index+1}`, template);
       })
     });
+  }
+
+  /** Este metodo se llama al otener una nueva template para configurar atributos adicionales en este caso 
+   * decirle si es conjunta o individual y de es desacoplar esta decision de los componentes puestoq que es responsabilidad
+   * de este componente saber que tiene que pintar y no de los componentes individuales */
+  override configureTemplate(template: MortageTemplate): void {
+    this.mortageData.petitionType === PetitionType.INDIVIDUAL ? template.typeOfPetition = PetitionType.INDIVIDUAL : template.typeOfPetition = PetitionType.CONJUNTA;
   }
 
   submit() {

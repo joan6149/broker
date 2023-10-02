@@ -30,3 +30,42 @@ label {
 .p-calendar {
     width: 100%;
 }
+
+.p-inputgroup {
+    span {
+        min-width: 5.8em;
+    }
+    input {
+        width: 67%;
+        border-color: rgb(214 212 212) !important;
+        border-style: solid;
+        border-width: 1px;
+    }
+}
+
+// Clase para la cabecera de los tabview de los formularios
+.headerClass {
+    font-size: larger;
+    .p-tabview-nav-container {
+        display: flex;
+        justify-content: center;
+        .p-tabview-nav-content {
+            width: 100%;
+            ul li {
+                width: 100%;
+                a {
+                    display: flex;
+                    justify-content: center;
+                    text-align: center;
+                }
+            }
+        }
+
+    }
+}
+
+.formDropDown {
+    display: flex !important;
+    justify-content: left;
+    width: 89% !important;
+}
