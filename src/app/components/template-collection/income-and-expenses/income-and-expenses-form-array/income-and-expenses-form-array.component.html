@@ -1,33 +1,39 @@
 
-<form>
-    <div #IngresDegressInput *ngFor="let _ of [].constructor(numOfVisibleCombos); let i = index">
-        <div class="row d-flex justify-content-center mb-3">
-            <div class="col-7 col-md-9">
+<form class="d-flex justify-content-center flex-column">
+    <div id="{{i}}" class="row" #IngresDegressInput *ngFor="let dropdown of dropdownsSelection; let i = index"> 
+        <ng-container *ngIf="dropdown.isShow === true">
+            <div class="col-12">
                 <div class="mb-3">
-                    <select class="form-select" aria-label="Default select example" [(ngModel)]="dropdownsSelection[i].selectedOption" [ngModelOptions]="{standalone: true}" (change)="doChange($event, i)">
-                        <option *ngFor="let option of dropdownsSelection[i].options" [disabled]="isUsed(option)" [value]="option">{{option}}</option>
+                    <select class="form-select" aria-label="Default select example" [(ngModel)]="dropdown.selectedOption" [ngModelOptions]="{standalone: true}" (change)="doChange($event, i)">
+                        <option *ngFor="let option of dropdown.options" [disabled]="isUsed(option)" [value]="option">{{option}}</option>
                     </select>
                 </div>
                 <div class="">
                     <div class="inputNumber input-group mb-3">
-                        <input ngxOnlyNumber [currency]="'EUR'" type="text" class="form-control" placeholder="0€" aria-label="Example text with button addon" aria-describedby="button-addon1" 
-                                [(ngModel)]="inputvalue[i]"
-                                (change)="updateInput($event, i)" 
+                        <input #input ngxOnlyNumber [currency]="'EUR'" type="text" class="form-control" placeholder="0€" aria-label="Example text with button addon" aria-describedby="button-addon1" 
+                                [ngModel]="dropdown.value"
+                                (ngModelChange)="updateInput($event, dropdown)" 
                                 [ngModelOptions]="{standalone: true}"
-                                [disabled]="dropdownsSelection[i].selectedOption === ''">
-                        <button [disabled]="dropdownsSelection[i].selectedOption === ''" class="btn btn-outline-success" type="button" id="button-plus" (click)="plusValue($event, i)">+</button>
-                        <button [disabled]="dropdownsSelection[i].selectedOption === ''" class="btn btn-outline-danger" type="button" id="button-substract" (click)="substractValue($event, i)">-</button>   
+                                [disabled]="dropdown.selectedOption === ''">
+                        <button [disabled]="dropdown.selectedOption === ''" class="btn btn-outline-success" type="button" id="button-plus" (mousedown)="plusValue(dropdown)" (mouseup)="releaseButton()" (blur)="formatCurerncy(input)">+</button>
+                        <button [disabled]="dropdown.selectedOption === ''" class="btn btn-outline-danger" type="button" id="button-substract" (mousedown)="substractValue(dropdown)" (mouseup)="releaseButton()" (blur)="formatCurerncy(input)"
+                        >-</button>   
                     </div>
                 </div>
             </div>
-            <div class="col-2 d-flex justify-content-center align-items-center flex-column row-gap-2">
-                <button *ngIf="i > 0" type="button" class="btn btn-danger rounded-circle"(click)="removeCombobox(i)">-</button>
+            <div class="col-12 mb-3 d-flex justify-content-evenly">
+                <button style="height: 41px;" *ngIf="i > 0" type="button" class="btn btn-danger rounded-circle"(click)="removeCombobox(dropdown)">
+                    <i class="pi pi-minus-circle"></i>
+                </button>
+                <button style="height: 41px;" *ngIf="showAddButton(i, IngresDegressInput)" type="button" class="btn btn-success rounded-circle"(click)="addCombobox2()">
+                    <i class="pi pi-plus-circle"></i>
+                </button>
             </div>
-        </div>
+        </ng-container>
     </div>
-    <div class="row d-flex justify-content-center">
-        <div class="col-2 me-5">
-            <button type="button" *ngIf="numOfVisibleCombos < conceptValues.length" class="btn btn-success rounded-circle"(click)="addCombobox()">+</button>
-        </div>
+    <div class="col-12 mb-3 d-flex justify-content-evenly">
+        <!-- <button style="height: 41px;" *ngIf="!isAllShowing()" type="button" class="btn btn-success rounded-circle"(click)="addCombobox2()">
+            <i class="pi pi-plus-circle"></i>
+        </button> -->
     </div>
 </form>

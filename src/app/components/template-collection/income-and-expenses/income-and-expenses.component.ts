@@ -106,4 +106,11 @@ export class IncomeAndExpensesComponent extends BaseForm implements OnInit, OnDe
     
   }
 
+  public calcRatio(): number {
+    if(this.ingresosTotales && this.gastosTotales) {
+      return Math.round((this.gastosTotales/this.ingresosTotales)*100);
+    }
+    return 0;
+  }
+
 }

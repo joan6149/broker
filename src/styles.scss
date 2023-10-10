@@ -51,12 +51,18 @@ label {
         justify-content: center;
         .p-tabview-nav-content {
             width: 100%;
-            ul li {
-                width: 100%;
-                a {
-                    display: flex;
-                    justify-content: center;
-                    text-align: center;
+            ul {
+                li {
+                    width: 100%;
+                    a {
+                        display: flex;
+                        justify-content: center;
+                        text-align: center;
+                    }
+                }
+
+                .p-tabview-ink-bar {
+                    width: 100% !important;
                 }
             }
         }
