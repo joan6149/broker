@@ -45,7 +45,7 @@ export class TemplateCollectionService {
         component: IndOrColectiveComponent
       } as MortageTemplate,
   
-     /* {
+     {
         name: 'basicInformation',
         title: 'Información paersonal',
         component: InitDataFormAppComponent
@@ -145,7 +145,7 @@ export class TemplateCollectionService {
         name: 'previousRequest',
         title: '¿Has solicitado ya la hipoteca con otros bancos?',
         component: PreviousRequestComponent
-      } as MortageTemplate, */
+      } as MortageTemplate,
 
       {
         name: 'incomeAndExpenses',

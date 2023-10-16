@@ -7,13 +7,14 @@ import { TemplateCollectionService } from '../template-collection.service';
 import { CommonModule } from '@angular/common';
 import { ComponentsModule } from '@domo/domo-commons-lib';
 import { BaseForm } from '../base-form-component/base-form';
+import {TabViewModule} from 'primeng/tabview';
 
 @Component({
   selector: 'app-abstract-mortage-form',
   templateUrl: './abstract-mortage-form.component.html',
   styleUrls: ['./abstract-mortage-form.component.scss'],
   standalone: true,
-  imports: [ CommonModule, ComponentsModule]
+  imports: [ CommonModule, ComponentsModule, TabViewModule]
 })
 export abstract class AbstractMortageFormComponent extends BaseForm implements OnInit, AfterViewInit, OnDestroy {
 

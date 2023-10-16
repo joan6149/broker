@@ -1,18 +1,26 @@
-<!-- Step4 Pais de residencia -->
-<div class="col-7" [ngClass]="mortageData.petitionType === 'INDIVIDUAL' ? 'col-md-12': 'col-md-6'">
-    <div >
-        <ngx-direction-data-form #solicitanteDataForm [shortDirection]="shortDirection" [title]="'SOLICITANTE'" (OnformStateChange)="checkForm($event)"></ngx-direction-data-form>
-    </div>
-    <button *ngIf="mortageData.petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherForm('ACOMPANIANTE', solicitanteDataForm)">Igual que Acompañante</button>
-</div>
-
-<!-- Step4 Pais de residencia -->
-<div class="col-7 mt-5 mt-md-0 col-md-6" *ngIf="petitionType === 'CONJUNTA'">
-    <div>
-        <ngx-direction-data-form #acompanianteDataForm [shortDirection]="shortDirection" [title]="'ACOMPANIANTE'" (OnformStateChange)="checkForm($event)"></ngx-direction-data-form>
-    </div>
-    <button class="btn btn-success" (click)="sameOtherForm('SOLICITANTE', acompanianteDataForm)">Igual que Solicitante</button>
-</div>
+<!-- Step2 Solicitante -->
+<p-tabView [styleClass]="'headerClass'">
+    <p-tabPanel header="Solicitante">
+        <!-- Step2 Solicitante -->
+        <div class="col-7 col-md-12">
+            <h3 class="fw-bold">Solicitante</h3>
+            <div>
+                <ngx-direction-data-form #solicitanteDataForm [shortDirection]="shortDirection" [title]="'SOLICITANTE'" (OnformStateChange)="checkForm($event)"></ngx-direction-data-form>
+            </div>
+            <button *ngIf="petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherForm('ACOMPANIANTE', solicitanteDataForm)">Igual que Acompañante</button>
+        </div>
+    </p-tabPanel>
+    <p-tabPanel *ngIf="petitionType === 'CONJUNTA'" header="Acompañante">
+        <!-- Step2 Acompanante -->
+        <div *ngIf="petitionType === 'CONJUNTA'" class="col-7 col-md-12 ">
+            <h3 class="fw-bold">Acompañante</h3>
+            <div>
+                <ngx-direction-data-form #acompanianteDataForm [shortDirection]="shortDirection" [title]="'ACOMPANIANTE'" (OnformStateChange)="checkForm($event)"></ngx-direction-data-form>
+            </div>
+            <button class="btn btn-success" (click)="sameOtherForm('SOLICITANTE', acompanianteDataForm)">Igual que Solicitante</button>
+        </div> 
+    </p-tabPanel>
+</p-tabView>
 
 
 
