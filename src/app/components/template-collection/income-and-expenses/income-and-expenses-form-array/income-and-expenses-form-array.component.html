@@ -8,6 +8,11 @@
                         <option *ngFor="let option of dropdown.options" [disabled]="isUsed(option)" [value]="option">{{option}}</option>
                     </select>
                 </div>
+                <ng-container *ngIf="showFinishDate === true">
+                    <div class="mb-3">
+                        <p-calendar [(ngModel)]="dropdown.finishDate" dateFormat="dd-mm-yy" placeholder="Fecha fin deuda" [ngModelOptions]="{standalone: true}"></p-calendar>
+                    </div>
+                </ng-container>
                 <div class="">
                     <div class="inputNumber input-group mb-3">
                         <input #input ngxOnlyNumber [currency]="'EUR'" type="text" class="form-control" placeholder="0€" aria-label="Example text with button addon" aria-describedby="button-addon1" 

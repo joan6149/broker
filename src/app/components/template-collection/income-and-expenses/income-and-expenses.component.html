@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-4 col-sm-5 col-md-6">
                         <h5 class="subtitles">Gastos</h5>
-                        <app-income-and-expenses-form-array #ingresosSolicitante [initValues]="solicitanteInitDegresValues" [conceptValues]="gastosConceptValue" (onValueChange)="addExValue($event, 'SOLICITANTE')"></app-income-and-expenses-form-array>
+                        <app-income-and-expenses-form-array #ingresosSolicitante [initValues]="solicitanteInitDegresValues" [conceptValues]="gastosConceptValue" [showFinishDate]="true" (onValueChange)="addExValue($event, 'SOLICITANTE')"></app-income-and-expenses-form-array>
                     </div>
                 </div>
             </p-tabPanel>

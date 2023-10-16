@@ -82,6 +82,7 @@ export class IncomeAndExpensesComponent extends BaseForm implements OnInit, OnDe
   }
 
   addExValue(value: InExValue[], solicitante: string): void {
+    console.log("Valor exportado => ", value);
     if(solicitante === 'SOLICITANTE') {
       this.templateCollectionService.mortageData.solicitante.totalGastos = value.map(val => val.quantity).reduce((prev: number, curr: number) => {
         return prev + curr;

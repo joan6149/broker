@@ -38,6 +38,7 @@ import {SliderModule} from 'primeng/slider';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {TabViewModule} from 'primeng/tabview';
 import {DropdownModule} from 'primeng/dropdown';
+import {CalendarModule} from 'primeng/calendar';
 
 
 
@@ -78,7 +79,8 @@ import {DropdownModule} from 'primeng/dropdown';
     DomoCommonDirectiveModule,
     InputNumberModule,
     TabViewModule,
-    DropdownModule
+    DropdownModule,
+    CalendarModule
   ],
   exports: [
     IndOrColectiveComponent,

@@ -6,7 +6,8 @@ import { every } from 'rxjs';
 
 export interface InExValue {
   name: string,
-  quantity: number
+  quantity: number,
+  finishDate?: Date
 }
 
 export class DropdownSelection {
@@ -14,9 +15,10 @@ export class DropdownSelection {
         public options: string[], 
         public selectedOption: string,
         public value: number,
-        public isShow: boolean) {}
+        public isShow: boolean,
+        public finishDate?: Date) {}
   getInExValue(): InExValue {
-    return {name: this.selectedOption, quantity: this.value} as InExValue
+    return {name: this.selectedOption, quantity: this.value, finishDate: this.finishDate} as InExValue
   }
 }
 
@@ -31,6 +33,7 @@ export class IncomeAndExpensesFormArrayComponent implements OnInit {
 
   @Input('conceptValues') conceptValues: string[] = [];
   @Input('initValues') initValues: InExValue[] = [];
+  @Input('showFinishDate') showFinishDate: boolean = false;
   @Output('onValueChange') onValueChange: EventEmitter<InExValue[]> = new EventEmitter<InExValue[]>();
 
 
