@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewChild, Inject } from '@angular/core';
+import { Component, TemplateRef, ViewChild, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NewMortage, PetitionType } from '../../models/NewMortage.model';
 import { AbstractStepPageComponent, MortageTemplate } from 'src/app/components/template-collection/abstract-step-page/abstract-step-page.component';
@@ -9,13 +9,14 @@ import { SonsComponent } from 'src/app/components/template-collection/sons/sons.
 import { ResidencePermitComponent } from 'src/app/components/template-collection/residence-permit/residence-permit.component';
 import { CurrentHousingSituationComponent } from 'src/app/components/template-collection/current-housing-situation/current-housing-situation.component';
 import { CountryOfResidenceComponent } from 'src/app/components/template-collection/country-of-residence/country-of-residence.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-new-mortgage',
   templateUrl: '../../../../components/template-collection/abstract-step-page/abstract-step-page.component.html',
   styleUrls: ['../../../../components/template-collection/abstract-step-page/abstract-step-page.component.scss']
 })
-export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> {
+export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> implements OnInit {
 
   /** Plantillas */
   @ViewChild('EmptyTemplate') EmptyTemplate!: TemplateRef<any>;
@@ -38,8 +39,10 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     super();
     this.numberOfSteps = 1;
     this.mortageData = this.templateCollectionService.mortageData;
+  }
 
-
+  ngOnInit(): void {
+    
   }
 
   @Inject(ActivatedRoute) private route!: ActivatedRoute;
@@ -61,9 +64,22 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     this.mortageData.petitionType === PetitionType.INDIVIDUAL ? template.typeOfPetition = PetitionType.INDIVIDUAL : template.typeOfPetition = PetitionType.CONJUNTA;
   }
 
+  checkVerificationCode(): boolean {
+    if(environment.production === false && this.templateCollectionService.verificationCode === '2222') {
+      return true;
+    }
+    // Checkear codigo mediante peticion al back
+    return false;
+  }
+
   submit() {
     console.log('Finalizado');
     console.log('MORTAGE FINALIZADO ==> ', this.templateCollectionService.mortageData)
+    console.log('CODIGO DE VERIFICACION INTRODUCIDO ==> ', this.templateCollectionService.verificationCode);
+    // checkea codigo de verificacion
+    if(!this.checkVerificationCode()) {
+      console.log("Error de verificacion muestra un dialog");
+    }
     // Guardar NewMortage en la bbdd (kisas una accion de ngrx?) lo mismo no nnose pensemos
     // seria ideal guardarlo en el estado por lo tanto usar ngrx
     // Ir a mis solicitudes

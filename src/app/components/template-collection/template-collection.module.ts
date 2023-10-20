@@ -39,6 +39,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {TabViewModule} from 'primeng/tabview';
 import {DropdownModule} from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
+import { VerificationCodeComponent } from './verification-code/verification-code.component';
 
 
 
@@ -66,7 +67,8 @@ import {CalendarModule} from 'primeng/calendar';
     ReadyToGoMainViewComponent,
     PreviousRequestComponent,
     IncomeAndExpensesComponent,
-    IncomeAndExpensesFormArrayComponent
+    IncomeAndExpensesFormArrayComponent,
+    VerificationCodeComponent
   ],
   imports: [
     CommonModule,

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  appName: 'TimeClock',
+  appName: 'BlackBird',
 
   // Configuracion del servivor smtp a usar (esto aaqui weeno en fin ...)
   mailerSendOptions: {
@@ -34,7 +34,7 @@ export const environment = {
 
   CompanyLogo: {
     logo: 'ruta del logo',
-    name: 'Avante hipoteca'
+    name: 'Hipotecas Black bird'
   }
 
 };

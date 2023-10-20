@@ -27,8 +27,12 @@ export class UserService {
     return this.httpClient.post<UserDto>(`${environment.backend}/${this.urlSlice}/checkUserToken`, {token});
   }
 
-  checkToken(token: string, role: Role):Observable<boolean> {
-    return this.checkUserToken(token).pipe(
+  getuserById(userId: string): Observable<UserDto> {
+    return this.httpClient.get<UserDto>(`${environment.backend}/${this.urlSlice}/user/${userId}`);
+  }
+
+  checkRole(userId: string, role: Role):Observable<boolean> {
+    return this.getuserById(userId).pipe(
       tap((user: UserDto) => {
         this.currentUser = {...user};
       }),

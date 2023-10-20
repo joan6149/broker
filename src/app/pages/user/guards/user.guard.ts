@@ -12,9 +12,9 @@ export class UserGuard implements CanActivate, CanMatch, CanLoad, CanActivateChi
               private router: Router) {}
   
   canActivate(route: ActivatedRouteSnapshot,state: RouterStateSnapshot): Observable<boolean> {
-    const token: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').token : null;
+    const userId: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').userId : null;
 
-    if(token === null) {
+    if(userId === null) {
       this.router.navigate(['login']);
       return of(false);
     }
@@ -24,13 +24,13 @@ export class UserGuard implements CanActivate, CanMatch, CanLoad, CanActivateChi
       return of(false);
     }
 
-    return this.userService.checkToken(token, Role.USER);
+    return this.userService.checkRole(userId, Role.USER);
     
   }
   canMatch(route: Route,segments: UrlSegment[]): Observable<boolean> {
-    const token: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').token : null;
+    const userId: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').userId : null;
 
-    if(token === null) {
+    if(userId === null) {
       this.router.navigate(['login']);
       return of(false);
     }
@@ -41,14 +41,14 @@ export class UserGuard implements CanActivate, CanMatch, CanLoad, CanActivateChi
       return of(false);
     }
 
-    return this.userService.checkToken(token, Role.USER);
+    return this.userService.checkRole(userId, Role.USER);
     
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
-    const token: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').token : null;
+    const userId: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').userId : null;
 
-    if(token === null) {
+    if(userId === null) {
       this.router.navigate(['login']);
       return of(false);
     }
@@ -58,13 +58,13 @@ export class UserGuard implements CanActivate, CanMatch, CanLoad, CanActivateChi
       return of(false);
     }
 
-    return this.userService.checkToken(token, Role.USER);
+    return this.userService.checkRole(userId, Role.USER);
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    const token: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').token : null;
+    const userId: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').userId : null;
 
-    if(token === null) {
+    if(userId === null) {
       this.router.navigate(['login']);
       return of(false);
     }
@@ -74,6 +74,6 @@ export class UserGuard implements CanActivate, CanMatch, CanLoad, CanActivateChi
       return of(false);
     }
 
-    return this.userService.checkToken(token, Role.USER);
+    return this.userService.checkRole(userId, Role.USER);
   }
 }

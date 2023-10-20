@@ -20,6 +20,7 @@ import { PropertyHouseValueComponent } from './property-house-value/property-hou
 import { KindOfHouseComponent } from './kind-of-house/kind-of-house.component';
 import { CurrentHiringStateComponent } from './current-hiring-state/current-hiring-state.component';
 import { IncomeAndExpensesComponent } from './income-and-expenses/income-and-expenses.component';
+import { VerificationCodeComponent } from './verification-code/verification-code.component';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,7 @@ import { IncomeAndExpensesComponent } from './income-and-expenses/income-and-exp
 export class TemplateCollectionService {
 
   mortageData: NewMortage = new NewMortage();
+  verificationCode: string = '';
 
   constructor() { }
 
@@ -45,7 +47,7 @@ export class TemplateCollectionService {
         component: IndOrColectiveComponent
       } as MortageTemplate,
   
-     {
+     /*{
         name: 'basicInformation',
         title: 'Información paersonal',
         component: InitDataFormAppComponent
@@ -151,6 +153,12 @@ export class TemplateCollectionService {
         name: 'incomeAndExpenses',
         title: '¿Cuales son tus ingresos y gastos mensuales?',
         component: IncomeAndExpensesComponent
+      } as MortageTemplate, */
+
+      {
+        name: 'verificationCode',
+        title: 'Introduce el codigo de verificación que te hemos mandado al mail',
+        component: VerificationCodeComponent
       } as MortageTemplate,
     ]
   }

@@ -12,9 +12,9 @@ export class BrokerGuard implements CanActivate, CanMatch, CanLoad {
               private router: Router) {}
   
   canActivate(route: ActivatedRouteSnapshot,state: RouterStateSnapshot): Observable<boolean> {
-    const token: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').token : null;
+    const userId: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').userId : null;
 
-    if(token === null) {
+    if(userId === null) {
       this.router.navigate(['login']);
       return of(false);
     }
@@ -27,13 +27,13 @@ export class BrokerGuard implements CanActivate, CanMatch, CanLoad {
       return of(false);
     }
 
-    return this.userService.checkToken(token, Role.BROKER);
+    return this.userService.checkRole(userId, Role.BROKER);
     
   }
   canMatch(route: Route,segments: UrlSegment[]): Observable<boolean> {
-    const token: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').token : null;
+    const userId: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').userId : null;
 
-    if(token === null) {
+    if(userId === null) {
       this.router.navigate(['login']);
       return of(false);
     }
@@ -51,13 +51,13 @@ export class BrokerGuard implements CanActivate, CanMatch, CanLoad {
       return of(false);
     }
 
-    return this.userService.checkToken(token, Role.BROKER);
+    return this.userService.checkRole(userId, Role.BROKER);
   }
 
   canLoad(route: Route, segments:UrlSegment[]): Observable<boolean> {
-    const token: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').token : null;
+    const userId: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').userId : null;
 
-    if(token === null) {
+    if(userId === null) {
       this.router.navigate(['login']);
       return of(false);
     }
@@ -70,6 +70,6 @@ export class BrokerGuard implements CanActivate, CanMatch, CanLoad {
       return of(false);
     }
 
-    return this.userService.checkToken(token, Role.BROKER);
+    return this.userService.checkRole(userId, Role.BROKER);
   }
 }

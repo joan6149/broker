@@ -1,0 +1,5 @@
+<div class="row mt-5 mb-5 d-flex justify-content-center">
+    <div class="col-3 d-flex column-gap-3 justify-content-center">
+        <input #inputs *ngFor="let time of [].constructor(4); let i = index" ngxOnlyNumber class="form-control text-center" type="text" maxlength="1" (keyup)="changeInput($event, i)">
+    </div>
+</div>
