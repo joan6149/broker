@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanLoad, CanMatch, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { Role, UserDto } from 'src/app/models/user.dto';
 import { UserService } from 'src/app/services/user.service';
@@ -9,10 +10,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class BrokerGuard implements CanActivate, CanMatch, CanLoad {
   constructor(private userService: UserService,
+              private cookieService: CookieService,
               private router: Router) {}
   
   canActivate(route: ActivatedRouteSnapshot,state: RouterStateSnapshot): Observable<boolean> {
-    const userId: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').userId : null;
+    const userId: string | null = this.cookieService.check('token') ? JSON.parse(this.cookieService.get('token')).userId : null;
 
     if(userId === null) {
       this.router.navigate(['login']);
@@ -31,8 +33,7 @@ export class BrokerGuard implements CanActivate, CanMatch, CanLoad {
     
   }
   canMatch(route: Route,segments: UrlSegment[]): Observable<boolean> {
-    const userId: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').userId : null;
-
+    const userId: string | null = this.cookieService.check('token') ? JSON.parse(this.cookieService.get('token')).userId : null;
     if(userId === null) {
       this.router.navigate(['login']);
       return of(false);
@@ -55,8 +56,7 @@ export class BrokerGuard implements CanActivate, CanMatch, CanLoad {
   }
 
   canLoad(route: Route, segments:UrlSegment[]): Observable<boolean> {
-    const userId: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').userId : null;
-
+    const userId: string | null = this.cookieService.check('token') ? JSON.parse(this.cookieService.get('token')).userId : null;
     if(userId === null) {
       this.router.navigate(['login']);
       return of(false);

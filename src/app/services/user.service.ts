@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map, of, tap } from 'rxjs';
 import { LoginDto, Role, UserDto, UserToken } from '../models/user.dto';
 import { environment } from 'src/environments/environment';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Injectable({
@@ -13,7 +14,7 @@ export class UserService {
   urlSlice: string = 'user';
   currentUser?: UserDto;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private cookieService: CookieService) {}
 
   login(logindto: LoginDto):Observable<UserToken> {
     return this.httpClient.post<UserToken>(`${environment.backend}/${this.urlSlice}/login`, logindto);
@@ -41,6 +42,7 @@ export class UserService {
   }
 
   logout() {
+    this.cookieService.delete('token');
     localStorage.removeItem('token');
   }
 

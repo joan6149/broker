@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { Store } from '@ngrx/store';
 import { AppState } from './app.reducer';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -16,14 +17,14 @@ export class AppComponent implements OnInit{
   title = environment.appName;
   showDialog$: Observable<DialogData> = new Observable<DialogData>();
 
-  constructor(private timeClockService: TimeclockService, private store:Store<AppState>, private router: Router) {
+  constructor(private timeClockService: TimeclockService, private store:Store<AppState>, private router: Router, private cookieService: CookieService) {
     this.showDialog$ = this.timeClockService.getShowDialog();
   }
 
   ngOnInit(): void {
     this.store.select('auth').subscribe( (auth) => {
       if(auth.token !== null) {
-        localStorage.setItem('token', JSON.stringify(auth.token));
+        this.cookieService.set('token', JSON.stringify(auth.token));
         auth.token?.role === 'User' ? this.router.navigate(['/user']) : this.router.navigate(['/user-broker'])
       }
     });

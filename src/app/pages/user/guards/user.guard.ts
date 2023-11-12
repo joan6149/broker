@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, CanMatch, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable, of, tap, map } from 'rxjs';
 import { Role, UserDto } from 'src/app/models/user.dto';
 import { UserService } from 'src/app/services/user.service';
@@ -9,11 +10,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserGuard implements CanActivate, CanMatch, CanLoad, CanActivateChild {
   constructor(private userService: UserService,
+              private cookieService: CookieService,
               private router: Router) {}
   
-  canActivate(route: ActivatedRouteSnapshot,state: RouterStateSnapshot): Observable<boolean> {
-    const userId: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').userId : null;
-
+  canActivate(route: ActivatedRouteSnapshot,state: RouterStateSnapshot): Observable<boolean> {    
+    const userId: string | null = this.cookieService.check('token') ? JSON.parse(this.cookieService.get('token')).userId : null;
     if(userId === null) {
       this.router.navigate(['login']);
       return of(false);
@@ -28,7 +29,7 @@ export class UserGuard implements CanActivate, CanMatch, CanLoad, CanActivateChi
     
   }
   canMatch(route: Route,segments: UrlSegment[]): Observable<boolean> {
-    const userId: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').userId : null;
+    const userId: string | null = this.cookieService.check('token') ? JSON.parse(this.cookieService.get('token')).userId : null;
 
     if(userId === null) {
       this.router.navigate(['login']);
@@ -46,7 +47,7 @@ export class UserGuard implements CanActivate, CanMatch, CanLoad, CanActivateChi
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
-    const userId: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').userId : null;
+    const userId: string | null = this.cookieService.check('token') ? JSON.parse(this.cookieService.get('token')).userId : null;
 
     if(userId === null) {
       this.router.navigate(['login']);
@@ -62,7 +63,7 @@ export class UserGuard implements CanActivate, CanMatch, CanLoad, CanActivateChi
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    const userId: string | null = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token') || '').userId : null;
+    const userId: string | null = this.cookieService.check('token') ? JSON.parse(this.cookieService.get('token')).userId : null;
 
     if(userId === null) {
       this.router.navigate(['login']);
