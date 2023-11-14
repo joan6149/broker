@@ -7,6 +7,7 @@ import { EMPTY, of } from 'rxjs';
 import * as UserActions from '../Actions/Auth.actions';
 import { LoginDto } from "src/app/models/user.dto";
 import { Router } from "@angular/router";
+import { HttpBlackBirdErrorHandler } from "src/app/errorHandler/HttpBlackBirdErrorHandler";
 
 
 
@@ -19,7 +20,8 @@ export class UserEffects {
     constructor(
         private actions$: Actions,
         private userService: UserService,
-        private router: Router
+        private router: Router,
+        private readonly handler: HttpBlackBirdErrorHandler
     ){}
 
     login$ = createEffect( () => this.actions$.pipe(
@@ -32,11 +34,25 @@ export class UserEffects {
         )
     );
 
+    logout$ = createEffect(() => this.actions$.pipe(
+        ofType( UserActions.LOGOUT ),
+        switchMap((action) => {
+            this.userService.logout()
+            return EMPTY;
+        }),
+        catchError((err) => {
+            this.handler.handleError(err);
+            return of(UserActions.LOGOUT_ERROR({error: err}));
+        })
+    ))
+
     register$ = createEffect(() => this.actions$.pipe(
         ofType( UserActions.REGISTER ),
         switchMap(action => this.userService.registerUser(action.user).pipe(
             map(user => UserActions.REGISTERED({userCreated: user})),
-            catchError(err => of(UserActions.REGISTER_ERROR({error: err}))),
+            catchError((err) => {
+                return of(UserActions.REGISTER_ERROR({error: err}));
+            })
         ))
     ))
 
@@ -46,7 +62,10 @@ export class UserEffects {
             this.router.navigate(['/'])
             return EMPTY;
         }),
-        catchError(err => of(UserActions.REGISTER_ERROR({error: err})))
+        catchError((err) => {
+            this.handler.handleError(err);
+            return of(UserActions.REGISTER_ERROR({error: err}));
+        })
     ))
 
 }

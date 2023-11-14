@@ -37,22 +37,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   sumbit(user: any) {
     this.store.dispatch(UserActions.REGISTER({user}));
-    /*this.subscriptions.push(this.userService.registerUser(user).pipe(
-      catchError((err: HttpErrorResponse) => {
-        this.msg.isCorrect = false;
-        this.msg.message = err.error.message;
-        this.msg.check = true;
-        return of(null)
-      })
-    ).subscribe((registeredUser: UserDto | null) => {
-      if(registeredUser != null) {
-        this.msg = {
-          isCorrect: true,
-          message: `Usuario ${registeredUser?.email} creado!\nSe enviará un mail de confirmación al correo electronico proporcionado.`,
-          check: true
-        }
-      }
-    })); */
   }
 
   okey() {

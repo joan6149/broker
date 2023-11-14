@@ -4,4 +4,5 @@
                 [message]="(showDialog$ | async)!.msg || ''"
                 (onOkey)="closeDialog()"></ngx-domo-dialog>
 <!-- MENSAJES DE CONFIRMACIÓN DE LA APP -->
+<p-toast position="top-center" key="httpErrors"></p-toast>
 <router-outlet></router-outlet>

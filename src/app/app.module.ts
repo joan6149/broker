@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentsModule } from '@domo/domo-commons-lib';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TimeclockComponentsModule } from './components/timeclock-components.module';
 import { StoreModule, provideStore } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -18,6 +18,10 @@ import { EffectsModule, provideEffects } from '@ngrx/effects';
 import { AppEffects } from './appStore/effects';
 import { UserService } from './services/user.service';
 import { CookieService } from 'ngx-cookie-service';
+import { HttpBlackBirdErrorHandler } from './errorHandler/HttpBlackBirdErrorHandler';
+import { ErrorInterceptorInterceptor } from './errorHandler/interceptor/error-interceptor.interceptor';
+import {ToastModule} from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -35,14 +39,18 @@ import { CookieService } from 'ngx-cookie-service';
     HttpClientModule,
     BrowserAnimationsModule,
     TimeclockComponentsModule,
+    ToastModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot( AppEffects ),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [
     TimeclockService,
     UserService,
-    CookieService
+    CookieService,
+    HttpBlackBirdErrorHandler,
+    MessageService,
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

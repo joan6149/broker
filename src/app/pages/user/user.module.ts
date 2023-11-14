@@ -9,6 +9,9 @@ import { MyRequestsComponent } from './pages/my-requests/my-requests.component';
 import { MyDocumentsComponent } from './pages/my-documents/my-documents.component';
 import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { MainPanelComponent } from './pages/main-panel/main-panel.component';
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from 'src/app/app.reducer';
+import { authReducer } from 'src/app/appStore/reducers/Auth.reducer';
 
 
 
@@ -25,7 +28,8 @@ import { MainPanelComponent } from './pages/main-panel/main-panel.component';
     CommonModule,
     UserRoutingModule,
     TimeclockComponentsModule,
-    ComponentsModule
+    ComponentsModule,
+    StoreModule.forFeature('auth', authReducer),
   ]
 })
 export class UserModule { }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from '@domo/domo-commons-lib';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducer';
+import * as UserActions from '../../../appStore/Actions/Auth.actions';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -43,14 +46,14 @@ export class UsermainComponent implements OnInit {
     }
   ];
 
-  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private store: Store<AppState>) { }
 
   ngOnInit(): void {
   }
 
   goToRoute(item: MenuItem) {
     if(item.routerLink === 'login') {
-      this.userService.logout();
+      this.store.dispatch(UserActions.LOGOUT())
       this.router.navigate([item.routerLink]);
     } else {
       this.router.navigate([item.routerLink], {relativeTo: this.route})
