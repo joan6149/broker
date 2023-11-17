@@ -1,8 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef, AfterViewInit, inject, OnDestroy, ChangeDetectorRef, ComponentFactoryResolver } from '@angular/core';
 import { TemplateCollectionService } from '../template-collection.service';
-import { Subscription, of } from 'rxjs';
-import { BaseForm } from '../base-form-component/base-form';
-import { PetitionType } from 'src/app/pages/user/models/NewMortage.model';
+import { Observable, Subscription, of } from 'rxjs';
+import { tag } from 'rxjs-spy/operators';
 
 
 
@@ -55,18 +54,25 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
   templateCollectionService: TemplateCollectionService = inject(TemplateCollectionService);
   cdrService: ChangeDetectorRef = inject(ChangeDetectorRef);
 
+  /** Map de inputs de cada template (step-{input:value})*/
+  templateInputs: Map<string, {[key: string]: any}> = new Map<string, {[key: string]: any}>();
+
    /** Subscriptnions */
    subscriptions: Subscription[] = [];
    validationSubscription: Subscription = new Subscription();
 
-  constructor() { }
+  constructor() {}
+
   ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   ngAfterViewInit(): void {
-    this.setTemplates();
-    this.getTemplate();
+    this.setTemplates().subscribe((res) => {
+      if(res) {
+        this.getTemplate();
+      }
+    });
   }
 
   nextForm(nextStep:number) {
@@ -88,15 +94,17 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
 
   getTemplate(): void {
     const template: MortageTemplate | undefined = this.templates.get(this.currentStep);
-
     if(template) {
       this.configureTemplate(template);
       this.validationSubscription.unsubscribe();
       this.container.clear();
-      const component: BaseForm = this.container.createComponent<any>(template.component).instance;
-      this.validationSubscription = component.templateIsValid().subscribe((valid: boolean) => {
+      const component: any = this.setInputValuesForComponent(this.container.createComponent<any>(template.component).instance, template);
+      this.cdrService.detectChanges();
+      this.validationSubscription = component.templateIsValid().pipe(
+        tag('validTemplate')
+      ).subscribe((valid: boolean) => {
         this.currentStepIsCorrect = valid;
-        this.cdrService.detectChanges();
+        // Mirate esto parece que no actualiza
       })
       console.log(`Step: ${this.currentStep}: ${JSON.stringify(template)}`);
     }
@@ -127,8 +135,19 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
     this.nextForm(nextStep);
   }
 
+  private setInputValuesForComponent(component: any, template: MortageTemplate): any {
+    const componentInputs: {[key: string]: any} | undefined = this.templateInputs!.get(template.name!);
+      for (const key in componentInputs) {
+        if (componentInputs.hasOwnProperty(key)) {
+          const value = componentInputs[key];
+          component[key] = value
+        }
+      }
+    return component;
+  }
+
   abstract submit(): void;
-  abstract setTemplates(): void;
+  abstract setTemplates(): Observable<boolean>;
   abstract configureTemplate(template: MortageTemplate): void
 
 }

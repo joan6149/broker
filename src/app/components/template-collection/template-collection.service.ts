@@ -1,5 +1,5 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { Subject, Observable, BehaviorSubject, ReplaySubject, of } from 'rxjs';
+import { Subject, Observable, BehaviorSubject, ReplaySubject, of, map, switchMap, EMPTY, tap } from 'rxjs';
 import { NewMortage } from 'src/app/pages/user/models/NewMortage.model';
 import { MortageTemplate } from './abstract-step-page/abstract-step-page.component';
 import { CivilStateComponent } from './civil-state/civil-state.component';
@@ -21,6 +21,10 @@ import { KindOfHouseComponent } from './kind-of-house/kind-of-house.component';
 import { CurrentHiringStateComponent } from './current-hiring-state/current-hiring-state.component';
 import { IncomeAndExpensesComponent } from './income-and-expenses/income-and-expenses.component';
 import { VerificationCodeComponent } from './verification-code/verification-code.component';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { EmptyExpr } from '@angular/compiler';
+import { Ca } from '@domo/domo-commons-lib/lib/components/forms/models/direction.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -29,12 +33,53 @@ export class TemplateCollectionService {
 
   mortageData: NewMortage = new NewMortage();
   verificationCode: string = '';
+  urlSlice: string = 'template';
+  comunidadesAutonomas: Ca[] = [];
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
-  // Este metodo al final tendria que pillarlos del back de una tabla especifica
-  getNewMortageTemplates(): Observable<MortageTemplate[]> {
-    return of(this.getLocalNewMortageTemplates());
+  getNewMortageTemplates(formId: string): Observable<MortageTemplate[]> {
+    //return of(this.getLocalNewMortageTemplates());
+    return this.httpClient.get<any>(`${environment.backend}/${this.urlSlice}/templateAssignations/${formId}`).pipe(
+      map(res => res.map((value:any) => {
+        let receivedTemplate: any = value.template;
+        return {
+          name: receivedTemplate.name,
+          title: receivedTemplate.title,
+          component: this.getComponentByTemplateId(receivedTemplate.id) as any
+        } as MortageTemplate
+      }))
+    );
+
+    
+    //return of(this.getLocalNewMortageTemplates());
+
+  }
+
+  private getComponentByTemplateId(templateId: number) {
+    const templateComponents: any[] = [];
+    templateComponents[0] = IndOrColectiveComponent;
+    templateComponents[1] = InitDataFormAppComponent;
+    templateComponents[2] = CivilStateComponent;
+    templateComponents[3] = CountryOfResidenceComponent;
+    templateComponents[4] = SonsComponent;
+    templateComponents[5] = ResidencePermitComponent;
+    templateComponents[6] = CurrentHousingSituationComponent;
+    templateComponents[7] = CurrentLaboralSituationComponent;
+    templateComponents[8] = IsUsuallyHouseComponent;
+    templateComponents[9] = PropertyHouseValueComponent;
+    templateComponents[10] = KindOfHouseComponent;
+    templateComponents[11] = CurrentHiringStateComponent;
+    templateComponents[12] = CountryOfResidenceComponent;
+    templateComponents[13] = M2HouseComponent;
+    templateComponents[14] = KindOfConstructionComponent;
+    templateComponents[15] = IsAvalComponent;
+    templateComponents[16] = IsDoHaciendaLastYearComponent;
+    templateComponents[17] = PreviousRequestComponent;
+    templateComponents[18] = IncomeAndExpensesComponent;
+    templateComponents[19] = VerificationCodeComponent;
+
+    return templateComponents[templateId-1];
   }
 
 
@@ -161,6 +206,12 @@ export class TemplateCollectionService {
         component: VerificationCodeComponent
       } as MortageTemplate,
     ]
+  }
+
+  public getAllCitiesData(): Observable<Ca[]> {
+    return this.httpClient.get<Ca[]>(`${environment.backend}/${this.urlSlice}/templateData/ca`).pipe(
+      tap(res => this.comunidadesAutonomas = res)
+    );
   }
 
 

@@ -13,8 +13,6 @@ export class IncomeAndExpensesComponent extends BaseForm implements OnInit, OnDe
 
   @ViewChild('ingresosSolicitante') ingresosSolicitante!: IncomeAndExpensesFormArrayComponent;
   @ViewChild('degresosSolicitante') degresosSolicitante!: IncomeAndExpensesFormArrayComponent;
-  //@ViewChild('ingresos') ingresosSolicitante!: IncomeAndExpensesFormArrayComponent;
-  //@ViewChild('degresos') degresosSolicitante!: IncomeAndExpensesFormArrayComponent;
 
   ingresoSolicitante: Map<string, number> = new Map<string, number>(); 
   degresoSolicitante: Map<string, number> = new Map<string, number>();
@@ -60,7 +58,6 @@ export class IncomeAndExpensesComponent extends BaseForm implements OnInit, OnDe
   }
 
   ngOnDestroy(): void {
-    console.log("Componente destruido");
   }
 
   addIngresValue(value: InExValue[], solicitante: string): void {
@@ -82,7 +79,6 @@ export class IncomeAndExpensesComponent extends BaseForm implements OnInit, OnDe
   }
 
   addExValue(value: InExValue[], solicitante: string): void {
-    console.log("Valor exportado => ", value);
     if(solicitante === 'SOLICITANTE') {
       this.templateCollectionService.mortageData.solicitante.totalGastos = value.map(val => val.quantity).reduce((prev: number, curr: number) => {
         return prev + curr;

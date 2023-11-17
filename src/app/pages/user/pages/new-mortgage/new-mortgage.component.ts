@@ -10,6 +10,7 @@ import { ResidencePermitComponent } from 'src/app/components/template-collection
 import { CurrentHousingSituationComponent } from 'src/app/components/template-collection/current-housing-situation/current-housing-situation.component';
 import { CountryOfResidenceComponent } from 'src/app/components/template-collection/country-of-residence/country-of-residence.component';
 import { environment } from 'src/environments/environment';
+import { Observable, map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-new-mortgage',
@@ -34,6 +35,8 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
   allowNextStepBySolicitant: boolean = false;
   allowNextStepByAcompaniant: boolean = false;
 
+  private static FORM_ID: string = '1';
+
 
   constructor() {
     super();
@@ -42,19 +45,22 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
   }
 
   ngOnInit(): void {
-    
+    // Metemos para cada step los inputs que necesitemos si es que necesitamos, en el siguiente caso el template que se llama directionForm le meto el input shortDirection a true
+    this.templateInputs.set('directionForm', {'shortDirection': true});
   }
 
   @Inject(ActivatedRoute) private route!: ActivatedRoute;
 
-  setTemplates() {
-    this.templateCollectionService.getNewMortageTemplates().subscribe((templates: MortageTemplate[]) => {
-      this.numberOfSteps = templates.length;
-      templates.forEach((template: MortageTemplate, index: number) => {
-        this.mortageData.petitionType === PetitionType.INDIVIDUAL ? template.typeOfPetition = PetitionType.INDIVIDUAL : template.typeOfPetition = PetitionType.CONJUNTA;
-        this.templates.set(`${index+1}`, template);
-      })
-    });
+  setTemplates():Observable<boolean> {
+    return this.templateCollectionService.getNewMortageTemplates(NewMortgageComponent.FORM_ID).pipe(
+      tap((templates: MortageTemplate[]) => {
+        this.numberOfSteps = templates.length;
+        templates.forEach((template: MortageTemplate, index: number) => {
+          this.mortageData.petitionType === PetitionType.INDIVIDUAL ? template.typeOfPetition = PetitionType.INDIVIDUAL : template.typeOfPetition = PetitionType.CONJUNTA;
+          this.templates.set(`${index+1}`, template);
+        })
+      }),
+      map(res => true));
   }
 
   /** Este metodo se llama al otener una nueva template para configurar atributos adicionales en este caso 

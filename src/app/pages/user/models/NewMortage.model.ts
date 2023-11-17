@@ -94,14 +94,14 @@ export interface SolicitudPrevia {
 }
 
 export interface DireccionBase {
-    pais: string,
-    ciudad: string,
-    provincia: string,
-    comunidadAutonoma?: string
+    ca: string,
+    city: string,
+    province: string,
 }
 
 export interface Direccion extends DireccionBase {
     calle: string,
+    numero?: string
     piso: string,
     puerta: string,
     codPostal: string,

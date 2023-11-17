@@ -40,6 +40,7 @@ import {TabViewModule} from 'primeng/tabview';
 import {DropdownModule} from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
 import { VerificationCodeComponent } from './verification-code/verification-code.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -82,7 +83,8 @@ import { VerificationCodeComponent } from './verification-code/verification-code
     InputNumberModule,
     TabViewModule,
     DropdownModule,
-    CalendarModule
+    CalendarModule,
+    HttpClientModule
   ],
   exports: [
     IndOrColectiveComponent,

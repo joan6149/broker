@@ -1,9 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NewMortage } from 'src/app/pages/user/models/NewMortage.model';
-import { TemplateCollectionService } from '../template-collection.service';
+import { Component} from '@angular/core';
 import { InitFormState } from '@domo/domo-commons-lib/lib/components/forms/models/InitForm.interface';
-import { AbstractDataFormComponent } from '@domo/domo-commons-lib/lib/components/forms/abstract-data-form/abstract-data-form.component';
 import { AbstractMortageFormComponent } from '../abstract-mortage-form/abstract-mortage-form.component';
+import { Ca } from '@domo/domo-commons-lib/lib/components/forms/models/direction.interface';
 
 @Component({
   selector: 'app-country-of-residence',
@@ -13,10 +11,12 @@ import { AbstractMortageFormComponent } from '../abstract-mortage-form/abstract-
 export class CountryOfResidenceComponent extends AbstractMortageFormComponent {
 
   shortDirection = false;
+  ca: Ca[] = this.templateCollectionService.comunidadesAutonomas;
 
   constructor() {
     super();
-    }
+    this.templateCollectionService.getAllCitiesData().subscribe(cas => this.ca = cas);
+  }
 
   checkForm(formState: InitFormState) {
 
@@ -45,12 +45,10 @@ export class CountryOfResidenceComponent extends AbstractMortageFormComponent {
 
     if(this.mortageData.solicitante.direccion) {
       this.solicitanteDataForm.setFormValues(this.mortageData.solicitante.direccion);
-      this.solicitantIsCorrect = true;
     }
 
     if(this.mortageData.acompaniante.direccion) {
       this.acompanianteDataForm.setFormValues(this.mortageData.acompaniante.direccion);
-      this.acompaniantisCorrect = true;
     }
     
     this.sendCheckFormIsCorrect();
