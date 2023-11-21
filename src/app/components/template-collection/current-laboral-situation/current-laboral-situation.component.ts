@@ -3,6 +3,7 @@ import { NewMortage, TipoAutonomo, TipoFuncionario, TipoSituacionLaboral } from 
 import { AbstractMortageFormComponent } from '../abstract-mortage-form/abstract-mortage-form.component';
 import { InitDataFormComponent } from '@domo/domo-commons-lib';
 import { InitFormState } from '@domo/domo-commons-lib/lib/components/forms/models/InitForm.interface';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-current-laboral-situation',
@@ -14,6 +15,7 @@ export class CurrentLaboralSituationComponent extends AbstractMortageFormCompone
   listOfTypeOfSituation: string[] = [];
   listOfFunctionaryType: string[] = [];
   listofAutonomType: string[] = [];
+  listofProfessions$: Observable<string[]> = new Observable<string[]>();
 
   constructor() {
     super();
@@ -24,6 +26,7 @@ export class CurrentLaboralSituationComponent extends AbstractMortageFormCompone
     this.listOfFunctionaryType = Object.values(TipoFuncionario);
     this.listOfTypeOfSituation = Object.values(TipoSituacionLaboral);
     this.listofAutonomType = Object.values(TipoAutonomo);
+    this.listofProfessions$ = this.templateCollectionService.getAllProfessions();
    }
 
    public checkForm(formState: InitFormState) {

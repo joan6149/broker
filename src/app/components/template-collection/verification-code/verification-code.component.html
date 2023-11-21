@@ -3,3 +3,9 @@
         <input #inputs *ngFor="let time of [].constructor(4); let i = index" ngxOnlyNumber class="form-control text-center" type="text" maxlength="1" (keyup)="changeInput($event, i)">
     </div>
 </div>
+<div *ngIf="showAdvice" class="row mt-5 mb-5 d-flex justify-content-center">
+    <div class="col-8 d-flex column-gap-3 justify-content-center">
+        <span class="text-danger fw-bold">Introduce el código de validación que te hemos enviado al email.</span>
+        <i class="pi pi-exclamation-triangle text-danger fw-bold"></i>
+    </div>
+</div>

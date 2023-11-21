@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewChild, Inject, OnInit } from '@angular/core';
+import { Component, TemplateRef, ViewChild, Inject, OnInit, inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NewMortage, PetitionType } from '../../models/NewMortage.model';
 import { AbstractStepPageComponent, MortageTemplate } from 'src/app/components/template-collection/abstract-step-page/abstract-step-page.component';
@@ -10,7 +10,10 @@ import { ResidencePermitComponent } from 'src/app/components/template-collection
 import { CurrentHousingSituationComponent } from 'src/app/components/template-collection/current-housing-situation/current-housing-situation.component';
 import { CountryOfResidenceComponent } from 'src/app/components/template-collection/country-of-residence/country-of-residence.component';
 import { environment } from 'src/environments/environment';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map, of, tap } from 'rxjs';
+import { TimeclockService } from 'src/app/services/timeclock.service';
+import { ValidationCode } from 'src/app/components/template-collection/models/initData.interface';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-new-mortgage',
@@ -21,6 +24,8 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
 
   /** Plantillas */
   @ViewChild('EmptyTemplate') EmptyTemplate!: TemplateRef<any>;
+  timeClockService: TimeclockService = inject(TimeclockService);
+  cookieService: CookieService = inject(CookieService);
 
   /** Template collection */
   templateCollection: Map<String, MortageTemplate> = new Map<String, MortageTemplate>();
@@ -70,12 +75,17 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     this.mortageData.petitionType === PetitionType.INDIVIDUAL ? template.typeOfPetition = PetitionType.INDIVIDUAL : template.typeOfPetition = PetitionType.CONJUNTA;
   }
 
-  checkVerificationCode(): boolean {
+  checkVerificationCode(): Observable<boolean> {
     if(environment.production === false && this.templateCollectionService.verificationCode === '2222') {
-      return true;
+      return of(true);
     }
-    // Checkear codigo mediante peticion al back
-    return false;
+
+    if(environment.production === true) {
+      const validationCode: ValidationCode = {code: Number(this.templateCollectionService.verificationCode), userId: JSON.parse(this.cookieService.get('token')).userId}
+      return this.templateCollectionService.checkValidationCode(validationCode);
+    }
+
+    return of(false);
   }
 
   submit() {
@@ -83,12 +93,15 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     console.log('MORTAGE FINALIZADO ==> ', this.templateCollectionService.mortageData)
     console.log('CODIGO DE VERIFICACION INTRODUCIDO ==> ', this.templateCollectionService.verificationCode);
     // checkea codigo de verificacion
-    if(!this.checkVerificationCode()) {
-      console.log("Error de verificacion muestra un dialog");
-    }
-    // Guardar NewMortage en la bbdd (kisas una accion de ngrx?) lo mismo no nnose pensemos
-    // seria ideal guardarlo en el estado por lo tanto usar ngrx
-    // Ir a mis solicitudes
+    this.subscriptions.push(this.checkVerificationCode().subscribe((res: boolean) => {
+      if(!res) {
+        this.timeClockService.showToastError('Código de verificación incorrecto')
+      } else {
+        // Guardar NewMortage en la bbdd (kisas una accion de ngrx?) lo mismo no nnose pensemos
+        // seria ideal guardarlo en el estado por lo tanto usar ngrx
+        // Ir a mis solicitudes
+      }
+    }))
   }
 
 }

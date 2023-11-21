@@ -9,3 +9,9 @@ export interface DataFormData {
     solicitantData: any,
     acompaniantData?: any
 }
+
+export interface ValidationCode {
+    userId: string,
+    createdAt?: Date,
+    code: number
+}

@@ -42,6 +42,7 @@ export abstract class AbstractMortageFormComponent extends BaseForm implements O
   ngOnInit(): void {
     this.mortageData = this.templateCollectionService.mortageData;
     this.petitionType = this.mortageData.petitionType;
+    this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
   ngOnDestroy(): void {

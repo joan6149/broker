@@ -1,5 +1,5 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { Subject, Observable, BehaviorSubject, ReplaySubject, of, map, switchMap, EMPTY, tap } from 'rxjs';
+import { Subject, Observable, BehaviorSubject, ReplaySubject, of, map, switchMap, EMPTY, tap, catchError } from 'rxjs';
 import { NewMortage } from 'src/app/pages/user/models/NewMortage.model';
 import { MortageTemplate } from './abstract-step-page/abstract-step-page.component';
 import { CivilStateComponent } from './civil-state/civil-state.component';
@@ -25,6 +25,9 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { EmptyExpr } from '@angular/compiler';
 import { Ca } from '@domo/domo-commons-lib/lib/components/forms/models/direction.interface';
+import { BrokerDto } from './dtos/Broker.dto';
+import { BankDto } from './dtos/Bank.dto';
+import { ValidationCode } from './models/initData.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +44,7 @@ export class TemplateCollectionService {
   getNewMortageTemplates(formId: string): Observable<MortageTemplate[]> {
     //return of(this.getLocalNewMortageTemplates());
     return this.httpClient.get<any>(`${environment.backend}/${this.urlSlice}/templateAssignations/${formId}`).pipe(
+      tap(res => console.log),
       map(res => res.map((value:any) => {
         let receivedTemplate: any = value.template;
         return {
@@ -82,136 +86,35 @@ export class TemplateCollectionService {
     return templateComponents[templateId-1];
   }
 
+  // http://localhost:3000/broker/template/templateData/professions
+  // http://localhost:3000/broker/template/templateData/professions
 
-  private getLocalNewMortageTemplates(): MortageTemplate[] {
-    
-    return [
-      {
-        name: 'typeOfPetition',
-        title: 'Tipo de petición',
-        component: IndOrColectiveComponent
-      } as MortageTemplate,
-  
-     /*{
-        name: 'basicInformation',
-        title: 'Información paersonal',
-        component: InitDataFormAppComponent
-      } as MortageTemplate,
-  
-      {
-        name: 'civilState',
-        title: 'Estado civil',
-        component: CivilStateComponent
-      } as MortageTemplate,
+  public getAllProfessions(): Observable<string[]> {
+    return this.httpClient.get<any>(`${environment.backend}/${this.urlSlice}/templateData/professions`).pipe(
+      map(data => data.map((item: any) => item.nombre))
+    )
+  }
 
-      
-      {
-        name: 'directionForm',
-        title: 'Dirección',
-        component: CountryOfResidenceComponent
-      } as MortageTemplate,
-  
-      {
-        name: 'sons',
-        title: 'Hijos a cargo',
-        component: SonsComponent
-      } as MortageTemplate,
-  
-      {
-        name: 'residentPermit',
-        title: 'Permiso de residencia',
-        component: ResidencePermitComponent
-      } as MortageTemplate,
+  public getAllBanks(): Observable<BankDto[]> {
+    return this.httpClient.get<any>(`${environment.backend}/${this.urlSlice}/templateData/banks`);
+  }
 
-      {
-        name: 'currentSituationHouse',
-        title: 'Situación de la vivienda actual',
-        component: CurrentHousingSituationComponent
-      } as MortageTemplate, 
-      {
-        name: 'labSituation',
-        title: 'Situación laboral',
-        component: CurrentLaboralSituationComponent
-      } as MortageTemplate,
-
-      {
-        name: 'isUsuallyHouse',
-        title: '¿Sera vivienda habitual?',
-        component: IsUsuallyHouseComponent
-      } as MortageTemplate,
-
-      {
-        name: 'propertyValue',
-        title: '¿Cuál es el valor de la propiedad?',
-        component: PropertyHouseValueComponent
-      } as MortageTemplate,
-
-      {
-        name: 'kindOfHouse',
-        title: '¿Tipo de vivienda?',
-        component: KindOfHouseComponent
-      } as MortageTemplate,
-
-      {
-        name: 'currentHiringState',
-        title: '¿Como va la busqueda de tu nueva casa?',
-        component: CurrentHiringStateComponent
-      } as MortageTemplate,
-    
-      {
-        name: 'addressNewProperty',
-        title: '¿Donde se encuentra la vivienda ha hipotecar?',
-        component: CountryOfResidenceComponent
-      } as MortageTemplate,
-    
-      {
-        name: 'm2House',
-        title: '¿Metros cuadrados de la vivienda a adquirir?',
-        component: M2HouseComponent
-      } as MortageTemplate,
-    
-      {
-        name: 'kindOfConstruction',
-        title: '¿Cual es el tipo de construcción de tu vivienda?',
-        component: KindOfConstructionComponent
-      } as MortageTemplate,
-    
-      {
-        name: 'isAval',
-        title: '¿Tienes o puedes conseguir aval?',
-        component: IsAvalComponent
-      } as MortageTemplate,
-    
-      {
-        name: 'isHaciendaLastYear',
-        title: '¿Has realizado la declaración de hacienda en españa el ultimo año?',
-        component: IsDoHaciendaLastYearComponent
-      } as MortageTemplate,
-      
-      {
-        name: 'previousRequest',
-        title: '¿Has solicitado ya la hipoteca con otros bancos?',
-        component: PreviousRequestComponent
-      } as MortageTemplate,
-
-      {
-        name: 'incomeAndExpenses',
-        title: '¿Cuales son tus ingresos y gastos mensuales?',
-        component: IncomeAndExpensesComponent
-      } as MortageTemplate, */
-
-      {
-        name: 'verificationCode',
-        title: 'Introduce el codigo de verificación que te hemos mandado al mail',
-        component: VerificationCodeComponent
-      } as MortageTemplate,
-    ]
+  public getAllBrokers(): Observable<BrokerDto[]> {
+    return this.httpClient.get<any>(`${environment.backend}/${this.urlSlice}/templateData/brokers`);
   }
 
   public getAllCitiesData(): Observable<Ca[]> {
     return this.httpClient.get<Ca[]>(`${environment.backend}/${this.urlSlice}/templateData/ca`).pipe(
       tap(res => this.comunidadesAutonomas = res)
     );
+  }
+
+  public sendValidationCode(userId: string): Observable<ValidationCode> {
+    return this.httpClient.get<any>(`${environment.backend}/email/sendValidationCode/${userId}`);
+  }
+
+  public checkValidationCode(validationCode: ValidationCode): Observable<boolean> {
+    return this.httpClient.post<boolean>(`${environment.backend}/email/checkVerificationCode`, validationCode);
   }
 
 

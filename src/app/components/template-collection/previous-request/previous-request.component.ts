@@ -2,6 +2,9 @@ import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges } from '@ang
 import { AbstractCombolistComponent, SimpleAnswer } from '../abstract-combolist/abstract-combolist.component';
 import { SelectListItem } from '@domo/domo-commons-lib/lib/models/SelectList.model';
 import { TemplateCollectionService } from '../template-collection.service';
+import { Observable } from 'rxjs';
+import { BrokerDto } from '../dtos/Broker.dto';
+import { BankDto } from '../dtos/Bank.dto';
 
 @Component({
   selector: 'app-previous-request',
@@ -13,10 +16,14 @@ export class PreviousRequestComponent extends AbstractCombolistComponent impleme
   previousRequestAnswer: string = SimpleAnswer.SI;
   bancosCheck: boolean = false;
   brokersCheck: boolean = false;
+  listOfBrokers$: Observable<BrokerDto[]> = new Observable<BrokerDto[]>()
+  listOfBanks$: Observable<BankDto[]> = new Observable<BankDto[]>()
 
   constructor() {
     super();
     this.setSiNoInitialValue();
+    this.listOfBanks$ = this.templateCollectionService.getAllBanks();
+    this.listOfBrokers$ = this.templateCollectionService.getAllBrokers();
    }
 
    ngAfterViewInit(): void {

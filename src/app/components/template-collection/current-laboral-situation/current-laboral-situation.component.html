@@ -9,6 +9,7 @@
                                                         [listOfTypeLaboralSituation]="listOfTypeOfSituation"
                                                         [listFunctionaryType]="listOfFunctionaryType"
                                                         [listAutonomType]="listofAutonomType"
+                                                        [listOfProfessions]="listofProfessions$ | async"
                                                         (OnformStateChange)="checkForm($event)"></ngx-lab-data-form>            </div>
             <button *ngIf="petitionType === 'CONJUNTA'" class="btn btn-success" (click)="sameOtherForm('ACOMPANIANTE', solicitanteDataForm)">Igual que Acompañante</button>
         </div>
@@ -22,6 +23,7 @@
                                                          [listOfTypeLaboralSituation]="listOfTypeOfSituation"
                                                          [listFunctionaryType]="listOfFunctionaryType"
                                                          [listAutonomType]="listofAutonomType"
+                                                         [listOfProfessions]="listofProfessions$ | async"
                                                         (OnformStateChange)="checkForm($event)"></ngx-lab-data-form>            </div>
             <button class="btn btn-success" (click)="sameOtherForm('SOLICITANTE', acompanianteDataForm)">Igual que Solicitante</button>
         </div> 

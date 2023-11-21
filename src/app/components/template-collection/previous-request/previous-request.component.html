@@ -24,18 +24,12 @@
             <div class="d-flex justify-content-center column-gap-5" *ngIf="doShowBancosCombobox() || doShowBrokersCombobox()">
                 <div class="w-25" *ngIf="doShowBancosCombobox()">
                     <select class="form-select" aria-label="Default select example">
-                        <option selected>Bancos</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option *ngFor="let bank of listOfBanks$ | async" value="{{bank.id}}">{{bank.nombre}}</option>
                       </select>
                 </div>
                 <div class="w-25" *ngIf="doShowBrokersCombobox()">
                     <select class="form-select" aria-label="Default select example">
-                        <option selected>Brokers</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option *ngFor="let broker of listOfBrokers$ | async" value="{{broker.id}}">{{broker.nombre}}</option>
                       </select>
                 </div>
             </div>

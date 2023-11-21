@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 
 export abstract class BaseForm {
+
+  subscriptions: Subscription[] = [];
 
   private _isValid: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
