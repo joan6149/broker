@@ -1,7 +1,16 @@
 import { SelectListItem } from "@domo/domo-commons-lib/lib/models/SelectList.model";
 import { InExValue } from "src/app/components/template-collection/income-and-expenses/income-and-expenses-form-array/income-and-expenses-form-array.component";
 
-export class NewMortage {
+export abstract class Request {
+    constructor(
+        protected load: boolean = false,
+        protected published: boolean = false
+    ) {
+
+    }
+}
+
+export class NewMortage extends Request {
     petitionType: PetitionType;
     solicitante: Solicitante;
     acompaniante: Solicitante;
@@ -9,6 +18,7 @@ export class NewMortage {
     hipoteca: Hipoteca;
 
     constructor() {
+        super();
         this.petitionType = PetitionType.INDIVIDUAL;
         this.solicitante = {} as Solicitante;
         this.acompaniante = {} as Solicitante;
