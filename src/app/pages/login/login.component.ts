@@ -7,7 +7,7 @@ import { Subscription, catchError, of } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
 import * as Action from 'src/app/appStore/Actions';
 import { LoginDto, UserToken } from 'src/app/models/user.dto';
-import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',

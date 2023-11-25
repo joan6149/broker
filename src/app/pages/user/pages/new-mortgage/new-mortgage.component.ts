@@ -14,6 +14,9 @@ import { Observable, map, of, tap } from 'rxjs';
 import { TimeclockService } from 'src/app/services/timeclock.service';
 import { ValidationCode } from 'src/app/components/template-collection/models/initData.interface';
 import { CookieService } from 'ngx-cookie-service';
+import { Store } from '@ngrx/store';
+import { UserState } from '../../UserState/user-state.reducer';
+import { UserStateActions } from '../../UserState/user-state.actions';
 
 @Component({
   selector: 'app-new-mortgage',
@@ -24,8 +27,11 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
 
   /** Plantillas */
   @ViewChild('EmptyTemplate') EmptyTemplate!: TemplateRef<any>;
+
+  /** Injections */
   timeClockService: TimeclockService = inject(TimeclockService);
   cookieService: CookieService = inject(CookieService);
+  userStore: Store<UserState> = inject(Store<UserState>);
 
   /** Template collection */
   templateCollection: Map<String, MortageTemplate> = new Map<String, MortageTemplate>();
@@ -98,6 +104,8 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
         this.timeClockService.showToastError('Código de verificación incorrecto')
       } else {
         // Guardar NewMortage en la bbdd (kisas una accion de ngrx?) lo mismo no nnose pensemos
+        console.log('Ospes => ', res);
+        this.userStore.dispatch(UserStateActions.loadRequest({request: this.templateCollectionService.mortageData}));
         // seria ideal guardarlo en el estado por lo tanto usar ngrx
         // Ir a mis solicitudes
       }

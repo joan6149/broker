@@ -1,4 +1,4 @@
-import { UserService } from "src/app/services/user.service";
+import { AuthService } from "src/app/services/auth.service";
 import { Injectable } from '@angular/core'
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -19,7 +19,7 @@ export class UserEffects {
 
     constructor(
         private actions$: Actions,
-        private userService: UserService,
+        private userService: AuthService,
         private router: Router,
         private readonly handler: HttpBlackBirdErrorHandler
     ){}

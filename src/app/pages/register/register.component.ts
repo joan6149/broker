@@ -6,7 +6,7 @@ import { Subscription, catchError, map, of } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
 import { Message } from 'src/app/models/message.model';
 import { UserDto } from 'src/app/models/user.dto';
-import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 import * as UserActions from '../../appStore/Actions/Auth.actions';
 
 @Component({

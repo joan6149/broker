@@ -3,13 +3,13 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, CanMatc
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, of, tap, map } from 'rxjs';
 import { Role, UserDto } from 'src/app/models/user.dto';
-import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserGuard implements CanActivate, CanMatch, CanLoad, CanActivateChild {
-  constructor(private userService: UserService,
+  constructor(private userService: AuthService,
               private cookieService: CookieService,
               private router: Router) {}
   

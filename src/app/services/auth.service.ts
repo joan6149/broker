@@ -9,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class AuthService {
 
   urlSlice: string = 'user';
   currentUser?: UserDto;

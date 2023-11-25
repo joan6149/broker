@@ -4,25 +4,19 @@ import { InExValue } from "src/app/components/template-collection/income-and-exp
 export abstract class Request {
     constructor(
         protected load: boolean = false,
-        protected published: boolean = false
-    ) {
-
-    }
+        protected published: boolean = false,
+        public petitionType: PetitionType = PetitionType.INDIVIDUAL,
+        public solicitante: Solicitante = {} as Solicitante,
+        public acompaniante: Solicitante = {} as Solicitante
+    ) {}
 }
 
 export class NewMortage extends Request {
-    petitionType: PetitionType;
-    solicitante: Solicitante;
-    acompaniante: Solicitante;
     //viviendaHabitual: boolean;
     hipoteca: Hipoteca;
 
     constructor() {
         super();
-        this.petitionType = PetitionType.INDIVIDUAL;
-        this.solicitante = {} as Solicitante;
-        this.acompaniante = {} as Solicitante;
-        //this.viviendaHabitual = true;
         this.hipoteca = this.createNewHipoteca();
     }
 

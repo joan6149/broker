@@ -4,7 +4,7 @@ import { MenuItem } from '@domo/domo-commons-lib';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import * as UserActions from '../../../appStore/Actions/Auth.actions';
-import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-usermain',

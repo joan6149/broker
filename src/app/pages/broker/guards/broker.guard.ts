@@ -3,13 +3,13 @@ import { ActivatedRouteSnapshot, CanActivate, CanLoad, CanMatch, Route, Router, 
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { Role, UserDto } from 'src/app/models/user.dto';
-import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BrokerGuard implements CanActivate, CanMatch, CanLoad {
-  constructor(private userService: UserService,
+  constructor(private userService: AuthService,
               private cookieService: CookieService,
               private router: Router) {}
   
