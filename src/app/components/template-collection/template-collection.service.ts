@@ -91,7 +91,7 @@ export class TemplateCollectionService {
 
   public getAllProfessions(): Observable<string[]> {
     return this.httpClient.get<any>(`${environment.backend}/${this.urlSlice}/templateData/professions`).pipe(
-      map(data => data.map((item: any) => item.nombre))
+      map(data => data.map((item: any) => item.professionName))
     )
   }
 

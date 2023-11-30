@@ -1,5 +1,5 @@
 export interface BankDto {
     id: number,
-    nombre: string,
+    bankName: string,
     logo: string
 }
