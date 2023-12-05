@@ -103,7 +103,6 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
       if(!res) {
         this.timeClockService.showToastError('Código de verificación incorrecto')
       } else {
-        // Guardar NewMortage en la bbdd (kisas una accion de ngrx?) lo mismo no nnose pensemos
         console.log('Ospes => ', res);
         this.userStore.dispatch(UserStateActions.loadRequest({request: this.templateCollectionService.mortageData}));
         // seria ideal guardarlo en el estado por lo tanto usar ngrx

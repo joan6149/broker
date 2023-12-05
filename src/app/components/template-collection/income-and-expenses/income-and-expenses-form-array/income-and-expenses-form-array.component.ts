@@ -138,7 +138,7 @@ export class IncomeAndExpensesFormArrayComponent implements OnInit {
   }
 
   private emitValues():void {
-    const arrToEmit: InExValue[] = this.dropdownsSelection.map(c => c.getInExValue());
+    const arrToEmit: InExValue[] = this.dropdownsSelection.map(c => c.getInExValue()).filter(val => val.quantity > 0);
     this.onValueChange.emit(arrToEmit);
   }
 

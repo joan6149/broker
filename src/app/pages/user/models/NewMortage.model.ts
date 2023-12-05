@@ -9,6 +9,10 @@ export abstract class Request {
         public solicitante: Solicitante = {} as Solicitante,
         public acompaniante: Solicitante = {} as Solicitante
     ) {}
+
+    public setPublished(isPublished: boolean) {
+        this.published = isPublished;
+    }
 }
 
 export class NewMortage extends Request {

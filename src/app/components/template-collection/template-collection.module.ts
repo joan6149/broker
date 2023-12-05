@@ -24,7 +24,6 @@ import { KindOfConstructionComponent } from './kind-of-construction/kind-of-cons
 import { IsAvalComponent } from './is-aval/is-aval.component';
 import { IsRequestedAnotherBancsComponent } from './is-requested-another-bancs/is-requested-another-bancs.component';
 import { IsDoHaciendaLastYearComponent } from './is-do-hacienda-last-year/is-do-hacienda-last-year.component';
-import { IngressEgressMothlyComponent } from './ingress-egress-mothly/ingress-egress-mothly.component';
 import { VerifyYourMailComponent } from './verify-your-mail/verify-your-mail.component';
 import { ReadyToGoMainViewComponent } from './ready-to-go-main-view/ready-to-go-main-view.component';
 import { PreviousRequestComponent } from './previous-request/previous-request.component';
@@ -63,7 +62,6 @@ import { HttpClientModule } from '@angular/common/http';
     IsAvalComponent,
     IsRequestedAnotherBancsComponent,
     IsDoHaciendaLastYearComponent,
-    IngressEgressMothlyComponent,
     VerifyYourMailComponent,
     ReadyToGoMainViewComponent,
     PreviousRequestComponent,
@@ -104,7 +102,6 @@ import { HttpClientModule } from '@angular/common/http';
     IsAvalComponent,
     IsRequestedAnotherBancsComponent,
     IsDoHaciendaLastYearComponent,
-    IngressEgressMothlyComponent,
     VerifyYourMailComponent,
     ReadyToGoMainViewComponent,
     PreviousRequestComponent

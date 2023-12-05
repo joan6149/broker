@@ -15,7 +15,7 @@ import { authReducer } from 'src/app/appStore/reducers/Auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UserStateEffects } from './UserState/user-state.effects';
 import { userStateFeature } from './UserState/user-state.reducer';
-import { UserService } from './user.service';
+import { RequestService } from './pages/services/request.service';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -39,7 +39,7 @@ import { HttpClientModule } from '@angular/common/http';
     EffectsModule.forFeature([UserStateEffects]),
   ],
   providers: [
-    UserService,
+    RequestService,
     DomoLoggerService
   ]
 })
