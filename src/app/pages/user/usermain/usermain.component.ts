@@ -15,29 +15,29 @@ export class UsermainComponent implements OnInit {
 
   menuItems: MenuItem[] = [
     {
-      name: 'Panel Principal',
-      isActive: false,
-      routerLink: 'mainPanel'
+      name: 'Principal',
+      isActive: true,
+      routerLink: '/user/mainPanel'
     },
     {
       name: 'Mis solicitudes',
       isActive: false,
-      routerLink: 'myrequests'
+      routerLink: '/user/myrequests'
     },
     {
       name: 'Mis Documentos',
       isActive: false,
-      routerLink: 'mydocuments'
+      routerLink: '/user/mydocuments'
     },
     {
       name: 'Nueva Solicitud',
       isActive: false,
-      routerLink: 'newrequest'
+      routerLink: '/user/newrequest'
     },
     {
       name: 'Mi Perfil',
       isActive: false,
-      routerLink: 'myprofile'
+      routerLink: '/user/myprofile'
     },
     {
       name: 'Cerrar sessión',
