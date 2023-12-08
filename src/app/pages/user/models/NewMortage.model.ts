@@ -6,9 +6,12 @@ export abstract class Request {
         protected load: boolean = false,
         protected published: boolean = false,
         public petitionType: PetitionType = PetitionType.INDIVIDUAL,
+        public launchedByUser: string | null = null,
         public solicitante: Solicitante = {} as Solicitante,
         public acompaniante: Solicitante = {} as Solicitante
     ) {}
+
+    id?:string;
 
     public setPublished(isPublished: boolean) {
         this.published = isPublished;

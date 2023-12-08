@@ -16,7 +16,7 @@ export class UsermainComponent implements OnInit {
   menuItems: MenuItem[] = [
     {
       name: 'Principal',
-      isActive: true,
+      isActive: false,
       routerLink: '/user/mainPanel'
     },
     {
@@ -30,7 +30,7 @@ export class UsermainComponent implements OnInit {
       routerLink: '/user/mydocuments'
     },
     {
-      name: 'Nueva Solicitud',
+      name: 'Solicitudes publicadas',
       isActive: false,
       routerLink: '/user/newrequest'
     },

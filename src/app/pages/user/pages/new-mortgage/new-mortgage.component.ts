@@ -98,6 +98,8 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
     console.log('Finalizado');
     console.log('MORTAGE FINALIZADO ==> ', this.templateCollectionService.mortageData)
     console.log('CODIGO DE VERIFICACION INTRODUCIDO ==> ', this.templateCollectionService.verificationCode);
+    const userId: string | null = this.cookieService.check('token') ? JSON.parse(this.cookieService.get('token')).userId : null;
+    this.templateCollectionService.mortageData.launchedByUser = userId;
     // checkea codigo de verificacion
     this.subscriptions.push(this.checkVerificationCode().subscribe((res: boolean) => {
       if(!res) {
