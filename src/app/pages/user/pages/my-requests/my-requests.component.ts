@@ -1,11 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Request } from '../../models/NewMortage.model';
-import { RequestService } from '../services/request.service';
 import { Store } from '@ngrx/store';
 import { UserState } from '../../UserState/user-state.reducer';
-import { UserStateActions } from '../../UserState/user-state.actions';
 import { selectRequestLoaded } from '../../UserState/user-state.selectors';
+import { Confirmation, ConfirmationService } from 'primeng/api';
+import { RequestStateActions } from '../../UserState/RequestsState/requests-state.actions';
 
 @Component({
   selector: 'app-my-requests',
@@ -14,26 +14,33 @@ import { selectRequestLoaded } from '../../UserState/user-state.selectors';
 })
 export class MyRequestsComponent implements OnInit {
 
+  editDisplay: boolean = false;
+  subForms: String[] = [];
+
   userStore: Store<UserState> = inject(Store<UserState>);
   requests$: Observable<Request[]> = new Observable<Request[]>();
 
 
-  constructor() { }
+  constructor(private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.requests$ = this.userStore.select(selectRequestLoaded).pipe(
-      tap(req => console.log('RECIBIDO STORE', req))
+      tap(val => console.log(val))
     );
-    this.userStore.dispatch(UserStateActions.getRequests());
+    this.userStore.dispatch(RequestStateActions.getRequests());
   }
 
   editRequest(request:Request):void {
-
+    this.editDisplay = true;
   }
 
   publicRequest(request:Request):void {
-    console.log(request);
-    this.userStore.dispatch(UserStateActions.publishRequest({requestId: request.id!, publish: true}));
+    this.confirmationService.confirm({
+      message: '¿Quiere publicar esta petición, para poder recibir ofertas sobre ella?',
+      accept: () => {
+        this.userStore.dispatch(RequestStateActions.publishRequest({requestId: request.id!, publish: true}));
+      }
+    } as Confirmation)
   }
 
   deleteRequest(request:Request):void {

@@ -1,4 +1,4 @@
-import {NgModule } from '@angular/core';
+import {NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,7 +40,12 @@ import { MessageService } from 'primeng/api';
     BrowserAnimationsModule,
     TimeclockComponentsModule,
     ToastModule,
-    StoreModule.forRoot(appReducers),
+    StoreModule.forRoot(appReducers, {
+      runtimeChecks: {
+        strictActionImmutability: false,
+        strictStateImmutability: false
+      }
+    }),
     EffectsModule.forRoot( AppEffects ),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],

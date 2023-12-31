@@ -12,15 +12,27 @@
     <ng-template pTemplate="body" let-request>
         <tr>
             <td>{{request.petitionType}}</td>
-            <td>{{request.solicitante.nombre}}</td>
+            <td>{{request.solicitante.nombre}} {{request.solicitante.apellidos}}</td>
             <td>{{request.acompaniante ? request.acompaniante.nombre : ''}}</td>
             <td>{{request.hipoteca.importeHipoteca}} €</td>
             <td>{{request.hipoteca.porcentageHipotecar}} %</td>
             <td class="d-flex justify-content-around">
-                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2" (click)="editRequest(request)"></button>
-                <button pButton pRipple icon="pi pi-arrow-up" class="p-button-rounded p-button-success mr-2" (click)="publicRequest(request)"></button>
-                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteRequest(request)"></button>
+                <button pButton pTooltip="Editar esta petición" tooltipPosition="bottom" pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2" (click)="editRequest(request)"></button>
+                <button pButton pTooltip="Publicar esta petición" tooltipPosition="bottom" pRipple icon="pi pi-arrow-up" class="p-button-rounded p-button-success mr-2" (click)="publicRequest(request)"></button>
+                <button pButton pTooltip="Eliminar esta petición" tooltipPosition="bottom" pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteRequest(request)"></button>
             </td>
         </tr>
     </ng-template>
 </p-table>
+
+<p-dialog header="Header" [(visible)]="editDisplay" [style]="{width: '50vw'}">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="editDisplay=false" label="Ediar" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

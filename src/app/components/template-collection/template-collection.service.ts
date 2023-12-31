@@ -1,6 +1,6 @@
 import { Injectable, TemplateRef } from '@angular/core';
 import { Subject, Observable, BehaviorSubject, ReplaySubject, of, map, switchMap, EMPTY, tap, catchError } from 'rxjs';
-import { NewMortage } from 'src/app/pages/user/models/NewMortage.model';
+import { NewMortage, PetitionType } from 'src/app/pages/user/models/NewMortage.model';
 import { MortageTemplate } from './abstract-step-page/abstract-step-page.component';
 import { CivilStateComponent } from './civil-state/civil-state.component';
 import { CountryOfResidenceComponent } from './country-of-residence/country-of-residence.component';
@@ -44,11 +44,10 @@ export class TemplateCollectionService {
   getNewMortageTemplates(formId: string): Observable<MortageTemplate[]> {
     //return of(this.getLocalNewMortageTemplates());
     return this.httpClient.get<any>(`${environment.backend}/${this.urlSlice}/templateAssignations/${formId}`).pipe(
-      tap(res => console.log),
-      map(res => res.map((value:any) => {
+      map(res => res.map((value:any, index: number) => {
         let receivedTemplate: any = value.template;
         return {
-          name: receivedTemplate.name,
+          name: receivedTemplate.templateName,
           title: receivedTemplate.title,
           component: this.getComponentByTemplateId(receivedTemplate.id) as any
         } as MortageTemplate
