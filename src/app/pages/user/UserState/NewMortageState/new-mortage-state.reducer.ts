@@ -38,8 +38,9 @@ export const newMortageStateReducer = createReducer(
     initialNewMortageState,
     on(NewMortageActions.setPetitionType, (state, {petitionType}) => ({...state, petitionType})),
     on(NewMortageActions.getAllTemplates, (state, {formId: string}) => state),
-    on(NewMortageActions.getAllTemplatesSuccess, (state, {templates}) => ({
+    on(NewMortageActions.getAllTemplatesSuccess, (state, {templates, formId}) => ({
       ...state, 
+      formId,
       petitiontype: PetitionType.INDIVIDUAL,
       numberOfSteps: templates.length ,
       currentTemplate: {...templates[state.currentStep]},
@@ -47,7 +48,8 @@ export const newMortageStateReducer = createReducer(
     on(NewMortageActions.nextTemplate, (state) => ({
       ...state,
       currentStep: state.currentStep+1,
-      currentTemplate: state.templates[state.currentStep]
+      isFinished: state.currentStep === state.numberOfSteps,
+      currentTemplate: state.templates[state.currentStep+1]
     })),
     on(NewMortageActions.previousTemplate, (state) => ({
       ...state,

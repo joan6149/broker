@@ -4,13 +4,13 @@
         <ng-container #container></ng-container>
     </div>
     <div class="buttons">
-        <button class="btn btn-warning" *ngIf="+currentStep > 1" (click)="nextStep(-1)">Previous</button>
+        <button class="btn btn-warning" *ngIf="+currentStep > 1" (click)="previousForm()">Previous</button>
         <button class="btn btn-success" 
-                *ngIf="+currentStep < numberOfSteps"
+                *ngIf="!(isFinished$ | async)"
                 [disabled]="currentStepIsCorrect === false"
-                (click)="nextStep(+1)">Next</button>
+                (click)="nextForm()">Next</button>
         <button class="btn btn-success" 
-                *ngIf="+currentStep === numberOfSteps" 
+                *ngIf="isFinished$ | async" 
                 [disabled]="currentStepIsCorrect === false"
                 (click)="submit()">Finalize</button>
     </div>

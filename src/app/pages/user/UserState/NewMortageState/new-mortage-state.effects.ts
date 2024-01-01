@@ -17,7 +17,7 @@ export class NewMortageStateEffects {
     $getTemplatesByFormId = createEffect(() => this.actions$.pipe(
         ofType(NewMortageActions.getAllTemplates),
         switchMap((action: any) => this.templateCollectionService.getNewMortageTemplates(action.formId).pipe(
-            map(templates => NewMortageActions.getAllTemplatesSuccess({templates})),
+            map(templates => NewMortageActions.getAllTemplatesSuccess({templates, formId: action.formId})),
             catchError(err => this.errorHandler(err))
         ))
     ))

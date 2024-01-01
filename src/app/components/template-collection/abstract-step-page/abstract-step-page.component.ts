@@ -1,7 +1,11 @@
 import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef, AfterViewInit, inject, OnDestroy, ChangeDetectorRef, ComponentFactoryResolver } from '@angular/core';
 import { TemplateCollectionService } from '../template-collection.service';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, Subscription, of, tap } from 'rxjs';
 import { tag } from 'rxjs-spy/operators';
+import { UserState } from 'src/app/pages/user/UserState/user-state.reducer';
+import { Store } from '@ngrx/store';
+import { NewMortageActions } from 'src/app/pages/user/UserState/NewMortageState/new-mortage-state.actions';
+import { selectIsFinished, selectNewMortageCurrenttemplate } from 'src/app/pages/user/UserState/user-state.selectors';
 
 
 
@@ -53,47 +57,47 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
   
   templateCollectionService: TemplateCollectionService = inject(TemplateCollectionService);
   cdrService: ChangeDetectorRef = inject(ChangeDetectorRef);
+  userStore: Store<UserState> = inject(Store<UserState>);
 
   /** Map de inputs de cada template (step-{input:value})*/
   templateInputs: Map<string, {[key: string]: any}> = new Map<string, {[key: string]: any}>();
+
+  /** State Observables */
+  isFinished$: Observable<boolean> = new Observable<boolean>();
 
    /** Subscriptnions */
    subscriptions: Subscription[] = [];
    validationSubscription: Subscription = new Subscription();
 
-  constructor() {}
+  constructor() {
+    
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   ngAfterViewInit(): void {
-    this.setTemplates().subscribe((res) => {
-      if(res) {
-        this.getTemplate();
+    this.isFinished$ = this.userStore.select(selectIsFinished).pipe(
+      tap(res => console.log(res))
+    );
+    this.userStore.select(selectNewMortageCurrenttemplate).subscribe(res => {
+      console.log(res);
+      if(res && res !== null) {
+        this.getTemplate(res);
       }
-    });
+    })
   }
 
-  nextForm(nextStep:number) {
-    if(this.currentStep != null) {
-      if(nextStep < 0) {
-        if(+this.currentStep > 1) {
-          this.currentStep = String(+this.currentStep + nextStep);
-          this.currentStepIsCorrect = true;
-          this.getTemplate();
-        }
-      } else {
-        if(+this.currentStep < this.numberOfSteps) {
-          this.currentStep = String(+this.currentStep + nextStep);
-          this.getTemplate();
-        }
-      }
-    }
+  nextForm() {
+    this.userStore.dispatch(NewMortageActions.nextTemplate());
   }
 
-  getTemplate(): void {
-    const template: MortageTemplate | undefined = this.templates.get(this.currentStep);
+  previousForm() {
+    this.userStore.dispatch(NewMortageActions.previousTemplate());
+  }
+
+  getTemplate(template: MortageTemplate): void {
     if(template) {
       this.configureTemplate(template);
       this.validationSubscription.unsubscribe();
@@ -128,11 +132,6 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
 
 
     return isMandatoryForm;
-  }
-
-  nextStep(nextStep: number) {
-    //this.templateCollectionService.setMortageData(this.mortageData);
-    this.nextForm(nextStep);
   }
 
   private setInputValuesForComponent(component: any, template: MortageTemplate): any {

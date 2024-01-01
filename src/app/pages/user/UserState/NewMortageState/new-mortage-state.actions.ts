@@ -9,7 +9,7 @@ export const NewMortageActions = createActionGroup({
     events: {
       'Set Petition Type': props<{petitionType: PetitionType}>(),
       'Get all templates': props<{ formId: String }>(),
-      'Get all templates Success': props<{ templates: MortageTemplate[]}>(),
+      'Get all templates Success': props<{ templates: MortageTemplate[], formId: string}>(),
       'Next template': emptyProps(),
       'Previous template': emptyProps(),
       'NewMortageError':props<{error: string}>()

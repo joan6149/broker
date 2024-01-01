@@ -16,7 +16,8 @@ import { ValidationCode } from 'src/app/components/template-collection/models/in
 import { CookieService } from 'ngx-cookie-service';
 import { Store } from '@ngrx/store';
 import { UserState } from '../../UserState/user-state.reducer';
-import { UserStateActions } from '../../UserState/user-state.actions';
+import { RequestStateActions } from '../../UserState/RequestsState/requests-state.actions';
+import { selectNewMortage } from '../../UserState/user-state.selectors';
 
 @Component({
   selector: 'app-new-mortgage',
@@ -31,7 +32,6 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
   /** Injections */
   timeClockService: TimeclockService = inject(TimeclockService);
   cookieService: CookieService = inject(CookieService);
-  userStore: Store<UserState> = inject(Store<UserState>);
 
   /** Template collection */
   templateCollection: Map<String, MortageTemplate> = new Map<String, MortageTemplate>();
@@ -46,7 +46,7 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
   allowNextStepBySolicitant: boolean = false;
   allowNextStepByAcompaniant: boolean = false;
 
-  private static FORM_ID: string = '1';
+  public static FORM_ID: string = '1';
 
 
   constructor() {
@@ -58,6 +58,7 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
   ngOnInit(): void {
     // Metemos para cada step los inputs que necesitemos si es que necesitamos, en el siguiente caso el template que se llama directionForm le meto el input shortDirection a true
     this.templateInputs.set('directionForm', {'shortDirection': true});
+    this.userStore.select(selectNewMortage).subscribe(templates => console.log(templates));
   }
 
   @Inject(ActivatedRoute) private route!: ActivatedRoute;
@@ -106,7 +107,7 @@ export class NewMortgageComponent extends AbstractStepPageComponent<NewMortage> 
         this.timeClockService.showToastError('Código de verificación incorrecto')
       } else {
         console.log('Ospes => ', res);
-        this.userStore.dispatch(UserStateActions.loadRequest({request: this.templateCollectionService.mortageData}));
+        this.userStore.dispatch(RequestStateActions.loadRequest({request: this.templateCollectionService.mortageData}));
         // seria ideal guardarlo en el estado por lo tanto usar ngrx
         // Ir a mis solicitudes
       }
