@@ -6,6 +6,7 @@ import { switchMap, map, tap, catchError, of, Observable } from "rxjs";
 import { TimeclockService } from "src/app/services/timeclock.service";
 import { RequestService } from "../../pages/services/request.service";
 import { RequestStateActions } from "./requests-state.actions";
+import { NewMortageActions } from "../NewMortageState/new-mortage-state.actions";
 
 @Injectable()
 export class RequestsStateEffects {
@@ -44,6 +45,12 @@ export class RequestsStateEffects {
       tap(() => this.timeclockService.showToastMessage('Petición publicada correctamente!')),
       catchError(err => this.errorHandler(err))
     ))
+  ))
+
+  loadRequestSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(RequestStateActions.loadRequestSuccess),
+    map(() => NewMortageActions.goToStep({stepNumber: 0})),
+    catchError(err => this.errorHandler(err))
   ))
 
   errorHandler(err: any): Observable<Action> {

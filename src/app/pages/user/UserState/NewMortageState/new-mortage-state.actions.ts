@@ -1,8 +1,6 @@
 import { createActionGroup, emptyProps, props } from "@ngrx/store";
 import { MortageTemplate } from "src/app/components/template-collection/abstract-step-page/abstract-step-page.component";
 import { PetitionType } from "../../models/NewMortage.model";
-import { TemplateRef } from "@angular/core";
-import { BaseForm } from "src/app/components/template-collection/base-form-component/base-form";
 
 export const NewMortageActions = createActionGroup({
     source: 'NewMortageActions',
@@ -12,6 +10,8 @@ export const NewMortageActions = createActionGroup({
       'Get all templates Success': props<{ templates: MortageTemplate[], formId: string}>(),
       'Next template': emptyProps(),
       'Previous template': emptyProps(),
+      'Go to step': props<{stepNumber: number}>(),
+      'Is Valid template': props<{valid: boolean}>(),
       'NewMortageError':props<{error: string}>()
     }
   });

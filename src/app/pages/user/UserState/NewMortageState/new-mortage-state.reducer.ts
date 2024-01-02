@@ -28,7 +28,7 @@ export const initialNewMortageState: NewMortageState = {
     petitiontype: null,
     currentStep: 0,
     numberOfSteps: 0,
-    isCorrect: false,
+    isCorrect: true,
     isFinished: false,
     currentTemplate: null,
     templates: []
@@ -48,13 +48,23 @@ export const newMortageStateReducer = createReducer(
     on(NewMortageActions.nextTemplate, (state) => ({
       ...state,
       currentStep: state.currentStep+1,
-      isFinished: state.currentStep === state.numberOfSteps,
+      isFinished: state.currentStep === (state.numberOfSteps - 2),
       currentTemplate: state.templates[state.currentStep+1]
     })),
     on(NewMortageActions.previousTemplate, (state) => ({
       ...state,
       currentStep: state.currentStep-1,
-      currentTemplate: state.templates[state.currentStep]
+      currentTemplate: state.templates[state.currentStep-1]
+    })),
+    on(NewMortageActions.isValidTemplate, (state, {valid}) => ({
+      ...state,
+      isCorrect: valid
+    })),
+    on(NewMortageActions.goToStep, (state, {stepNumber}) => ({
+      ...state,
+      currentStep: stepNumber,
+      isFinished: stepNumber === (state.numberOfSteps - 2),
+      currentTemplate: state.templates[stepNumber]
     })),
     on(NewMortageActions.newmortageerror, (state, {error}) => ({...state, error}))
   );

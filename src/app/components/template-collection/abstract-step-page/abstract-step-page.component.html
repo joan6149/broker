@@ -1,17 +1,17 @@
 <div class="abstract-step">
-    <h1 class="col-4 col-md-8 col-xl-12 text-center align-self-center fw-bold">{{templates.get(this.currentStep)?.title}}</h1>
+    <h1 class="col-4 col-md-8 col-xl-12 text-center align-self-center fw-bold">{{templateTitle}}</h1>
     <div class="row d-flex flex-md-row justify-content-center align-items-center">
         <ng-container #container></ng-container>
     </div>
     <div class="buttons">
-        <button class="btn btn-warning" *ngIf="+currentStep > 1" (click)="previousForm()">Previous</button>
+        <button class="btn btn-warning" *ngIf="(currentStep$ | async) ?? 0 > 1" (click)="previousForm()">Previous</button>
         <button class="btn btn-success" 
                 *ngIf="!(isFinished$ | async)"
-                [disabled]="currentStepIsCorrect === false"
+                [disabled]="!isValid"
                 (click)="nextForm()">Next</button>
         <button class="btn btn-success" 
                 *ngIf="isFinished$ | async" 
-                [disabled]="currentStepIsCorrect === false"
+                [disabled]="!isValid"
                 (click)="submit()">Finalize</button>
     </div>
 </div>

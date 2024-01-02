@@ -1,24 +1,27 @@
-import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef, AfterViewInit, inject, OnDestroy, ChangeDetectorRef, ComponentFactoryResolver } from '@angular/core';
+import {
+  Component,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+  AfterViewInit,
+  inject,
+  OnDestroy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { TemplateCollectionService } from '../template-collection.service';
-import { Observable, Subscription, of, tap } from 'rxjs';
-import { tag } from 'rxjs-spy/operators';
+import { Observable, Subscription, tap } from 'rxjs';
 import { UserState } from 'src/app/pages/user/UserState/user-state.reducer';
 import { Store } from '@ngrx/store';
 import { NewMortageActions } from 'src/app/pages/user/UserState/NewMortageState/new-mortage-state.actions';
-import { selectIsFinished, selectNewMortageCurrenttemplate } from 'src/app/pages/user/UserState/user-state.selectors';
+import { selectCurrentStep, selectCurrentStepisCorrect, selectIsFinished, selectNewMortageCurrenttemplate } from 'src/app/pages/user/UserState/user-state.selectors';
 
-
-
-enum Perfil {
-  SOLICITANTE,
-  ACOMPANIANTE
-}
 
 export interface MortageTemplate {
   name?: string,
   title: string,
   template?: TemplateRef<any>,
   component: any,
+  isValid: boolean,
   templateOptions?: MortageTemplateOptions,
   typeOfPetition?: string,
   autoNext?:boolean
@@ -49,8 +52,6 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
   //templatesA: Map<string, MortageTemplate> = new Map<string, MortageTemplate>();
 
   currentStep: string = '1';
-  currentStepIsCorrect: boolean = false;
-  numberOfSteps: number = 4;
   mortageData!: T;
   allowNextStep: boolean = false;
   titles: Map<string, string> = new Map<string, string>();
@@ -64,6 +65,11 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
 
   /** State Observables */
   isFinished$: Observable<boolean> = new Observable<boolean>();
+  currentStep$: Observable<number> = new Observable<number>();
+
+  /** State subscribed data */
+  isValid: boolean = true;
+  templateTitle: string = '';
 
    /** Subscriptnions */
    subscriptions: Subscription[] = [];
@@ -74,19 +80,22 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
   }
 
   ngOnDestroy(): void {
+    this.validationSubscription.unsubscribe();
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   ngAfterViewInit(): void {
-    this.isFinished$ = this.userStore.select(selectIsFinished).pipe(
-      tap(res => console.log(res))
+    this.isFinished$ = this.userStore.select(selectIsFinished);
+    this.currentStep$ = this.userStore.select(selectCurrentStep).pipe(
+      tap(step => this.currentStep = String(step))
     );
-    this.userStore.select(selectNewMortageCurrenttemplate).subscribe(res => {
-      console.log(res);
+    this.validationSubscription = this.userStore.select(selectCurrentStepisCorrect).subscribe(res => this.isValid = res);
+    this.subscriptions.push(this.userStore.select(selectNewMortageCurrenttemplate).subscribe(res => {
+      this.templateTitle = res?.title ?? '';
       if(res && res !== null) {
         this.getTemplate(res);
       }
-    })
+    }));
   }
 
   nextForm() {
@@ -100,38 +109,11 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
   getTemplate(template: MortageTemplate): void {
     if(template) {
       this.configureTemplate(template);
-      this.validationSubscription.unsubscribe();
       this.container.clear();
       const component: any = this.setInputValuesForComponent(this.container.createComponent<any>(template.component).instance, template);
       this.cdrService.detectChanges();
-      this.validationSubscription = component.templateIsValid().pipe(
-        tag('validTemplate')
-      ).subscribe((valid: boolean) => {
-        this.currentStepIsCorrect = valid;
-        // Mirate esto parece que no actualiza
-      })
       console.log(`Step: ${this.currentStep}: ${JSON.stringify(template)}`);
     }
-  }
-
-  hasTemplateByCurrentStep(perfil: Perfil): boolean {
-    if(perfil === Perfil.SOLICITANTE) {
-      return this.templates.get(this.currentStep) === undefined ? false : true;
-    }
-
-    return false;
-  }
-
-  isMandatory(): boolean {
-    let isMandatoryForm: boolean = false;
-    let templateMandatory: boolean | undefined = this.templates.get(this.currentStep)?.templateOptions?.mandatory;
-
-    if(templateMandatory) {
-      isMandatoryForm = isMandatoryForm || templateMandatory;
-    }
-
-
-    return isMandatoryForm;
   }
 
   private setInputValuesForComponent(component: any, template: MortageTemplate): any {
@@ -146,7 +128,6 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
   }
 
   abstract submit(): void;
-  abstract setTemplates(): Observable<boolean>;
   abstract configureTemplate(template: MortageTemplate): void
 
 }
