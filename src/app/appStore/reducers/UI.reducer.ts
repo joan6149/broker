@@ -1,14 +1,11 @@
 import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
-import { UIState, initialState } from "../States/UIState";
-import { Stoploading, loading } from "../Actions/UI.actions";
+import { UIState, initialUIState } from "../States/UIState";
+import * as MainActions from "../Actions/";
 
 
 
-const _uiReducer: ActionReducer<UIState, Action> = createReducer(initialState, 
-    on(loading, (state: UIState) => ({...state, isLoading: true})),
-    on(Stoploading, (state: UIState) => ({...state, isLoading: false}))
+export const uiReducer: ActionReducer<UIState, Action> = createReducer(
+    initialUIState, 
+    on(MainActions.UIStateActions.loading, (state: UIState) => ({...state, isLoading: true})),
+    on(MainActions.UIStateActions.stopLoading, (state: UIState) => ({...state, isLoading: false}))
     );
-
-export function uiReducer(state: UIState | undefined, action: Action) {
-    return _uiReducer(state, action);
-}

@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { UserState } from '../../UserState/user-state.reducer';
 import { NewMortageActions } from '../../UserState/NewMortageState/new-mortage-state.actions';
 import { NewMortgageComponent } from './new-mortgage.component';
+import { tag } from 'rxjs-spy/cjs/operators';
 
 export const newMortageResolver: ResolveFn<boolean> = (route, state) => {
   console.log(`New Mortage: Cargando Templates para formulario ${NewMortgageComponent.FORM_ID}`);

@@ -13,7 +13,7 @@ import { Observable, Subscription, tap } from 'rxjs';
 import { UserState } from 'src/app/pages/user/UserState/user-state.reducer';
 import { Store } from '@ngrx/store';
 import { NewMortageActions } from 'src/app/pages/user/UserState/NewMortageState/new-mortage-state.actions';
-import { selectCurrentStep, selectCurrentStepisCorrect, selectIsFinished, selectNewMortageCurrenttemplate } from 'src/app/pages/user/UserState/user-state.selectors';
+import { selectCurrentStep, selectCurrentStepisCorrect, selectIsFinished, selectNewMortageCurrenttemplate, selectNewMortageState, selectUserStateState } from 'src/app/pages/user/UserState/user-state.selectors';
 
 
 export interface MortageTemplate {
@@ -76,7 +76,13 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
    validationSubscription: Subscription = new Subscription();
 
   constructor() {
-    
+    this.isFinished$ = this.userStore.select(selectIsFinished);
+    this.currentStep$ = this.userStore.select(selectCurrentStep).pipe(
+      tap(step => console.log(step)),
+      tap(step => this.currentStep = String(step))
+    );
+
+    this.userStore.select(selectNewMortageState).subscribe(userstate => console.log(userstate));
   }
 
   ngOnDestroy(): void {
@@ -85,10 +91,7 @@ export abstract class AbstractStepPageComponent<T> implements AfterViewInit, OnD
   }
 
   ngAfterViewInit(): void {
-    this.isFinished$ = this.userStore.select(selectIsFinished);
-    this.currentStep$ = this.userStore.select(selectCurrentStep).pipe(
-      tap(step => this.currentStep = String(step))
-    );
+    
     this.validationSubscription = this.userStore.select(selectCurrentStepisCorrect).subscribe(res => this.isValid = res);
     this.subscriptions.push(this.userStore.select(selectNewMortageCurrenttemplate).subscribe(res => {
       this.templateTitle = res?.title ?? '';

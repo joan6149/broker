@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import * as UserActions from '../../../appStore/Actions/Auth.actions';
 import { AuthService } from 'src/app/services/auth.service';
+import { UIStateActions } from 'src/app/appStore/Actions';
+import { UIState } from 'src/app/appStore/States';
 
 @Component({
   selector: 'app-usermain',
@@ -46,7 +48,7 @@ export class UsermainComponent implements OnInit {
     }
   ];
 
-  constructor(private router: Router, private route: ActivatedRoute, private store: Store<AppState>) { }
+  constructor(private router: Router, private route: ActivatedRoute, private store: Store<UIState>) { }
 
   ngOnInit(): void {
   }
@@ -56,7 +58,8 @@ export class UsermainComponent implements OnInit {
       this.store.dispatch(UserActions.LOGOUT())
       this.router.navigate([item.routerLink]);
     } else {
-      this.router.navigate([item.routerLink], {relativeTo: this.route})
+      this.store.dispatch(UIStateActions.loading());
+      this.router.navigate([item.routerLink], {relativeTo: this.route}).then(() => this.store.dispatch(UIStateActions.stopLoading()))
     }
     
   }

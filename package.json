@@ -22,7 +22,7 @@
     "@angular/platform-browser": "^14.3.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
-    "@domo/domo-commons-lib": "file:../../DOMO/domo-front-libraries/domo-commons-spa/dist/domo-commons-lib/domo-domo-commons-lib-0.0.0-watch+1692202498608.tgz",
+    "@domo/domo-commons-lib": "file:../../DOMO/domo-front-libraries/domo-commons-spa/dist/domo-commons-lib/domo-domo-commons-lib-0.0.0-watch+1713546407007.tgz",
     "@ngrx/effects": "^14.3.3",
     "@ngrx/store": "^14.3.3",
     "@ngrx/store-devtools": "^14.3.3",

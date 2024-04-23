@@ -1,2 +1,2 @@
-export * from './UIState'
-export * from './AuthState'
+export * from './AuthState';
+export * from './UIState';

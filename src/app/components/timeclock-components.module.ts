@@ -12,6 +12,7 @@ import { ComponentsModule } from '@domo/domo-commons-lib';
 import { DomoCommonPipesModule } from '@domo/domo-commons-lib';
 import { DomoCommonDirectiveModule } from '@domo/domo-commons-lib';
 import { TemplateCollectionModule } from './template-collection/template-collection.module';
+import { LoadingComponent } from './shared/loading/loading.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { TemplateCollectionModule } from './template-collection/template-collect
     MovileAnimationComponent,
     TextBoxComponent,
     TopComponent,
+    LoadingComponent,
   ],
   exports: [
     BestOfertComponent,
@@ -31,7 +33,8 @@ import { TemplateCollectionModule } from './template-collection/template-collect
     MainAnnouncementComponent,
     MovileAnimationComponent,
     TextBoxComponent,
-    TopComponent
+    TopComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,

@@ -1,11 +1,11 @@
-import {NgModule, isDevMode } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './pages/main/main.component';
 import { TimeclockService } from './services/timeclock.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ComponentsModule, DomoLoggerService } from '@domo/domo-commons-lib';
+import { ComponentsModule } from '@domo/domo-commons-lib';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -22,7 +22,6 @@ import { HttpBlackBirdErrorHandler } from './errorHandler/HttpBlackBirdErrorHand
 import { ErrorInterceptorInterceptor } from './errorHandler/interceptor/error-interceptor.interceptor';
 import {ToastModule} from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-
 
 @NgModule({
   declarations: [

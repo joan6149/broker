@@ -23,6 +23,8 @@
                    (onClickItemEmitter)="gotoRoute($event)"></ngx-domo-card>
 </div>
 
+<!-- isLoading -->
+<app-loading *ngIf="isLoading$ | async"></app-loading>
 <!-- Templates -->
 
 <ng-template #headerTemplateNew>

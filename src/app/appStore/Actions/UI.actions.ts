@@ -1,6 +1,12 @@
-import { createAction } from "@ngrx/store";
+import { createAction, createActionGroup, emptyProps } from "@ngrx/store";
 import { environment } from "src/environments/environment";
+import * as MainStates from "../States";
 
 
-export const loading = createAction(`[${environment.appName}] Loading`);
-export const Stoploading = createAction(`[${environment.appName}] Stop Loading`);
+export const UIStateActions = createActionGroup({
+    source: MainStates.UIStateKey,
+    events: {
+        'loading': emptyProps(),
+        'Stop Loading': emptyProps()
+    }
+})

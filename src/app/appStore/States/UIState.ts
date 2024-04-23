@@ -2,6 +2,8 @@ export interface UIState {
     isLoading: boolean
 }
 
-export const initialState: UIState = {
+export const initialUIState: UIState = {
     isLoading: false
 }
+
+export const UIStateKey = 'UIState'
