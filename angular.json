@@ -84,10 +84,10 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "timeclock:build:production"
+              "buildTarget": "timeclock:build:production"
             },
             "development": {
-              "browserTarget": "timeclock:build:development"
+              "buildTarget": "timeclock:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -95,7 +95,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "timeclock:build"
+            "buildTarget": "timeclock:build"
           }
         },
         "test": {
