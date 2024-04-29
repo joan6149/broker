@@ -46,7 +46,7 @@ import { MessageService } from 'primeng/api';
       }
     }),
     EffectsModule.forRoot( AppEffects ),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production , connectInZone: true}),
   ],
   providers: [
     TimeclockService,
