@@ -24,7 +24,7 @@ export class NewMortageStateEffects {
 
 
     errorHandler(err: any): Observable<Action> {
-        return of(NewMortageActions.newmortageerror({error: err}));
+        return of(NewMortageActions.newMortageError({error: err}));
       }
     
 

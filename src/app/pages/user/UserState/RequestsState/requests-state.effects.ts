@@ -54,7 +54,7 @@ export class RequestsStateEffects {
   ))
 
   errorHandler(err: any): Observable<Action> {
-    return of(RequestStateActions.useractionerror({error: err}));
+    return of(RequestStateActions.userActionError({error: err}));
   }
   
 }

@@ -66,5 +66,5 @@ export const newMortageStateReducer = createReducer(
       isFinished: stepNumber === (state.numberOfSteps - 2),
       currentTemplate: state.templates[stepNumber]
     })),
-    on(NewMortageActions.newmortageerror, (state, {error}) => ({...state, error}))
+    on(NewMortageActions.newMortageError, (state, {error}) => ({...state, error}))
   );

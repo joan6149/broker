@@ -35,7 +35,7 @@ export const requestStateReducer = createReducer(
     on(RequestStateActions.publishSuccess, (state, {requestPublished}) => ({
       ...state, 
       requestsLoaded: state.requestsLoaded.filter(r => r.id !== requestPublished.id), requestsPublished: [...state.requestsPublished, requestPublished]})),
-    on(RequestStateActions.useractionerror, (state, {error}) => ({
+    on(RequestStateActions.userActionError, (state, {error}) => ({
       ...state, 
       error}))
   );
