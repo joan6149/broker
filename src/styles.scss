@@ -1,82 +1,88 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'assets/styles/_variables';
 @import 'assets/styles/table';
-body {
-    background-color: white;
-    padding: 0;
-    margin: 0;
-}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-h1 {
-    font-size: 20px;
-}
-
-h2 {
-    font-size: 18px;
-}
-
-
-h3 {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-label {
-    color: #6c757d;
-}
-// esto deberias de tenerlo en otro scss e importarlo para poder editar todos los estilos de prime
-.p-calendar {
-    width: 100%;
-}
-
-.p-inputgroup {
-    span {
-        min-width: 5.8em;
+@layer default , primeng, customPrimengComponents;
+@layer default {
+    body {
+        background-color: white;
+        padding: 0;
+        margin: 0;
     }
-    input {
-        width: 67%;
-        border-color: rgb(214 212 212) !important;
-        border-style: solid;
-        border-width: 1px;
+    
+    html, body { height: 100%; }
+    body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+    
+    h1 {
+        font-size: 20px;
+    }
+    
+    h2 {
+        font-size: 18px;
+    }
+    
+    
+    h3 {
+        font-size: 16px;
+        font-weight: bold;
+    }
+    
+    label {
+        color: #6c757d;
     }
 }
-
-// Clase para la cabecera de los tabview de los formularios
-.headerClass {
-    font-size: larger;
-    .p-tabview-nav-container {
-        display: flex;
-        justify-content: center;
-        .p-tabview-nav-content {
-            width: 100%;
-            ul {
-                li {
-                    width: 100%;
-                    a {
-                        display: flex;
-                        justify-content: center;
-                        text-align: center;
+@layer customPrimengComponents {
+    // esto deberias de tenerlo en otro scss e importarlo para poder editar todos los estilos de prime
+    .p-calendar {
+        width: 100%;
+    }
+    
+    .p-inputgroup {
+        span {
+            min-width: 5.8em;
+        }
+        input {
+            width: 67%;
+            border-color: rgb(214 212 212) !important;
+            border-style: solid;
+            border-width: 1px;
+        }
+    }
+    
+    // Clase para la cabecera de los tabview de los formularios
+    .headerClass {
+        font-size: larger;
+        .p-tabview-nav-container {
+            display: flex;
+            justify-content: center;
+            .p-tabview-nav-content {
+                width: 100%;
+                ul {
+                    li {
+                        width: 100%;
+                        a {
+                            display: flex;
+                            justify-content: center;
+                            text-align: center;
+                        }
+                    }
+    
+                    .p-tabview-ink-bar {
+                        width: 100% !important;
                     }
                 }
-
-                .p-tabview-ink-bar {
-                    width: 100% !important;
-                }
             }
+    
         }
-
     }
-}
-
-.formDropDown {
-    display: flex !important;
-    justify-content: left;
-    width: 89% !important;
-}
-
-.p-calendar {
-    height: 40px;
+    
+    .formDropDown {
+        display: flex !important;
+        justify-content: left;
+        width: 89% !important;
+    }
+    
+    .p-calendar {
+        height: 40px;
+    }
 }

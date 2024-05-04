@@ -17,9 +17,10 @@
             <td>{{request.hipoteca.importeHipoteca}} €</td>
             <td>{{request.hipoteca.porcentageHipotecar}} %</td>
             <td class="d-flex justify-content-around">
-                <button pButton pTooltip="Editar esta petición" tooltipPosition="bottom" pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2" (click)="editRequest(request)"></button>
-                <button pButton pTooltip="Publicar esta petición" tooltipPosition="bottom" pRipple icon="pi pi-arrow-up" class="p-button-rounded p-button-success mr-2" (click)="publicRequest(request)"></button>
-                <button pButton pTooltip="Eliminar esta petición" tooltipPosition="bottom" pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteRequest(request)"></button>
+                <p-button pTooltip="Editar esta petición" tooltipPosition="bottom" pRipple icon="pi pi-pencil" [rounded]="true" class="p-button-warning mr-2" (click)="editRequest(request)"></p-button>
+                <p-button pTooltip="Publicar esta petición" tooltipPosition="bottom" pRipple icon="pi pi-arrow-up" [rounded]="true" class="p-button-success mr-2" (click)="publicRequest(request)"></p-button>
+                <p-button pTooltip="Eliminar esta petición" tooltipPosition="bottom" pRipple icon="pi pi-trash" [rounded]="true" class="p-button-danger" (click)="deleteRequest(request)"></p-button>
+                <p-button label="Submit"></p-button>
             </td>
         </tr>
     </ng-template>
